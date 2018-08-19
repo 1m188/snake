@@ -1,17 +1,21 @@
 #include "snake.h"
-//#include "conio.h" //getch()函数，用于接收玩家的随时输入
+#include "console.h"
 
 int main()
 {
+	Console *console = Console::getInstance();
+	console->setWindowSize(100, 50);
+	console->showCursor(false);
 	Snake snake = Snake();
-	snake.showCursor(false);
 
 	while (true)
 	{
-		snake.display("#");
-		Sleep(800);
-		snake.display(" ");
+		snake.display(true);
+		Sleep(200);
+		snake.display(false);
+		snake.changeDir();
 		snake.move();
 	}
+	console->~Console();
 	return 0;
 }

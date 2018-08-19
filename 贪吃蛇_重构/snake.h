@@ -1,11 +1,12 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
-#include "game.h"
+#include "console.h"
 #include "list"
 #include "vector"
+#include "conio.h"
 
-class Snake :public Game
+class Snake
 {
 private:
 	std::list<std::pair<int, int>> pos; //蛇身坐标
@@ -24,7 +25,9 @@ public:
 	~Snake();
 
 	void move(); //移动
-	void display(char *c); //在蛇身坐标处显示相应的字符（可用作蛇身消除，部分刷新）
+	void display(bool isDisplay); //是否显示蛇身（可用作蛇身消除，部分刷新）
+	void changeDir(); //转换移动方向
+	bool isDead(); //判定死亡
 };
 
 #endif // !SNAKE_H

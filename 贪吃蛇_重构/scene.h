@@ -1,15 +1,13 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include "game.h"
-
-class Scene :public Game
+class Scene
 {
 private:
 
 public:
 	Scene();
-	~Scene();
+	virtual ~Scene();
 };
 
 #endif // !SCENE_H

@@ -110,13 +110,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="game.cpp" />
+    <ClCompile Include="console.cpp" />
+    <ClCompile Include="food.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="snake.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="game.h" />
+    <ClInclude Include="console.h" />
+    <ClInclude Include="food.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="snake.h" />
   </ItemGroup>

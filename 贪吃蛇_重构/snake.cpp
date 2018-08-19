@@ -1,10 +1,8 @@
 #include "snake.h"
 
-Snake::Snake() :Game(), pos({}), moveDir({ {0, -1}, { 0,1 }, { -1,0 }, { 1,0 } }), dir(Direction::right)
+Snake::Snake() :pos({ {11,10},{10,10},{9,10} }), moveDir({ {0, -1}, { 0,1 }, { -1,0 }, { 1,0 } }), dir(Direction::right)
 {
-	pos.push_back({ 11,10 });
-	pos.push_back({ 10,10 });
-	pos.push_back({ 9,10 });
+
 }
 
 Snake::~Snake()
@@ -22,18 +20,78 @@ void Snake::move()
 	newHead.second += moveDir[dir].second;
 	//把新头装上去成为真正的新头
 	pos.push_front(newHead);
-
-	//转换方向
-
-	//判定死亡
 }
 
-void Snake::display(char *c)
+void Snake::display(bool isDisplay)
 {
+	Console *console = Console::getInstance();
 	//遍历蛇身坐标然后挨个在相应的位置输出相应的字符
-	for (std::list<std::pair<int, int>>::const_iterator it = pos.begin(); it != pos.end(); it++)
+	for (std::list<std::pair<int, int>>::const_iterator it = pos.cbegin(); it != pos.cend(); it++)
 	{
-		moveCursor(it->first, it->second);
-		printf(c);
+		try
+		{
+			console->moveCursor(it->first, it->second);
+		}
+		catch (std::exception) //超出控制台大小范围的不画蛇身
+		{
+			continue;
+		}
+		if (isDisplay)
+		{
+			printf("#");
+		}
+		else
+		{
+			printf(" ");
+		}
 	}
+}
+
+void Snake::changeDir()
+{
+	//转换方向
+	if (_kbhit())
+	{
+		switch (_getch())
+		{
+		case 'w':
+		{
+			if (dir != Direction::down)
+			{
+				dir = Direction::up;
+			}
+			break;
+		}
+		case 's':
+		{
+			if (dir != Direction::up)
+			{
+				dir = Direction::down;
+			}
+			break;
+		}
+		case 'a':
+		{
+			if (dir != Direction::right)
+			{
+				dir = Direction::left;
+			}
+			break;
+		}
+		case 'd':
+		{
+			if (dir != Direction::left)
+			{
+				dir = Direction::right;
+			}
+			break;
+		}
+		}
+	}
+}
+
+bool Snake::isDead()
+{
+	//判定死亡
+	return false;
 }
