@@ -21,10 +21,23 @@ int main()
 		snake.display(false); //隐藏蛇身
 		snake.changeDir(); //改变方向
 		snake.move(); //移动
+		//判断死亡
+		if (snake.isDead())
+		{
+			snake.display(false);
+			console->moveCursor(0, 0);
+			printf("你挂了~");
+			break;
+		}
 	}
 
 	//删除单例
-	console->deleteInstance();
+	Console::deleteInstance();
 
+	//让程序暂停而不至于CPU消耗过高，不使用system的原因是这个会输出一行字
+	while (1)
+	{
+		Sleep(1);
+	}
 	return 0;
 }

@@ -3,16 +3,14 @@
 //初始化单例模式的获取单例的指针
 Console *Console::instance = nullptr;
 
-Console::Console()
+Console::Console() :stdOut(GetStdHandle(STD_OUTPUT_HANDLE))
 {
-	//初始化控制台句柄
-	stdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
 }
 
 Console::~Console()
 {
-	delete instance;
-	instance = nullptr;
+
 }
 
 Console *Console::getInstance()
@@ -30,8 +28,11 @@ Console *Console::getInstance()
 void Console::deleteInstance()
 {
 	//删除单例
-	delete instance;
-	instance = nullptr;
+	if (instance != nullptr)
+	{
+		delete instance;
+		instance = nullptr;
+	}
 }
 
 void Console::showCursor(bool isShow)

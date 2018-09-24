@@ -26,7 +26,7 @@ void Snake::display(bool isDisplay)
 {
 	Console *console = Console::getInstance();
 	//遍历蛇身坐标然后挨个在相应的位置输出相应的字符
-	for (std::list<std::pair<int, int>>::const_iterator it = pos.cbegin(); it != pos.cend(); it++)
+	for (auto it = pos.cbegin(); it != pos.cend(); it++)
 	{
 		try
 		{
@@ -92,6 +92,28 @@ void Snake::changeDir()
 
 bool Snake::isDead()
 {
-	//判定死亡
+	//获取蛇头
+	std::pair<int, int> head = pos.front();
+	//判断蛇头是否撞到边界
+	if (head.first < 0 || head.first >= Console::getInstance()->getWindowWidth() || head.second < 0 || head.second >= Console::getInstance()->getWindowHeight())
+	{
+		return true;
+	}
+	//判断蛇头是否撞到自己的身体
+	else
+	{
+		//从蛇头之后第一个开始判断起（如果有的话）
+		auto it = pos.cbegin();
+		it++;
+		for (; it != pos.cend(); it++)
+		{
+			//如果和蛇头重叠
+			if (it->first == head.first&&it->second == head.second)
+			{
+				return true;
+			}
+		}
+	}
+	//否则没死
 	return false;
 }
