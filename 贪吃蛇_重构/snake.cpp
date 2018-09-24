@@ -50,9 +50,9 @@ void Snake::display(bool isDisplay)
 void Snake::changeDir()
 {
 	//转换方向
-	if (_kbhit())
+	if (_kbhit()) //如果有按键按下的话
 	{
-		switch (_getch())
+		switch (_getch()) //则获取按键并且判断将要转换的方向
 		{
 		case 'w':
 		{

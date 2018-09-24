@@ -6,6 +6,7 @@
 #include "vector"
 #include "conio.h"
 
+//Éß
 class Snake
 {
 private:

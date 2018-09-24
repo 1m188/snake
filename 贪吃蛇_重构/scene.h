@@ -1,6 +1,7 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+//³¡¾°
 class Scene
 {
 private:

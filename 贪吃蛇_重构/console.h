@@ -5,6 +5,7 @@
 #include "string"
 #include "algorithm"
 
+//控制台操纵单例类
 class Console final
 {
 private:
@@ -17,6 +18,7 @@ public:
 	~Console();
 
 	static Console *getInstance(); //获取单例
+	static void deleteInstance(); //删除单例
 	void showCursor(bool isShow); //是否显示光标
 	void moveCursor(int x, int y); //移动光标
 	int getWindowWidth(); //获取控制台窗口宽度
