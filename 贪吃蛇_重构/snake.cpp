@@ -117,3 +117,30 @@ bool Snake::isDead()
 	//否则没死
 	return false;
 }
+
+bool Snake::isEatFood(Food food)
+{
+	//如果吃到了
+	if (pos.front().first == food.getX() && pos.front().second == food.getY())
+	{
+		//获取尾巴
+		std::pair<int, int> last = pos.back();
+		//获取倒数第二节
+		pos.pop_back();
+		std::pair<int, int> lastSecond = pos.back();
+		//重新把尾巴安上去
+		pos.push_back(last);
+		//新的尾巴
+		std::pair<int, int> newLast{};
+		//计算新的尾巴的位置
+		newLast.first = last.first + last.first - lastSecond.first;
+		newLast.second = last.second + last.second - lastSecond.second;
+		//安装
+		pos.push_back(newLast);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

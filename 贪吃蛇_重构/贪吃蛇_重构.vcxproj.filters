@@ -4,9 +4,6 @@
     <ClCompile Include="snake.cpp">
       <Filter>蛇</Filter>
     </ClCompile>
-    <ClCompile Include="scene.cpp">
-      <Filter>场景</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="console.cpp">
       <Filter>控制台</Filter>
@@ -19,9 +16,6 @@
     <Filter Include="蛇">
       <UniqueIdentifier>{59877683-d172-4c06-ba9a-502b34f27dc8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="场景">
-      <UniqueIdentifier>{f0e3a756-6879-4db4-bc90-6a588a146ba7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="控制台">
       <UniqueIdentifier>{6371e8c0-e5aa-45e5-b8c6-164fe684617e}</UniqueIdentifier>
     </Filter>
@@ -32,9 +26,6 @@
   <ItemGroup>
     <ClInclude Include="snake.h">
       <Filter>蛇</Filter>
-    </ClInclude>
-    <ClInclude Include="scene.h">
-      <Filter>场景</Filter>
     </ClInclude>
     <ClInclude Include="console.h">
       <Filter>控制台</Filter>

@@ -5,6 +5,7 @@
 #include "list"
 #include "vector"
 #include "conio.h"
+#include "food.h"
 
 //蛇
 class Snake
@@ -29,6 +30,7 @@ public:
 	void display(bool isDisplay); //是否显示蛇身（可用作蛇身消除，部分刷新）
 	void changeDir(); //转换移动方向
 	bool isDead(); //判定死亡
+	bool isEatFood(Food food); //判定是否吃到食物
 };
 
 #endif // !SNAKE_H
