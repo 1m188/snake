@@ -25,16 +25,6 @@ Console *Console::getInstance()
 	return instance;
 }
 
-void Console::deleteInstance()
-{
-	//删除单例
-	if (instance != nullptr)
-	{
-		delete instance;
-		instance = nullptr;
-	}
-}
-
 void Console::showCursor(bool isShow)
 {
 	//构造一个光标信息结构体
@@ -61,6 +51,11 @@ void Console::moveCursor(int x, int y)
 		coord.Y = y;
 		SetConsoleCursorPosition(stdOut, coord);
 	}
+}
+
+void Console::clearScreen()
+{
+	system("cls");
 }
 
 int Console::getWindowWidth()

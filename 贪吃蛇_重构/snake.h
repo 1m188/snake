@@ -24,6 +24,7 @@ private:
 
 public:
 	Snake();
+	Snake &operator=(Snake &snake);
 	~Snake();
 
 	void move(); //ÒÆ¶¯

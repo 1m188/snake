@@ -5,6 +5,13 @@ Snake::Snake() :pos({ {11,10},{10,10},{9,10} }), moveDir({ {0, -1}, { 0,1 }, { -
 
 }
 
+Snake & Snake::operator=(Snake & snake)
+{
+	this->pos = snake.pos;
+	this->dir = snake.dir;
+	return *this;
+}
+
 Snake::~Snake()
 {
 

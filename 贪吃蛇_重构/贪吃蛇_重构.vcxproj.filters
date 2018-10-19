@@ -2,36 +2,60 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="snake.cpp">
-      <Filter>蛇</Filter>
+      <Filter>精灵\蛇</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="console.cpp">
-      <Filter>控制台</Filter>
+      <Filter>控制台操纵类</Filter>
     </ClCompile>
     <ClCompile Include="food.cpp">
-      <Filter>食物</Filter>
+      <Filter>精灵\食物</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>场景\游戏主场景</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverScene.cpp">
+      <Filter>场景\游戏结束场景</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="蛇">
+    <Filter Include="场景">
+      <UniqueIdentifier>{767eaf4f-db07-4be0-9914-78a1ab07529b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="场景\游戏主场景">
+      <UniqueIdentifier>{f6421486-d799-47be-ad1c-a44fb8a39672}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="精灵">
+      <UniqueIdentifier>{e32b84c5-62ce-4faf-a34a-d53a57970e82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="精灵\蛇">
       <UniqueIdentifier>{59877683-d172-4c06-ba9a-502b34f27dc8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="控制台">
+    <Filter Include="精灵\食物">
+      <UniqueIdentifier>{c6185a81-d25b-4e1b-b347-d9bf7f293b51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="控制台操纵类">
       <UniqueIdentifier>{6371e8c0-e5aa-45e5-b8c6-164fe684617e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="食物">
-      <UniqueIdentifier>{c6185a81-d25b-4e1b-b347-d9bf7f293b51}</UniqueIdentifier>
+    <Filter Include="场景\游戏结束场景">
+      <UniqueIdentifier>{f4784d2a-fa4e-4937-9491-879bfa929e20}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="snake.h">
-      <Filter>蛇</Filter>
+      <Filter>精灵\蛇</Filter>
     </ClInclude>
     <ClInclude Include="console.h">
-      <Filter>控制台</Filter>
+      <Filter>控制台操纵类</Filter>
     </ClInclude>
     <ClInclude Include="food.h">
-      <Filter>食物</Filter>
+      <Filter>精灵\食物</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>场景\游戏主场景</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverScene.h">
+      <Filter>场景\游戏结束场景</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

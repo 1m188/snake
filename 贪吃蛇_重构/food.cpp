@@ -33,6 +33,7 @@ void Food::display(bool isDisplay)
 void Food::updatePos()
 {
 	int newX = 0, newY = 0;
+	//直到生成和之前的食物坐标不同的坐标为止
 	while (true)
 	{
 		srand(time(0));
