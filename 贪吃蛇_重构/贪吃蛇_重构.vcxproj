@@ -110,22 +110,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="console.cpp" />
-    <ClCompile Include="food.cpp" />
+    <ClCompile Include="Console.cpp" />
+    <ClCompile Include="Food.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="snake.cpp" />
+    <ClCompile Include="Snake.cpp" />
     <ClCompile Include="StartScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="console.h" />
-    <ClInclude Include="food.h" />
+    <ClInclude Include="Console.h" />
+    <ClInclude Include="Food.h" />
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="snake.h" />
+    <ClInclude Include="Snake.h" />
     <ClInclude Include="StartScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

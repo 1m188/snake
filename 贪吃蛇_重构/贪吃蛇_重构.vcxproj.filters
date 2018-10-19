@@ -1,16 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="snake.cpp">
-      <Filter>精灵\蛇</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="console.cpp">
-      <Filter>控制台操纵类</Filter>
-    </ClCompile>
-    <ClCompile Include="food.cpp">
-      <Filter>精灵\食物</Filter>
-    </ClCompile>
     <ClCompile Include="GameScene.cpp">
       <Filter>场景\游戏主场景</Filter>
     </ClCompile>
@@ -22,6 +13,15 @@
     </ClCompile>
     <ClCompile Include="StartScene.cpp">
       <Filter>场景\开始菜单场景</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>控制台操纵类</Filter>
+    </ClCompile>
+    <ClCompile Include="Food.cpp">
+      <Filter>精灵\食物</Filter>
+    </ClCompile>
+    <ClCompile Include="Snake.cpp">
+      <Filter>精灵\蛇</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,15 +51,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="snake.h">
-      <Filter>精灵\蛇</Filter>
-    </ClInclude>
-    <ClInclude Include="console.h">
-      <Filter>控制台操纵类</Filter>
-    </ClInclude>
-    <ClInclude Include="food.h">
-      <Filter>精灵\食物</Filter>
-    </ClInclude>
     <ClInclude Include="GameScene.h">
       <Filter>场景\游戏主场景</Filter>
     </ClInclude>
@@ -71,6 +62,15 @@
     </ClInclude>
     <ClInclude Include="StartScene.h">
       <Filter>场景\开始菜单场景</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>控制台操纵类</Filter>
+    </ClInclude>
+    <ClInclude Include="Food.h">
+      <Filter>精灵\食物</Filter>
+    </ClInclude>
+    <ClInclude Include="Snake.h">
+      <Filter>精灵\蛇</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
