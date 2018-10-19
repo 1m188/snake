@@ -1,11 +1,11 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
-#include "console.h"
+#include "Console.h"
+#include "Food.h"
 #include "list"
 #include "vector"
 #include "conio.h"
-#include "food.h"
 
 //Éß
 class Snake

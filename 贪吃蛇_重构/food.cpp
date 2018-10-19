@@ -1,5 +1,5 @@
-#include "food.h"
-#include "console.h"
+#include "Food.h"
+#include "Console.h"
 #include "stdlib.h"
 #include "time.h"
 

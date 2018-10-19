@@ -1,5 +1,5 @@
 #include "GameScene.h"
-#include "console.h"
+#include "Console.h"
 
 GameScene::GameScene()
 {

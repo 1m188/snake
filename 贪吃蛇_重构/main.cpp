@@ -1,4 +1,4 @@
-#include "console.h"
+#include "Console.h"
 #include "StartScene.h"
 #include "GameScene.h"
 #include "GameOverScene.h"

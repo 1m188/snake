@@ -1,8 +1,8 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
-#include "snake.h"
-#include "food.h"
+#include "Snake.h"
+#include "Food.h"
 #include "Scene.h"
 
 //ÓÎÏ·Ö÷³¡¾°

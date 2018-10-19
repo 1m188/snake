@@ -1,4 +1,4 @@
-#include "console.h"
+#include "Console.h"
 
 //初始化单例模式的获取单例的指针
 Console *Console::instance = nullptr;

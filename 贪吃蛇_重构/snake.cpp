@@ -1,4 +1,4 @@
-#include "snake.h"
+#include "Snake.h"
 
 Snake::Snake() :pos({ {11,10},{10,10},{9,10} }), moveDir({ {0, -1}, { 0,1 }, { -1,0 }, { 1,0 } }), dir(Direction::right)
 {
