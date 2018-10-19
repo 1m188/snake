@@ -17,6 +17,9 @@
     <ClCompile Include="GameOverScene.cpp">
       <Filter>场景\游戏结束场景</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>场景</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="场景">
@@ -56,6 +59,9 @@
     </ClInclude>
     <ClInclude Include="GameOverScene.h">
       <Filter>场景\游戏结束场景</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>场景</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
