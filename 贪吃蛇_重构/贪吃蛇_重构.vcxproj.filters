@@ -20,6 +20,9 @@
     <ClCompile Include="Scene.cpp">
       <Filter>场景</Filter>
     </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>场景\开始菜单场景</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="场景">
@@ -43,6 +46,9 @@
     <Filter Include="场景\游戏结束场景">
       <UniqueIdentifier>{f4784d2a-fa4e-4937-9491-879bfa929e20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="场景\开始菜单场景">
+      <UniqueIdentifier>{bf57adc2-5a4e-495b-9aa9-3a1c3352c9d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="snake.h">
@@ -62,6 +68,9 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>场景</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>场景\开始菜单场景</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
