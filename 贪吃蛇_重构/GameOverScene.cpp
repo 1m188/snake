@@ -26,5 +26,5 @@ int GameOverScene::run()
 		}
 		Sleep(1);
 	}
-	return 0;
+	return Scene::run();
 }
