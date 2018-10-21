@@ -1,4 +1,5 @@
 #include "Console.h"
+#include "Config.h"
 #include "StartScene.h"
 #include "GameScene.h"
 #include "GameOverScene.h"
@@ -8,6 +9,8 @@ int main()
 {
 	//获取操作控制台单例
 	Console *console = Console::getInstance();
+	//初始化游戏的相关数据
+	Config::getInstance();
 	//设置控制台大小
 	console->setWindowSize(100, 50);
 	//设置控制台标题
