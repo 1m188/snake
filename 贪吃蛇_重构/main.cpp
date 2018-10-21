@@ -9,14 +9,17 @@ int main()
 {
 	//获取操作控制台单例
 	Console *console = Console::getInstance();
-	//初始化游戏的相关数据
-	Config::getInstance();
 	//设置控制台大小
 	console->setWindowSize(100, 50);
 	//设置控制台标题
 	console->setWindowTitle("贪吃蛇");
 	//隐藏光标显示
 	console->showCursor(false);
+
+	//获取游戏相关设置数据的单例
+	Config *config = Config::getInstance();
+	//初始化加载游戏相关设置数据
+	config->init();
 
 	while (true)
 	{
@@ -57,6 +60,9 @@ int main()
 			break;
 		}
 	}
+
+	//重新处理好那些加载出来的数据
+	config->end();
 
 	return 0;
 }
