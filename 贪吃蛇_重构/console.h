@@ -21,9 +21,11 @@ public:
 	void showCursor(bool isShow); //是否显示光标
 	void moveCursor(int x, int y); //移动光标
 	void clearScreen(); //清屏
+	void setWindowSize(int width, int height); //设置控制台窗口大小
 	int getWindowWidth(); //获取控制台窗口宽度
 	int getWindowHeight(); //获取控制台窗口高度
-	void setWindowSize(int width, int height); //设置控制台窗口大小
+	void setWindowTitle(std::string title); //设置窗口标题
+	std::string getWindowTitle(); //获取窗口标题
 };
 
 #endif // !CONSOLE_H

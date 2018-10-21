@@ -58,21 +58,6 @@ void Console::clearScreen()
 	system("cls");
 }
 
-int Console::getWindowWidth()
-{
-	//获取当前控制台缓冲区信息
-	CONSOLE_SCREEN_BUFFER_INFO info = {};
-	GetConsoleScreenBufferInfo(stdOut, &info);
-	return info.dwSize.X; //返回控制台窗口宽度
-}
-
-int Console::getWindowHeight()
-{
-	CONSOLE_SCREEN_BUFFER_INFO info;
-	GetConsoleScreenBufferInfo(stdOut, &info);
-	return info.dwSize.Y; //返回控制台窗口高度
-}
-
 void Console::setWindowSize(int width, int height)
 {
 	//如果要设置的宽度和高度合理
@@ -102,4 +87,31 @@ void Console::setWindowSize(int width, int height)
 	{
 		throw std::exception("args out of range");
 	}
+}
+
+int Console::getWindowWidth()
+{
+	//获取当前控制台缓冲区信息
+	CONSOLE_SCREEN_BUFFER_INFO info = {};
+	GetConsoleScreenBufferInfo(stdOut, &info);
+	return info.dwSize.X; //返回控制台窗口宽度
+}
+
+int Console::getWindowHeight()
+{
+	CONSOLE_SCREEN_BUFFER_INFO info;
+	GetConsoleScreenBufferInfo(stdOut, &info);
+	return info.dwSize.Y; //返回控制台窗口高度
+}
+
+void Console::setWindowTitle(std::string title)
+{
+	system((std::string("title ") + title).c_str());
+}
+
+std::string Console::getWindowTitle()
+{
+	char titleTemp[1024]{};
+	GetConsoleTitleA(titleTemp, 1024);
+	return std::string(titleTemp);
 }
