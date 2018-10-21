@@ -10,6 +10,8 @@ class Console final
 {
 private:
 	Console(); //禁止自动构造
+	Console(const Console &); //禁止复制构造
+	Console &operator=(const Console &); //禁止赋值构造
 
 	static Console *instance; //唯一实例化指针
 	HANDLE stdOut; //控制台句柄
@@ -18,6 +20,7 @@ public:
 	~Console();
 
 	static Console *getInstance(); //获取单例
+
 	void showCursor(bool isShow); //是否显示光标
 	void moveCursor(int x, int y); //移动光标
 	void clearScreen(); //清屏
