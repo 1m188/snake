@@ -27,7 +27,7 @@
       <Filter>场景\最高分场景</Filter>
     </ClCompile>
     <ClCompile Include="Config.cpp">
-      <Filter>相关数据</Filter>
+      <Filter>相关设置数据</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,7 +58,7 @@
     <Filter Include="场景\最高分场景">
       <UniqueIdentifier>{89964f02-d461-471e-bf09-8aedd101676f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="相关数据">
+    <Filter Include="相关设置数据">
       <UniqueIdentifier>{d1156514-2cd6-463f-be7e-5d4458ca3703}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -88,7 +88,7 @@
       <Filter>场景\最高分场景</Filter>
     </ClInclude>
     <ClInclude Include="Config.h">
-      <Filter>相关数据</Filter>
+      <Filter>相关设置数据</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
