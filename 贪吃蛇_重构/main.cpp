@@ -2,6 +2,7 @@
 #include "StartScene.h"
 #include "GameScene.h"
 #include "GameOverScene.h"
+#include "HighestScoreScene.h"
 
 int main()
 {
@@ -24,9 +25,9 @@ int main()
 		int startSceneRunResult = startScene.run();
 
 		//如果按下去的键为1，则进入新游戏
-		if (startSceneRunResult == 1)
+		if (startSceneRunResult == '1')
 		{
-			console->clearScreen(); //清屏
+			console->clearScreen();
 			//游戏主场景
 			GameScene gameScene;
 			gameScene.init(); //初始化游戏主场景
@@ -38,15 +39,19 @@ int main()
 			gameOverScene.run(); //运行游戏结束场景
 			console->clearScreen();
 		}
-		//如果按下去的键位4，则退出游戏
-		else if (startSceneRunResult == 4)
-		{
-			break;
-		}
-		//如果按下的不是既定的按键，则清屏，并且重新绘制一次开始菜单场景
-		else
+		//如果按下去的键为2，则显示最高分
+		else if (startSceneRunResult == '2')
 		{
 			console->clearScreen();
+			HighestScoreScene highestScoreScene;
+			highestScoreScene.init();
+			highestScoreScene.run();
+			console->clearScreen();
+		}
+		//如果按下去的键为4，则退出游戏
+		else if (startSceneRunResult == '4')
+		{
+			break;
 		}
 	}
 

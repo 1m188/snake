@@ -32,8 +32,12 @@ int StartScene::run()
 		//如果有按键按下的话
 		if (_kbhit())
 		{
-			//返回按下的按键相对于字符0的大小，即如果按下的是数字的话返回该数字字符的int类型
-			return _getch() - '0';
+			//返回按下的特定按键
+			int key = _getch();
+			if (key == '1' || key == '2' || key == '3' || key == '4')
+			{
+				return key;
+			}
 		}
 		Sleep(1);
 	}
