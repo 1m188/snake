@@ -9,6 +9,8 @@ int main()
 	Console *console = Console::getInstance();
 	//设置控制台大小
 	console->setWindowSize(100, 50);
+	//设置控制台标题
+	console->setWindowTitle("贪吃蛇");
 	//隐藏光标显示
 	console->showCursor(false);
 
