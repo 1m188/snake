@@ -8,11 +8,6 @@ Console::Console() :stdOut(GetStdHandle(STD_OUTPUT_HANDLE))
 
 }
 
-Console & Console::operator=(const Console &)
-{
-	return *this;
-}
-
 Console::~Console()
 {
 

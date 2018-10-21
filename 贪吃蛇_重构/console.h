@@ -9,9 +9,9 @@
 class Console final
 {
 private:
-	Console(); //禁止自动构造
-	Console(const Console &); //禁止复制构造
-	Console &operator=(const Console &); //禁止赋值构造
+	Console(); //禁止外部自动构造
+	Console(const Console &) = delete; //禁止复制构造
+	Console &operator=(const Console &) = delete; //禁止赋值构造
 
 	static Console *instance; //唯一实例化指针
 	HANDLE stdOut; //控制台句柄
