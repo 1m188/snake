@@ -37,10 +37,10 @@ int main()
 			//游戏主场景
 			GameScene gameScene;
 			gameScene.init(); //初始化游戏主场景
-			gameScene.run(); //运行游戏主场景
+			int score = gameScene.run(); //运行游戏主场景
 			console->clearScreen();
 			//游戏结束场景
-			GameOverScene gameOverScene;
+			GameOverScene gameOverScene(score);
 			gameOverScene.init(); //初始化游戏结束场景
 			gameOverScene.run(); //运行游戏结束场景
 			console->clearScreen();

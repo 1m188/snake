@@ -1,11 +1,13 @@
 #include "Snake.h"
+#include "Console.h"
+#include "conio.h"
 
 Snake::Snake() :pos({ {11,10},{10,10},{9,10} }), moveDir({ {0, -1}, { 0,1 }, { -1,0 }, { 1,0 } }), dir(Direction::right)
 {
 
 }
 
-Snake & Snake::operator=(Snake & snake)
+Snake & Snake::operator=(const Snake & snake)
 {
 	this->pos = snake.pos;
 	this->dir = snake.dir;
@@ -97,12 +99,12 @@ void Snake::changeDir()
 	}
 }
 
-bool Snake::isDead()
+bool Snake::isDead(int up, int down, int left, int right)
 {
 	//获取蛇头
 	std::pair<int, int> head = pos.front();
 	//判断蛇头是否撞到边界
-	if (head.first < 0 || head.first >= Console::getInstance()->getWindowWidth() || head.second < 0 || head.second >= Console::getInstance()->getWindowHeight())
+	if (head.first <= left || head.first >= right || head.second <= up || head.second >= down)
 	{
 		return true;
 	}

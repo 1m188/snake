@@ -1,11 +1,9 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
-#include "Console.h"
 #include "Food.h"
 #include "list"
 #include "vector"
-#include "conio.h"
 
 //蛇
 class Snake
@@ -24,13 +22,13 @@ private:
 
 public:
 	Snake();
-	Snake &operator=(Snake &snake);
+	Snake &operator=(const Snake &snake);
 	~Snake();
 
 	void move(); //移动
 	void display(bool isDisplay); //是否显示蛇身（可用作蛇身消除，部分刷新）
 	void changeDir(); //转换移动方向
-	bool isDead(); //判定死亡
+	bool isDead(int up, int down, int left, int right); //判定死亡
 	bool isEatFood(Food food); //判定是否吃到食物
 };
 

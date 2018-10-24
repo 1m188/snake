@@ -6,8 +6,11 @@
 //游戏结束场景
 class GameOverScene :public Scene
 {
+private:
+	int score; //游戏得分
+
 public:
-	GameOverScene();
+	GameOverScene(int score);
 	~GameOverScene();
 
 	void init() override; //初始化游戏结束场景

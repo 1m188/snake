@@ -5,11 +5,7 @@
 
 Food::Food() :x(0), y(0)
 {
-	//初始化初始食物坐标
-	srand(time(0));
-	x = rand() % Console::getInstance()->getWindowWidth();
-	srand(time(0));
-	y = rand() % Console::getInstance()->getWindowHeight();
+
 }
 
 Food::~Food()
@@ -30,16 +26,17 @@ void Food::display(bool isDisplay)
 	}
 }
 
-void Food::updatePos()
+void Food::updatePos(int up, int down, int left, int right)
 {
 	int newX = 0, newY = 0;
+	//生成出现在地图边界之内的坐标
 	//直到生成和之前的食物坐标不同的坐标为止
 	while (true)
 	{
 		srand(time(0));
-		newX = rand() % Console::getInstance()->getWindowWidth();
+		newX = rand() % (right - left - 1) + left + 1;
 		srand(time(0));
-		newY = rand() % Console::getInstance()->getWindowHeight();
+		newY = rand() % (down - up - 1) + up + 1;
 		if (newX != x && newY != y)
 		{
 			break;

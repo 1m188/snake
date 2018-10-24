@@ -14,7 +14,7 @@ public:
 	~Food();
 
 	void display(bool isDisplay); //显示（或隐藏）
-	void updatePos(); //更新食物坐标
+	void updatePos(int up, int down, int left, int right); //更新食物坐标
 	//获取当前食物坐标
 	const int getX() const { return x; }
 	const int getY() const { return y; }

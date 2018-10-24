@@ -11,6 +11,7 @@ class GameScene :public Scene
 private:
 	Snake snake; //蛇
 	Food food; //食物
+	int score; //得分
 
 public:
 	GameScene();
