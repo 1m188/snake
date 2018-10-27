@@ -29,6 +29,12 @@
     <ClCompile Include="Config.cpp">
       <Filter>相关数据设置</Filter>
     </ClCompile>
+    <ClCompile Include="SettingScene.cpp">
+      <Filter>场景\设置场景</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorChooseScene.cpp">
+      <Filter>场景\颜色选择场景</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="场景">
@@ -61,6 +67,12 @@
     <Filter Include="相关数据设置">
       <UniqueIdentifier>{d1156514-2cd6-463f-be7e-5d4458ca3703}</UniqueIdentifier>
     </Filter>
+    <Filter Include="场景\设置场景">
+      <UniqueIdentifier>{c5906088-708d-4b9d-990a-57ae782a1835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="场景\颜色选择场景">
+      <UniqueIdentifier>{4732117d-6b34-4f28-9c03-4a3db73fbe72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameScene.h">
@@ -89,6 +101,12 @@
     </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>相关数据设置</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingScene.h">
+      <Filter>场景\设置场景</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorChooseScene.h">
+      <Filter>场景\颜色选择场景</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

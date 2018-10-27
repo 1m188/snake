@@ -3,14 +3,12 @@
 //初始化单例模式的获取单例的指针
 Console *Console::instance = nullptr;
 
-Console::Console() :stdOut(GetStdHandle(STD_OUTPUT_HANDLE))
+Console::Console() :stdOut(GetStdHandle(STD_OUTPUT_HANDLE)), colorIndex({ "0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F" })
 {
-
 }
 
 Console::~Console()
 {
-
 }
 
 Console *Console::getInstance()
@@ -114,4 +112,19 @@ std::string Console::getWindowTitle()
 	char titleTemp[1024]{};
 	GetConsoleTitleA(titleTemp, 1024);
 	return std::string(titleTemp);
+}
+
+void Console::setWindowColor(Config::color foreColor, Config::color backgroundColor)
+{
+	system(("color " + colorIndex[backgroundColor] + colorIndex[foreColor]).c_str());
+}
+
+Config::color Console::getWindowForeColor()
+{
+	return Config::getInstance()->foreColor;
+}
+
+Config::color Console::getWindowBackgroundColor()
+{
+	return Config::getInstance()->backgroundColor;
 }

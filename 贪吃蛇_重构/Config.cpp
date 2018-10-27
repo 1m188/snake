@@ -1,9 +1,10 @@
 #include "Config.h"
 #include "fstream"
+#include "Console.h"
 
 Config *Config::instance = nullptr; //初始化单例指针
 
-Config::Config() :highestScore(0)
+Config::Config() :highestScore(0), foreColor(color::Black), backgroundColor(color::Black)
 {
 }
 
@@ -30,10 +31,19 @@ void Config::init()
 		std::ofstream out;
 		out.open("config.ini");
 		out.close();
-		in.open("config.ini");
 	}
-	//读取文件内容
-	in >> highestScore; //读取并初始化最高分
+	else
+	{
+		//读取文件内容
+		in >> highestScore; //读取并初始化最高分
+		//读取前景色和背景色
+		int temp = 0;
+		in >> temp;
+		foreColor = static_cast<color>(temp);
+		in >> temp;
+		backgroundColor = static_cast<color>(temp);
+	}
+	Console::getInstance()->setWindowColor(foreColor, backgroundColor); //初始化前景色和背景色
 	in.close();
 }
 
@@ -43,6 +53,12 @@ void Config::end()
 	//之后把相关数据重新输入保存
 	std::ofstream out;
 	out.open("config.ini", std::ios::trunc);
+
 	out << highestScore; //输入并保存最高分
+	out << ' ';
+	out << foreColor; //输入并保存前景色
+	out << ' ';
+	out << backgroundColor; //输入并保存背景色
+
 	out.close();
 }

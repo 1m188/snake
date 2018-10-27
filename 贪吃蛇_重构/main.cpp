@@ -4,6 +4,8 @@
 #include "GameScene.h"
 #include "GameOverScene.h"
 #include "HighestScoreScene.h"
+#include "SettingScene.h"
+#include "ColorChooseScene.h"
 
 int main()
 {
@@ -21,6 +23,7 @@ int main()
 	//初始化加载游戏相关设置数据
 	config->init();
 
+	//进入游戏循环
 	while (true)
 	{
 		//游戏开始菜单场景
@@ -29,11 +32,11 @@ int main()
 		startScene.init();
 		//获取开始菜单场景运行按键返回
 		int startSceneRunResult = startScene.run();
+		console->clearScreen();
 
 		//如果按下去的键为1，则进入新游戏
 		if (startSceneRunResult == '1')
 		{
-			console->clearScreen();
 			//游戏主场景
 			GameScene gameScene;
 			gameScene.init(); //初始化游戏主场景
@@ -48,10 +51,24 @@ int main()
 		//如果按下去的键为2，则显示最高分
 		else if (startSceneRunResult == '2')
 		{
-			console->clearScreen();
+			//最高分场景
 			HighestScoreScene highestScoreScene;
 			highestScoreScene.init();
 			highestScoreScene.run();
+			console->clearScreen();
+		}
+		//如果按下去的键位3，则进入设置场景
+		else if (startSceneRunResult == '3')
+		{
+			//设置菜单场景
+			SettingScene settingScene;
+			settingScene.init();
+			int settingKey = settingScene.run();
+			console->clearScreen();
+			//前、背景色选择场景
+			ColorChooseScene colorChooseScene(settingKey);
+			colorChooseScene.init();
+			colorChooseScene.run();
 			console->clearScreen();
 		}
 		//如果按下去的键为4，则退出游戏

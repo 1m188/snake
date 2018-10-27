@@ -18,6 +18,28 @@ public:
 	void init(); //从文件中初始化相关数据
 	void end(); //游戏结束之后的数据处理
 
+	//可设置为背景色或者前景色的颜色枚举
+	const enum color
+	{
+		Black,
+		Blue,
+		Green,
+		LakeBlue,
+		Red,
+		Purple,
+		Yellow,
+		White,
+		Gray,
+		LightBlue,
+		LightGreen,
+		PaleLightGreen,
+		LightRed,
+		LightPurple,
+		LightYellow,
+		BrightWhite
+	};
+	color foreColor; //前景色
+	color backgroundColor; //背景色
 	int highestScore; //最高分
 };
 

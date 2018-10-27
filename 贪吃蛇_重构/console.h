@@ -4,6 +4,8 @@
 #include "windows.h"
 #include "string"
 #include "algorithm"
+#include "vector"
+#include "Config.h"
 
 //控制台操纵单例类
 class Console final
@@ -13,6 +15,8 @@ private:
 
 	static Console *instance; //唯一实例化指针
 	HANDLE stdOut; //控制台句柄
+
+	const std::vector<std::string> colorIndex; //由颜色枚举索引到的颜色代码
 
 public:
 	Console(const Console &) = delete; //禁止复制构造
@@ -29,6 +33,9 @@ public:
 	int getWindowHeight(); //获取控制台窗口高度
 	void setWindowTitle(std::string title); //设置窗口标题
 	std::string getWindowTitle(); //获取窗口标题
+	void setWindowColor(Config::color foreColor, Config::color backgroundColor); //设置窗口的前景色和背景色
+	Config::color getWindowForeColor(); //获取控制台前景色
+	Config::color getWindowBackgroundColor(); //获取控制台背景色
 };
 
 #endif // !CONSOLE_H
