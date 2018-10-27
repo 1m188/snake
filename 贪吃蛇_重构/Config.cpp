@@ -4,7 +4,7 @@
 
 Config *Config::instance = nullptr; //初始化单例指针
 
-Config::Config() :highestScore(0), foreColor(color::Black), backgroundColor(color::Black)
+Config::Config() :highestScore(0), foreColor(color::BrightWhite), backgroundColor(color::Black)
 {
 }
 
