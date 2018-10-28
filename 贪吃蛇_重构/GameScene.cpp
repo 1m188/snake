@@ -14,25 +14,25 @@ void GameScene::init()
 	//地图、计分等其他
 	Console *console = Console::getInstance();
 	//地图上边界
-	console->moveCursor(2, 2);
-	for (int i = 2; i < console->getWindowWidth() - 2; i++)
+	console->moveCursor(3, 2);
+	for (int i = 2; i < console->getWindowWidth() - 4; i++)
 	{
 		printf("_");
 	}
 	//地图下边界
-	console->moveCursor(2, console->getWindowHeight() - 2);
-	for (int i = 2; i < console->getWindowWidth() - 2; i++)
+	console->moveCursor(3, console->getWindowHeight() - 2);
+	for (int i = 2; i < console->getWindowWidth() - 4; i++)
 	{
 		printf("~");
 	}
 	//地图左边界
-	for (int i = 2; i < console->getWindowHeight() - 2; i++)
+	for (int i = 3; i < console->getWindowHeight() - 2; i++)
 	{
 		console->moveCursor(2, i);
 		printf("|");
 	}
 	//地图右边界
-	for (int i = 2; i < console->getWindowHeight() - 2; i++)
+	for (int i = 3; i < console->getWindowHeight() - 2; i++)
 	{
 		console->moveCursor(console->getWindowWidth() - 3, i);
 		printf("|");
