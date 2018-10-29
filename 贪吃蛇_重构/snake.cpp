@@ -1,10 +1,18 @@
 #include "Snake.h"
 #include "Console.h"
-#include "conio.h"
 
-Snake::Snake() :pos({ {11,10},{10,10},{9,10} }), moveDir({ {0, -1}, { 0,1 }, { -1,0 }, { 1,0 } }), dir(Direction::right)
+Snake::Snake() :Snake({ 0,0 }, 0, 0)
 {
+}
 
+Snake::Snake(std::pair<int, int> headPos, int bodyNum, int dir) : pos({}), moveDir({ {0, -1}, { 0,1 }, { -1,0 }, { 1,0 } }), dir(static_cast<Direction>((dir < 0 ? -dir : dir) % 4))
+{
+	//按照蛇头坐标、蛇身节数和初始方向初始化蛇身坐标
+	pos.push_back(headPos);
+	for (int i = 0; i < bodyNum; i++)
+	{
+		pos.push_back({ pos.back().first - moveDir[this->dir].first, pos.back().second - moveDir[this->dir].second });
+	}
 }
 
 Snake & Snake::operator=(const Snake & snake)
@@ -56,46 +64,44 @@ void Snake::display(bool isDisplay)
 	}
 }
 
-void Snake::changeDir()
+void Snake::changeDir(char dir)
 {
 	//转换方向
-	if (_kbhit()) //如果有按键按下的话
+	//判断传进来的方向字符
+	switch (dir)
 	{
-		switch (_getch()) //则获取按键并且判断将要转换的方向
+	case 'w':
+	{
+		if (this->dir != Direction::down)
 		{
-		case 'w':
+			this->dir = Direction::up;
+		}
+		break;
+	}
+	case 's':
+	{
+		if (this->dir != Direction::up)
 		{
-			if (dir != Direction::down)
-			{
-				dir = Direction::up;
-			}
-			break;
+			this->dir = Direction::down;
 		}
-		case 's':
+		break;
+	}
+	case 'a':
+	{
+		if (this->dir != Direction::right)
 		{
-			if (dir != Direction::up)
-			{
-				dir = Direction::down;
-			}
-			break;
+			this->dir = Direction::left;
 		}
-		case 'a':
+		break;
+	}
+	case 'd':
+	{
+		if (this->dir != Direction::left)
 		{
-			if (dir != Direction::right)
-			{
-				dir = Direction::left;
-			}
-			break;
+			this->dir = Direction::right;
 		}
-		case 'd':
-		{
-			if (dir != Direction::left)
-			{
-				dir = Direction::right;
-			}
-			break;
-		}
-		}
+		break;
+	}
 	}
 }
 

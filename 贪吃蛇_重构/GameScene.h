@@ -12,6 +12,7 @@ private:
 	Snake snake; //蛇
 	Food food; //食物
 	int score; //得分
+	int timeout; //每一帧画面显示的延迟时间
 
 public:
 	GameScene();
