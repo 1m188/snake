@@ -32,7 +32,7 @@ int SpeedChooseScene::run()
 			int key = _getch();
 			if (key == '1' || key == '2' || key == '3')
 			{
-				return 400 / (key - '0');
+				return -100 * (key - '0') + 400;
 			}
 		}
 		Sleep(1);
