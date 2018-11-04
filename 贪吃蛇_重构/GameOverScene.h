@@ -7,13 +7,12 @@
 class GameOverScene :public Scene
 {
 private:
-	int score; //游戏得分
 
 public:
-	GameOverScene(int score);
+	GameOverScene();
 	~GameOverScene();
 
-	void init() override; //初始化游戏结束场景
+	void init(int score); //重载初始化游戏结束场景
 	int run() override; //场景运行
 };
 

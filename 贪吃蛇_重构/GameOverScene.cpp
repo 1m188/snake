@@ -3,16 +3,15 @@
 #include "Config.h"
 #include "conio.h"
 
-GameOverScene::GameOverScene(int score) :score(score)
+GameOverScene::GameOverScene()
 {
-
 }
 
 GameOverScene::~GameOverScene()
 {
 }
 
-void GameOverScene::init()
+void GameOverScene::init(int score)
 {
 	Console *console = Console::getInstance();
 
