@@ -121,6 +121,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SettingScene.cpp" />
     <ClCompile Include="Snake.cpp" />
+    <ClCompile Include="SpeedChooseScene.cpp" />
     <ClCompile Include="StartScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +135,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SettingScene.h" />
     <ClInclude Include="Snake.h" />
+    <ClInclude Include="SpeedChooseScene.h" />
     <ClInclude Include="StartScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

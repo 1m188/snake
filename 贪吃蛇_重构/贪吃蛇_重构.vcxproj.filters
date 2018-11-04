@@ -35,6 +35,9 @@
     <ClCompile Include="ColorChooseScene.cpp">
       <Filter>场景\颜色选择场景</Filter>
     </ClCompile>
+    <ClCompile Include="SpeedChooseScene.cpp">
+      <Filter>场景\速度选择场景</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="场景">
@@ -73,6 +76,9 @@
     <Filter Include="场景\颜色选择场景">
       <UniqueIdentifier>{4732117d-6b34-4f28-9c03-4a3db73fbe72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="场景\速度选择场景">
+      <UniqueIdentifier>{676b9c23-4c65-46e0-95c4-0fa3e509aa7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameScene.h">
@@ -107,6 +113,9 @@
     </ClInclude>
     <ClInclude Include="ColorChooseScene.h">
       <Filter>场景\颜色选择场景</Filter>
+    </ClInclude>
+    <ClInclude Include="SpeedChooseScene.h">
+      <Filter>场景\速度选择场景</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
