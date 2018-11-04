@@ -3,7 +3,7 @@
 #include "stdlib.h"
 #include "time.h"
 
-Food::Food() :x(0), y(0)
+Food::Food() :x(0), y(0), section(1)
 {
 
 }
@@ -44,4 +44,14 @@ void Food::updatePos(int up, int down, int left, int right)
 	}
 	x = newX;
 	y = newY;
+}
+
+void Food::setSection(int section)
+{
+	this->section = section;
+}
+
+int Food::getSection()
+{
+	return section;
 }
