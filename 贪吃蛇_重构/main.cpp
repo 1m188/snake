@@ -1,6 +1,7 @@
 #include "Console.h"
 #include "Config.h"
 #include "StartScene.h"
+#include "SpeedChooseScene.h"
 #include "GameScene.h"
 #include "GameOverScene.h"
 #include "HighestScoreScene.h"
@@ -37,14 +38,19 @@ int main()
 		//如果按下去的键为1，则进入新游戏
 		if (startSceneRunResult == '1')
 		{
+			//速度选择场景
+			SpeedChooseScene speedChooseScene;
+			speedChooseScene.init();
+			int speed = speedChooseScene.run();
+			console->clearScreen();
 			//游戏主场景
 			GameScene gameScene;
-			gameScene.init(); //初始化游戏主场景
+			gameScene.init(speed); //初始化游戏主场景
 			int score = gameScene.run(); //运行游戏主场景
 			console->clearScreen();
 			//游戏结束场景
-			GameOverScene gameOverScene(score);
-			gameOverScene.init(); //初始化游戏结束场景
+			GameOverScene gameOverScene;
+			gameOverScene.init(score); //初始化游戏结束场景
 			gameOverScene.run(); //运行游戏结束场景
 			console->clearScreen();
 		}
