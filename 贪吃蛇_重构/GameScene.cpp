@@ -15,9 +15,10 @@ void GameScene::init(int timeout)
 	//实例化相关游戏元素
 	snake = Snake({ 11,10 }, 2, 3);
 	food = Food();
+	food.setSection((timeout - 400) / (-100));
 	score = 0;
-	isAcc = false;
 	this->timeout = timeout;
+	isAcc = false;
 
 	Console *console = Console::getInstance();
 
@@ -106,7 +107,7 @@ int GameScene::run()
 			food.updatePos(up, down, left, right); //更新食物坐标
 			food.display(true);
 			//更新得分情况
-			score++;
+			score += food.getSection();
 			console->moveCursor(5, 1);
 			printf("得分：%d", score);
 		}
