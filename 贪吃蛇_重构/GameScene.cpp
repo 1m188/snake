@@ -10,8 +10,15 @@ GameScene::~GameScene()
 {
 }
 
-void GameScene::init()
+void GameScene::init(int timeout)
 {
+	//实例化相关游戏元素
+	snake = Snake({ 11,10 }, 2, 3);
+	food = Food();
+	score = 0;
+	isAcc = false;
+	this->timeout = timeout;
+
 	Console *console = Console::getInstance();
 
 	//地图上边界
@@ -42,12 +49,6 @@ void GameScene::init()
 	//得分信息
 	console->moveCursor(5, 1);
 	printf("得分：%d", score);
-
-	//实例化相关游戏元素
-	snake = Snake({ 11,10 }, 2, 3);
-	food = Food();
-	score = 0;
-	timeout = 200;
 }
 
 int GameScene::run()
@@ -82,7 +83,15 @@ int GameScene::run()
 			//如果按下的是空格，则改变蛇的运行速率
 			else if (key == ' ')
 			{
-				timeout = timeout == 200 ? 50 : 200;
+				if (isAcc)
+				{
+					timeout *= 3;
+				}
+				else
+				{
+					timeout /= 3;
+				}
+				isAcc = !isAcc;
 			}
 		}
 		snake.move(); //移动

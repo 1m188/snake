@@ -13,12 +13,13 @@ private:
 	Food food; //食物
 	int score; //得分
 	int timeout; //每一帧画面显示的延迟时间
+	bool isAcc; //是否正在加速
 
 public:
 	GameScene();
 	~GameScene();
 
-	void init() override; //场景初始化
+	void init(int timeout); //重载，场景初始化
 	int run() override; //场景运行
 };
 
