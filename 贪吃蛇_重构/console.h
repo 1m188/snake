@@ -8,7 +8,7 @@
 #include "Config.h"
 
 //控制台操纵单例类
-class Console final
+class Console
 {
 private:
 	Console(); //禁止外部自动构造
