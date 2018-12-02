@@ -50,25 +50,12 @@ void Console::clearScreen()
 
 void Console::setWindowSize(int width, int height)
 {
-	//这里通过system命令来设置控制台大小，不知道为什么直接设置缓冲区大小不行，，，
-	//构建命令字符串
-	std::string w = "";
-	while (width)
-	{
-		w += width % 10 + '0';
-		width /= 10;
-	}
-	std::reverse(w.begin(), w.end());
-
-	std::string h = "";
-	while (height)
-	{
-		h += height % 10 + '0';
-		height /= 10;
-	}
-	std::reverse(h.begin(), h.end());
-
-	system(("mode con cols=" + w + " lines=" + h).c_str()); //system命令设置控制台大小
+	//设置控制台窗口信息
+	SMALL_RECT sr = { 0,0,width - 1 ,height - 1 };
+	SetConsoleWindowInfo(stdOut, true, &sr);
+	//设置控制台屏幕缓冲区大小
+	COORD coord = { width,height };
+	SetConsoleScreenBufferSize(stdOut, coord);
 }
 
 int Console::getWindowWidth()
