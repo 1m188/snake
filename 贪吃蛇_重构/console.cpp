@@ -75,7 +75,7 @@ int Console::getWindowHeight()
 
 void Console::setWindowTitle(std::string title)
 {
-	system((std::string("title ") + title).c_str());
+	SetConsoleTitle(title.c_str());
 }
 
 std::string Console::getWindowTitle()
