@@ -37,18 +37,10 @@ void Console::showCursor(bool isShow)
 
 void Console::moveCursor(int x, int y)
 {
-	//当移动到的坐标超过边界就抛出异常
-	if (x < 0 || x >= getWindowWidth() || y < 0 || y >= getWindowHeight())
-	{
-		throw std::exception("args out of range");
-	}
-	else
-	{
-		COORD coord = {};
-		coord.X = x;
-		coord.Y = y;
-		SetConsoleCursorPosition(stdOut, coord);
-	}
+	COORD coord = {};
+	coord.X = x;
+	coord.Y = y;
+	SetConsoleCursorPosition(stdOut, coord);
 }
 
 void Console::clearScreen()
@@ -58,33 +50,25 @@ void Console::clearScreen()
 
 void Console::setWindowSize(int width, int height)
 {
-	//如果要设置的宽度和高度合理
-	if (width > 0 && height > 0)
+	//这里通过system命令来设置控制台大小，不知道为什么直接设置缓冲区大小不行，，，
+	//构建命令字符串
+	std::string w = "";
+	while (width)
 	{
-		//这里通过system命令来设置控制台大小，不知道为什么直接设置缓冲区大小不行，，，
-		//构建命令字符串
-		std::string w = "";
-		while (width)
-		{
-			w += width % 10 + '0';
-			width /= 10;
-		}
-		std::reverse(w.begin(), w.end());
-
-		std::string h = "";
-		while (height)
-		{
-			h += height % 10 + '0';
-			height /= 10;
-		}
-		std::reverse(h.begin(), h.end());
-
-		system(("mode con cols=" + w + " lines=" + h).c_str()); //system命令设置控制台大小
+		w += width % 10 + '0';
+		width /= 10;
 	}
-	else //非法参数抛出异常
+	std::reverse(w.begin(), w.end());
+
+	std::string h = "";
+	while (height)
 	{
-		throw std::exception("args out of range");
+		h += height % 10 + '0';
+		height /= 10;
 	}
+	std::reverse(h.begin(), h.end());
+
+	system(("mode con cols=" + w + " lines=" + h).c_str()); //system命令设置控制台大小
 }
 
 int Console::getWindowWidth()
