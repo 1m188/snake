@@ -81,7 +81,7 @@ void Console::setWindowTitle(std::string title)
 std::string Console::getWindowTitle()
 {
 	char titleTemp[1024]{};
-	GetConsoleTitleA(titleTemp, 1024);
+	GetConsoleTitle(titleTemp, 1024);
 	return std::string(titleTemp);
 }
 
