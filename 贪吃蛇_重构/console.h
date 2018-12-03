@@ -24,6 +24,7 @@ public:
 
 	static Console *getInstance(); //获取单例
 
+	const HANDLE getStdHandle() const { return stdOut; } //获取控制台缓冲区句柄
 	void showCursor(bool isShow); //是否显示光标
 	void moveCursor(int x, int y); //移动光标
 	void clearScreen(); //清屏
