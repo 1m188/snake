@@ -39,31 +39,6 @@ void Snake::move()
 	pos.push_front(newHead);
 }
 
-void Snake::display(bool isDisplay)
-{
-	Console *console = Console::getInstance();
-	//遍历蛇身坐标然后挨个在相应的位置输出相应的字符
-	for (auto it = pos.cbegin(); it != pos.cend(); it++)
-	{
-		try
-		{
-			console->moveCursor(it->first, it->second);
-		}
-		catch (std::exception) //超出控制台大小范围的不画蛇身
-		{
-			continue;
-		}
-		if (isDisplay)
-		{
-			printf("#");
-		}
-		else
-		{
-			printf(" ");
-		}
-	}
-}
-
 void Snake::changeDir(char dir)
 {
 	//转换方向

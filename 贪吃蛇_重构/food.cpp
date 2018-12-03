@@ -13,19 +13,6 @@ Food::~Food()
 
 }
 
-void Food::display(bool isDisplay)
-{
-	Console::getInstance()->moveCursor(x, y);
-	if (isDisplay)
-	{
-		printf("*");
-	}
-	else
-	{
-		printf(" ");
-	}
-}
-
 void Food::updatePos(int up, int down, int left, int right)
 {
 	int newX = 0, newY = 0;

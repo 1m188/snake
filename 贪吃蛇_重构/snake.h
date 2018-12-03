@@ -28,7 +28,7 @@ public:
 	~Snake();
 
 	void move(); //移动
-	void display(bool isDisplay); //是否显示蛇身（可用作蛇身消除，部分刷新）
+	const std::list<std::pair<int, int>> getPos()const { return pos; } //获取蛇身坐标列表
 	void changeDir(char dir); //转换移动方向
 	bool isDead(int up, int down, int left, int right); //判定死亡
 	bool isEatFood(Food food); //判定是否吃到食物
