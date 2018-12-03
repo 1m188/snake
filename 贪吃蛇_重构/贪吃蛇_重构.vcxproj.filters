@@ -35,7 +35,7 @@
     <ClCompile Include="ColorChooseScene.cpp">
       <Filter>场景\颜色选择场景</Filter>
     </ClCompile>
-    <ClCompile Include="SpeedChooseScene.cpp">
+    <ClCompile Include="DifficultyChooseScene.cpp">
       <Filter>场景\速度选择场景</Filter>
     </ClCompile>
   </ItemGroup>
@@ -114,7 +114,7 @@
     <ClInclude Include="ColorChooseScene.h">
       <Filter>场景\颜色选择场景</Filter>
     </ClInclude>
-    <ClInclude Include="SpeedChooseScene.h">
+    <ClInclude Include="DifficultyChooseScene.h">
       <Filter>场景\速度选择场景</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #include "Console.h"
 #include "Config.h"
 #include "StartScene.h"
-#include "SpeedChooseScene.h"
+#include "DifficultyChooseScene.h"
 #include "GameScene.h"
 #include "GameOverScene.h"
 #include "HighestScoreScene.h"
@@ -38,14 +38,14 @@ int main()
 		//如果按下去的键为1，则进入新游戏
 		if (startSceneRunResult == '1')
 		{
-			//速度选择场景
-			SpeedChooseScene speedChooseScene;
-			speedChooseScene.init();
-			int timeout = speedChooseScene.run();
+			//难度选择场景
+			DifficultyChooseScene difficultyChooseScene;
+			difficultyChooseScene.init();
+			int difficulty = difficultyChooseScene.run();
 			console->clearScreen();
 			//游戏主场景
 			GameScene gameScene;
-			gameScene.init(timeout); //初始化游戏主场景
+			gameScene.init(difficulty); //初始化游戏主场景
 			int score = gameScene.run(); //运行游戏主场景
 			console->clearScreen();
 			//游戏结束场景
