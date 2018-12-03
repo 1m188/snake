@@ -4,6 +4,7 @@
 #include "Snake.h"
 #include "Food.h"
 #include "Scene.h"
+#include "windows.h"
 
 //游戏主场景
 class GameScene :public Scene
@@ -14,6 +15,9 @@ private:
 	int score; //得分
 	int timeout; //每一帧画面显示的延迟时间
 	bool isAcc; //是否正在加速
+	//双缓冲
+	HANDLE activeScreenBuffer; //前台屏幕缓冲区
+	HANDLE backScreenBuffer; //后台屏幕缓冲区
 
 public:
 	GameScene();
