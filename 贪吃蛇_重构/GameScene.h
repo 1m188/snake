@@ -23,7 +23,7 @@ public:
 	GameScene();
 	~GameScene();
 
-	void init(int timeout); //隐藏基类同名函数，场景初始化
+	void init(int difficulty); //隐藏基类同名函数，场景初始化
 	int run() override; //场景运行
 };
 

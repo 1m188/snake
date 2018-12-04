@@ -11,14 +11,14 @@ GameScene::~GameScene()
 {
 }
 
-void GameScene::init(int timeout)
+void GameScene::init(int difficulty)
 {
 	//实例化相关游戏元素
 	snake = Snake({ 11,10 }, 2, 3);
 	food = Food();
-	food.setSection((timeout - 400) / (-100));
+	food.setSection(difficulty + 1);
 	score = 0;
-	this->timeout = timeout;
+	timeout = 120 - 40 * difficulty;
 	isAcc = false;
 	activeScreenBuffer = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 	backScreenBuffer = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
