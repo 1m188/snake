@@ -63,10 +63,10 @@ void Console::clearScreen()
 void Console::setWindowSize(int width, int height)
 {
 	//设置控制台窗口信息
-	SMALL_RECT sr = { 0,0,width - 1 ,height - 1 };
+	SMALL_RECT sr = { 0,0,static_cast<short>(width - 1) ,static_cast<short>(height - 1) };
 	SetConsoleWindowInfo(stdOut, true, &sr);
 	//设置控制台屏幕缓冲区大小
-	COORD coord = { width,height };
+	COORD coord = { static_cast<short>(width),static_cast<short>(height) };
 	SetConsoleScreenBufferSize(stdOut, coord);
 }
 
