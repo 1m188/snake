@@ -43,16 +43,27 @@ int main()
 			difficultyChooseScene.init();
 			int difficulty = difficultyChooseScene.run();
 			console->clearScreen();
-			//游戏主场景
-			GameScene gameScene;
-			gameScene.init(difficulty); //初始化游戏主场景
-			int score = gameScene.run(); //运行游戏主场景
-			console->clearScreen();
-			//游戏结束场景
-			GameOverScene gameOverScene;
-			gameOverScene.init(score); //初始化游戏结束场景
-			gameOverScene.run(); //运行游戏结束场景
-			console->clearScreen();
+			if (difficulty != 3)
+			{
+				//游戏主场景
+				GameScene gameScene;
+				gameScene.init(difficulty); //初始化游戏主场景
+				int score = gameScene.run(); //运行游戏主场景
+				console->clearScreen();
+				//游戏结束场景
+				GameOverScene gameOverScene;
+				gameOverScene.init(score); //初始化游戏结束场景
+				gameOverScene.run(); //运行游戏结束场景
+				console->clearScreen();
+			}
+			else
+			{
+				//游戏结束场景
+				GameOverScene gameOverScene;
+				gameOverScene.init(0); //初始化游戏结束场景
+				gameOverScene.run(); //运行游戏结束场景
+				console->clearScreen();
+			}
 		}
 		//如果按下去的键为2，则显示最高分
 		else if (startSceneRunResult == '2')
