@@ -45,7 +45,19 @@ void Console::moveCursor(int x, int y)
 
 void Console::clearScreen()
 {
-	system("cls");
+	std::string data;
+	COORD coord = {};
+	DWORD bytes = 0;
+	for (int i = 0; i < getWindowWidth(); i++)
+	{
+		data.append(" ");
+	}
+	coord.X = 0;
+	for (int i = 0; i < getWindowHeight(); i++)
+	{
+		coord.Y = i;
+		WriteConsoleOutputCharacterA(stdOut, data.c_str(), data.size(), coord, &bytes);
+	}
 }
 
 void Console::setWindowSize(int width, int height)
