@@ -10,7 +10,7 @@ class Snake
 {
 private:
 	std::list<std::pair<int, int>> pos; //蛇身坐标
-	const std::vector<std::pair<int, int>> moveDir; //移动的时候的xy变化坐标
+	std::vector<std::pair<int, int>> moveDir; //移动的时候的xy变化坐标
 	const enum Direction //方向
 	{
 		up,
@@ -24,7 +24,6 @@ public:
 	Snake();
 	//传入初始蛇头坐标、蛇身节数、初始方向来初始化蛇的相关信息
 	Snake(std::pair<int, int> headPos, int bodyNum, int dir);
-	Snake &operator=(const Snake &snake);
 	~Snake();
 
 	void move(); //移动

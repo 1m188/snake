@@ -15,13 +15,6 @@ Snake::Snake(std::pair<int, int> headPos, int bodyNum, int dir) : pos({}), moveD
 	}
 }
 
-Snake & Snake::operator=(const Snake & snake)
-{
-	this->pos = snake.pos;
-	this->dir = snake.dir;
-	return *this;
-}
-
 Snake::~Snake()
 {
 
