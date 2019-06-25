@@ -7,7 +7,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "贪吃蛇", "贪吃蛇\贪�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "贪吃蛇_重构", "贪吃蛇_重构\贪吃蛇_重构.vcxproj", "{98BA5392-CFF0-4FC7-8A8D-BE48BFC4BC3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snake_CSharp", "Snake_CSharp\Snake_CSharp.csproj", "{2A8E0C36-A32C-4820-A302-EADB746407B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snake_CSharp", "Snake_CSharp\Snake_CSharp.csproj", "{2A8E0C36-A32C-4820-A302-EADB746407B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{58FA675A-5479-443B-8742-71A103A3FD36}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
