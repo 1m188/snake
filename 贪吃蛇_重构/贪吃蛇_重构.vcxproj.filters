@@ -118,4 +118,7 @@
       <Filter>场景\速度选择场景</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
 </Project>
