@@ -241,3 +241,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /贪吃蛇_重构/config.ini
+/Snake_Qt/config.ini
