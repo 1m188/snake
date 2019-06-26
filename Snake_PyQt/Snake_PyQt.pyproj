@@ -4,8 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>1c84bbb6-97b7-45b9-b93a-61b733e7b98a</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -32,6 +31,37 @@
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
       <Architecture>X86</Architecture>
     </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config.py" />
+    <Compile Include="Director.py" />
+    <Compile Include="main.py" />
+    <Compile Include="Scene\GameScene.py" />
+    <Compile Include="Scene\HighestScoreScene.py" />
+    <Compile Include="Scene\Scene.py" />
+    <Compile Include="Scene\SettingScene.py" />
+    <Compile Include="Scene\SpeedChooseScene.py" />
+    <Compile Include="Scene\StartScene.py" />
+    <Compile Include="Scene\ThemeChooseScene.py" />
+    <Compile Include="Scene\__init__.py" />
+    <Compile Include="Sprite\Food.py" />
+    <Compile Include="Sprite\Snake.py" />
+    <Compile Include="Sprite\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Window.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="theme\" />
+    <Folder Include="Sprite\" />
+    <Folder Include="Scene\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="README.md" />
+    <Content Include="theme\black.qss" />
+    <Content Include="theme\default.qss" />
+    <Content Include="theme\gray.qss" />
+    <Content Include="theme\yellow.qss" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
