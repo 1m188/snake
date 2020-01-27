@@ -14,3 +14,5 @@
 /Snake_Cpp/build
 # 忽略Snake_Cpp_Refactoring的生成文件
 /Snake_Cpp_Refactoring/build
+# 忽略Snake_Qt的生成文件
+/Snake_Qt/build
