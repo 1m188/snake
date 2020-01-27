@@ -10,3 +10,5 @@
 *.pyc
 # 忽略vscode的配置文件
 /.vscode
+# 忽略Snake_Cpp的生成文件
+/Snake_Cpp/build

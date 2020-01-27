@@ -25,7 +25,7 @@ Snake::Snake(Snake *head)
 {
 	Snake *p = head;
 	next = 0;
-	for (;p->next!=0;)
+	for (; p->next != 0;)
 	{
 		p = p->next;
 	}
@@ -62,16 +62,16 @@ Snake::Snake(Snake *head)
 bool Judgeiflive(Snake *head)
 {
 	Snake *p = head;
-	if (head->x == 0 || head->x==RightBorder-1|| head->y == 0 || head->y == DownBorder - 1)
+	if (head->x == 0 || head->x == RightBorder - 1 || head->y == 0 || head->y == DownBorder - 1)
 	{
 		return false;
 	}
 	else
 	{
 		p = p->next;
-		for (;p != 0;)
+		for (; p != 0;)
 		{
-			if (p->x == head->x&&p->y == head->y)
+			if (p->x == head->x && p->y == head->y)
 			{
 				return false;
 			}
@@ -102,9 +102,9 @@ void CreateNext(Snake *head)
 void ShowBody(Snake *head)
 {
 	Snake *p = head;
-	gotoxy(p->x,p->y);
+	gotoxy(p->x, p->y);
 	std::cout << '#';
-	for (;p->next != 0;)
+	for (; p->next != 0;)
 	{
 		p = p->next;
 	}
@@ -113,7 +113,7 @@ void ShowBody(Snake *head)
 void ShowAllBody(Snake *head)
 {
 	Snake *p = head;
-	for (;p != 0;)
+	for (; p != 0;)
 	{
 		if ((p->x <= 0 || p->x >= RightBorder - 1) || (p->y <= 0 || p->y >= DownBorder - 1))
 		{
@@ -128,168 +128,168 @@ void ShowAllBody(Snake *head)
 void Move(Snake *head)
 {
 	Snake *p = head;
-	Snake *ps =head;
+	Snake *ps = head;
 	char ch;
-		if (_kbhit())
+	if (_kbhit())
+	{
+		ch = _getch();
+		switch (ch)
 		{
-			ch = _getch();
-			switch (ch)
-			{
-			case 'w':
-			case 'W':
-			{
-				if (p->direct == up || p->direct == down)
-				{
-					goto move;
-				}
-				else
-				{
-					goto caseup;
-				}
-				break;
-			}
-			case 's':
-			case 'S':
-			{
-				if (p->direct == up || p->direct == down)
-				{
-					goto move;
-				}
-				else
-				{
-					goto casedown;
-				}
-				break;
-			}
-			case 'a':
-			case 'A':
-			{
-				if (p->direct == left || p->direct == right)
-				{
-					goto move;
-				}
-				else
-				{
-					goto caseleft;
-				}
-				break;
-			}
-			case 'd':
-			case 'D':
-			{
-				if (p->direct == left || p->direct == right)
-				{
-					goto move;
-				}
-				else
-				{
-					goto caseright;
-				}
-				break;
-			}
-			default:
+		case 'w':
+		case 'W':
+		{
+			if (p->direct == up || p->direct == down)
 			{
 				goto move;
 			}
+			else
+			{
+				goto caseup;
 			}
+			break;
 		}
-		else
+		case 's':
+		case 'S':
 		{
-			move:
-			switch (p->direct)
+			if (p->direct == up || p->direct == down)
 			{
-			case up:
+				goto move;
+			}
+			else
 			{
-				caseup:
-				for (;ps->next != 0;)
-				{
-					ps = ps->next;
-				}
-				gotoxy(ps->x, ps->y);
-				std::cout << ' ';
-				ps->x = head->x;
-				ps->y = head->y-1;
-				Head = ps;
-				Head->direct = up;
-				for (;p->next->next != 0;)
-				{
-					p = p->next;
-				}
-				p->next = 0;
-				ps->next = head;
-				break;
+				goto casedown;
 			}
-			case down:
-			{
-				casedown:
-				for (;ps->next != 0;)
-				{
-					ps = ps->next;
-				}
-				gotoxy(ps->x, ps->y);
-				std::cout << ' ';
-				ps->x = head->x;
-				ps->y = head->y+1;
-				Head = ps;
-				Head->direct = down;
-				for (;p->next->next != 0;)
-				{
-					p = p->next;
-				}
-				p->next = 0;
-				ps->next = head;
-				break;
-			}
-			case left:
-			{
-				caseleft:
-				for (;ps->next != 0;)
-				{
-					ps = ps->next;
-				}
-				gotoxy(ps->x, ps->y);
-				std::cout << ' ';
-				ps->x = head->x - 1;
-				ps->y = head->y;
-				Head = ps;
-				Head->direct = left;
-				for (;p->next->next != 0;)
-				{
-					p = p->next;
-				}
-				p->next = 0;
-				ps->next = head;
-				break;
-			}
-			case right:
-			{
-				caseright:
-				for (;ps->next != 0;)
-				{
-					ps = ps->next;
-				}
-				gotoxy(ps->x, ps->y);
-				std::cout << ' ';
-				ps->x = head->x+1;
-				ps->y = head->y;
-				Head = ps;
-				Head->direct = right;
-				for (;p->next->next != 0;)
-				{
-					p = p->next;
-				}
-				p->next = 0;
-				ps->next = head;
-				break;
-			}
-			}
+			break;
 		}
+		case 'a':
+		case 'A':
+		{
+			if (p->direct == left || p->direct == right)
+			{
+				goto move;
+			}
+			else
+			{
+				goto caseleft;
+			}
+			break;
+		}
+		case 'd':
+		case 'D':
+		{
+			if (p->direct == left || p->direct == right)
+			{
+				goto move;
+			}
+			else
+			{
+				goto caseright;
+			}
+			break;
+		}
+		default:
+		{
+			goto move;
+		}
+		}
+	}
+	else
+	{
+	move:
+		switch (p->direct)
+		{
+		case up:
+		{
+		caseup:
+			for (; ps->next != 0;)
+			{
+				ps = ps->next;
+			}
+			gotoxy(ps->x, ps->y);
+			std::cout << ' ';
+			ps->x = head->x;
+			ps->y = head->y - 1;
+			Head = ps;
+			Head->direct = up;
+			for (; p->next->next != 0;)
+			{
+				p = p->next;
+			}
+			p->next = 0;
+			ps->next = head;
+			break;
+		}
+		case down:
+		{
+		casedown:
+			for (; ps->next != 0;)
+			{
+				ps = ps->next;
+			}
+			gotoxy(ps->x, ps->y);
+			std::cout << ' ';
+			ps->x = head->x;
+			ps->y = head->y + 1;
+			Head = ps;
+			Head->direct = down;
+			for (; p->next->next != 0;)
+			{
+				p = p->next;
+			}
+			p->next = 0;
+			ps->next = head;
+			break;
+		}
+		case left:
+		{
+		caseleft:
+			for (; ps->next != 0;)
+			{
+				ps = ps->next;
+			}
+			gotoxy(ps->x, ps->y);
+			std::cout << ' ';
+			ps->x = head->x - 1;
+			ps->y = head->y;
+			Head = ps;
+			Head->direct = left;
+			for (; p->next->next != 0;)
+			{
+				p = p->next;
+			}
+			p->next = 0;
+			ps->next = head;
+			break;
+		}
+		case right:
+		{
+		caseright:
+			for (; ps->next != 0;)
+			{
+				ps = ps->next;
+			}
+			gotoxy(ps->x, ps->y);
+			std::cout << ' ';
+			ps->x = head->x + 1;
+			ps->y = head->y;
+			Head = ps;
+			Head->direct = right;
+			for (; p->next->next != 0;)
+			{
+				p = p->next;
+			}
+			p->next = 0;
+			ps->next = head;
+			break;
+		}
+		}
+	}
 }
 
 void ChangeDirect(Snake *head)
 {
 	Snake *p = head;
-	for (;p->next!=0;)
+	for (; p->next != 0;)
 	{
 		if (p->y == p->next->y)
 		{
@@ -321,13 +321,13 @@ void ProductFood(Snake *head)
 {
 Timeagain:
 	Snake *p = head;
-	srand(unsigned (time(0)));
-	a = rand() % (RightBorder-3)+1;
-	b = rand() % (DownBorder-3)+1;
+	srand(unsigned(time(0)));
+	a = rand() % (RightBorder - 3) + 1;
+	b = rand() % (DownBorder - 3) + 1;
 
-	for (;p != 0;)
+	for (; p != 0;)
 	{
-		if (p->x == a&&p->y == b)
+		if (p->x == a && p->y == b)
 		{
 			goto Timeagain;
 		}
@@ -340,17 +340,18 @@ Timeagain:
 	std::cout << '*';
 }
 
-bool JudgeAboutFood(Snake *head, int a, int b,int gameclass)
+bool JudgeAboutFood(Snake *head, int a, int b, int gameclass)
 {
-	if (head->x == a&&head->y == b)
+	if (head->x == a && head->y == b)
 	{
-		grade = grade + (50-gameclass/10);
-		for (int i = 0;i <= D - 1;i++)
+		grade = grade + (50 - gameclass / 10);
+		for (int i = 0; i <= D - 1; i++)
 		{
 			CreateNext(Head);
 		}
 		return true;
 	}
+	return false;
 }
 
 void PrintMap()
@@ -363,14 +364,14 @@ void PrintMap()
 	std::cout << '+';
 	gotoxy(RightBorder - 1, DownBorder - 1);
 	std::cout << '+';
-	for (int i = 1;i <= RightBorder-2;i++)
+	for (int i = 1; i <= RightBorder - 2; i++)
 	{
 		gotoxy(i, 0);
 		std::cout << '-';
 		gotoxy(i, DownBorder - 1);
 		std::cout << '-';
 	}
-	for (int i = 1;i <= DownBorder - 2;i++)
+	for (int i = 1; i <= DownBorder - 2; i++)
 	{
 		gotoxy(0, i);
 		std::cout << '|';
@@ -384,14 +385,14 @@ void Time_Wait(int t)
 	Sleep(t);
 }
 
-void CGameInterface(int g,std::string name)
+void CGameInterface(int g, std::string name)
 {
 	PrintMap();
-	gotoxy(RightBorder/3*2, DownBorder+2);
-	std::cout << "最高分："<<g;
-	gotoxy(RightBorder/3*2, DownBorder+3);
-	std::cout << "保持者："<<name;
-	gotoxy(RightBorder/6, DownBorder+2);
+	gotoxy(RightBorder / 3 * 2, DownBorder + 2);
+	std::cout << "最高分：" << g;
+	gotoxy(RightBorder / 3 * 2, DownBorder + 3);
+	std::cout << "保持者：" << name;
+	gotoxy(RightBorder / 6, DownBorder + 2);
 	std::cout << "你的分数：" << grade;
 }
 
@@ -466,7 +467,7 @@ void CUserInterface(int choice)
 	{
 		gotoxy(RightBorder / 3 - 7, DownBorder / 3);
 		std::cout << "1.颜色";
-		gotoxy(RightBorder / 3 - 7, DownBorder / 3+2);
+		gotoxy(RightBorder / 3 - 7, DownBorder / 3 + 2);
 		std::cout << "2.语言";
 		break;
 	}
@@ -478,7 +479,7 @@ void CUserInterface(int choice)
 		std::cout << "1.亮白底黑字";
 		gotoxy(RightBorder / 3 - 7, DownBorder / 3 + 2);
 		std::cout << "2.淡紫色底黑字";
-		gotoxy(RightBorder / 3 - 7, DownBorder / 3+4);
+		gotoxy(RightBorder / 3 - 7, DownBorder / 3 + 4);
 		std::cout << "3.灰底黑字";
 		gotoxy(RightBorder / 3 - 7, DownBorder / 3 + 6);
 		std::cout << "4.淡黄色底淡红色字";

@@ -13,7 +13,7 @@ int main()
 GameStart:
 	snakehead = Snake();
 	Head = &snakehead;
-	gameclass=0;
+	gameclass = 0;
 	grade = 0;
 	int languagechoice = 1;
 	int colorchoice = 6;
@@ -167,7 +167,7 @@ MainMenu:
 					}
 					for (;;)
 					{
-						if (std::cin >> D&&D>0 && D<6)
+						if (std::cin >> D && D > 0 && D < 6)
 						{
 							break;
 						}
@@ -223,7 +223,7 @@ MainMenu:
 				for (;;)
 				{
 					SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
-					if (std::cin>>D&&D>0&&D<6)
+					if (std::cin >> D && D > 0 && D < 6)
 					{
 						std::cin.get();
 						SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &Cursor_info);
@@ -252,7 +252,7 @@ MainMenu:
 				ShowAllBody(Head);
 				if (languagechoice == 1)
 				{
-					CGameInterface(FileGrade,FileName);
+					CGameInterface(FileGrade, FileName);
 				}
 				else
 				{
@@ -305,7 +305,7 @@ MainMenu:
 				EUserInterface(MaxGrade);
 				gotoxy(RightBorder / 3 - 3, DownBorder / 3);
 				std::cout << maxgrade;
-				gotoxy(RightBorder / 3 - 6, DownBorder/3+2);
+				gotoxy(RightBorder / 3 - 6, DownBorder / 3 + 2);
 				std::cout << maxgradename;
 			}
 			while (JudgeCin())
@@ -329,7 +329,7 @@ MainMenu:
 			{
 			case '1':
 			{
-			    system("cls");
+				system("cls");
 				if (languagechoice == 1)
 				{
 					CUserInterface(ColorChoice);
@@ -338,79 +338,79 @@ MainMenu:
 				{
 					EUserInterface(ColorChoice);
 				}
-			    for (;;)
-			    {
-				 switch (JudgeCin())
+				for (;;)
 				{
-				case '1':
-				{
-					colorchoice = 1;
-					Set.open("set.set");
-					Set << colorchoice;
-					Set << '\n';
-					Set << languagechoice;
-					Set.close();
-					system("color F0");
-					goto MainMenu;
+					switch (JudgeCin())
+					{
+					case '1':
+					{
+						colorchoice = 1;
+						Set.open("set.set");
+						Set << colorchoice;
+						Set << '\n';
+						Set << languagechoice;
+						Set.close();
+						system("color F0");
+						goto MainMenu;
+					}
+					case '2':
+					{
+						colorchoice = 2;
+						Set.open("set.set");
+						Set << colorchoice;
+						Set << '\n';
+						Set << languagechoice;
+						Set.close();
+						system("color D0");
+						goto MainMenu;
+					}
+					case '3':
+					{
+						colorchoice = 3;
+						Set.open("set.set");
+						Set << colorchoice;
+						Set << '\n';
+						Set << languagechoice;
+						Set.close();
+						system("color 70");
+						goto MainMenu;
+					}
+					case '4':
+					{
+						colorchoice = 4;
+						Set.open("set.set");
+						Set << colorchoice;
+						Set << '\n';
+						Set << languagechoice;
+						Set.close();
+						system("color EC");
+						goto MainMenu;
+					}
+					case '5':
+					{
+						colorchoice = 5;
+						Set.open("set.set");
+						Set << colorchoice;
+						Set << '\n';
+						Set << languagechoice;
+						Set.close();
+						system("color B9");
+						goto MainMenu;
+					}
+					case '6':
+					{
+						colorchoice = 6;
+						Set.open("set.set");
+						Set << colorchoice;
+						Set << '\n';
+						Set << languagechoice;
+						Set.close();
+						system("color 07");
+						goto MainMenu;
+					}
+					}
 				}
-				case '2':
-				{
-					colorchoice = 2;
-					Set.open("set.set");
-					Set << colorchoice;
-					Set << '\n';
-					Set << languagechoice;
-					Set.close();
-					system("color D0");
-					goto MainMenu;
-				}
-				case '3':
-				{
-					colorchoice = 3;
-					Set.open("set.set");
-					Set << colorchoice;
-					Set << '\n';
-					Set << languagechoice;
-					Set.close();
-					system("color 70");
-					goto MainMenu;
-				}
-				case '4':
-				{
-					colorchoice = 4;
-					Set.open("set.set");
-					Set << colorchoice;
-					Set << '\n';
-					Set << languagechoice;
-					Set.close();
-					system("color EC");
-					goto MainMenu;
-				}
-				case '5':
-				{
-					colorchoice = 5;
-					Set.open("set.set");
-					Set << colorchoice;
-					Set << '\n';
-					Set << languagechoice;
-					Set.close();
-					system("color B9");
-					goto MainMenu;
-				}
-				case '6':
-				{
-					colorchoice = 6;
-					Set.open("set.set");
-					Set << colorchoice;
-					Set << '\n';
-					Set << languagechoice;
-					Set.close();
-					system("color 07");
-					goto MainMenu;
-				}
-				}
-			    }
-			    break;
+				break;
 			}
 			case '2':
 			{
