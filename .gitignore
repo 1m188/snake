@@ -12,3 +12,5 @@
 /.vscode
 # 忽略Snake_Cpp的生成文件
 /Snake_Cpp/build
+# 忽略Snake_Cpp_Refactoring的生成文件
+/Snake_Cpp_Refactoring/build
