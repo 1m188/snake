@@ -1,5 +1,5 @@
-﻿# 忽略贪吃蛇重构项目的配置文件
-/贪吃蛇_重构/config.ini
+﻿# 忽略Snake_Cpp_Refactoring项目的配置文件
+/Snake_Cpp_Refactoring/config.ini
 # 忽略Qt贪吃蛇的项目的配置文件
 /Snake_Qt/config.ini
 # 忽略pyqt5版本贪吃蛇项目的配置文件
