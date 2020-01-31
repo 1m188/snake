@@ -11,7 +11,7 @@ typedef struct Food
 } Food;
 
 // 生成食物
-Food initFood(char c);
+void initFood(Food *food, char c);
 
 // 设置食物的随机坐标，传入坐标的边界
 void setRandomFoodPos(Food *food, int xLimit, int yLimit);

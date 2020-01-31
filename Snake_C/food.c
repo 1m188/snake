@@ -3,12 +3,10 @@
 #include "time.h"
 #include "utility.h"
 
-Food initFood(char c)
+void initFood(Food *food, char c)
 {
-    Food food;
-    food.c = c;
-    food.pos.x = food.pos.y = 0;
-    return food;
+    food->c = c;
+    food->pos.x = food->pos.y = 0;
 }
 
 void setRandomFoodPos(Food *food, int xLimit, int yLimit)

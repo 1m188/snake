@@ -1,53 +1,49 @@
 #include "snake.h"
 #include "malloc.h"
 
-Snake initSnake(int bodyNum, char headC, char bodyC, int initDir, Pos *headPos)
+void initSnake(Snake *snake, int bodyNum, char headC, char bodyC, int initDir, Pos *headPos)
 {
-    Snake snake;
+    snake->len = bodyNum;
 
-    snake.len = bodyNum;
+    snake->headC = headC;
+    snake->bodyC = bodyC;
 
-    snake.headC = headC;
-    snake.bodyC = bodyC;
+    snake->currentDir = initDir;
 
-    snake.currentDir = initDir;
-
-    snake.pos = (Pos *)malloc(snake.len * sizeof(Pos));
-    snake.pos[0].x = headPos->x, snake.pos[0].y = headPos->y;
+    snake->pos = (Pos *)malloc(snake->len * sizeof(Pos));
+    snake->pos[0].x = headPos->x, snake->pos[0].y = headPos->y;
     switch (initDir)
     {
         int i;
     case UP:
-        for (i = 1; i < snake.len; i++)
+        for (i = 1; i < snake->len; i++)
         {
-            snake.pos[i].x = snake.pos[i - 1].x;
-            snake.pos[i].y = snake.pos[i - 1].y + 1;
+            snake->pos[i].x = snake->pos[i - 1].x;
+            snake->pos[i].y = snake->pos[i - 1].y + 1;
         }
         break;
     case DOWN:
-        for (i = 1; i < snake.len; i++)
+        for (i = 1; i < snake->len; i++)
         {
-            snake.pos[i].x = snake.pos[i - 1].x;
-            snake.pos[i].y = snake.pos[i - 1].y - 1;
+            snake->pos[i].x = snake->pos[i - 1].x;
+            snake->pos[i].y = snake->pos[i - 1].y - 1;
         }
         break;
     case LEFT:
-        for (i = 1; i < snake.len; i++)
+        for (i = 1; i < snake->len; i++)
         {
-            snake.pos[i].x = snake.pos[i - 1].x + 1;
-            snake.pos[i].y = snake.pos[i - 1].y;
+            snake->pos[i].x = snake->pos[i - 1].x + 1;
+            snake->pos[i].y = snake->pos[i - 1].y;
         }
         break;
     case RIGHT:
-        for (i = 1; i < snake.len; i++)
+        for (i = 1; i < snake->len; i++)
         {
-            snake.pos[i].x = snake.pos[i - 1].x - 1;
-            snake.pos[i].y = snake.pos[i - 1].y;
+            snake->pos[i].x = snake->pos[i - 1].x - 1;
+            snake->pos[i].y = snake->pos[i - 1].y;
         }
         break;
     }
-
-    return snake;
 }
 
 void move(Snake *s)

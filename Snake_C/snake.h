@@ -21,7 +21,7 @@ typedef struct Snake
 
 // 生成蛇
 // 传入蛇身长度，头部符号，身体符号，初始方向，初始头部坐标
-Snake initSnake(int bodyNum, char headC, char bodyC, int initDir, Pos *headPos);
+void initSnake(Snake *snake, int bodyNum, char headC, char bodyC, int initDir, Pos *headPos);
 
 // 蛇移动
 void move(Snake *s);

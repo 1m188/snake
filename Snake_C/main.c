@@ -33,8 +33,10 @@ int main(int argc, char *argv[])
     memset(sp, ' ', len);
 
     Pos pos = {10, 10};
-    Snake snake = initSnake(2, '#', '+', RIGHT, &pos);
-    Food food = initFood('*');
+    Snake snake;
+    initSnake(&snake, 2, '#', '+', RIGHT, &pos);
+    Food food;
+    initFood(&food, '*');
     setRandomFoodPos(&food, width, height);
 
     while (true)
