@@ -26,9 +26,8 @@ void gameScene()
     // 设置新创建的缓冲区信息
     CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
     GetConsoleScreenBufferInfo(mainHandle, &consoleInfo);
-    coord.X = consoleInfo.srWindow.Right, coord.Y = consoleInfo.srWindow.Bottom;
-    SetConsoleScreenBufferSize(backgroundHandle, coord);
-    int width = coord.X, height = coord.Y;
+    SetConsoleScreenBufferSize(backgroundHandle, consoleInfo.dwSize);
+    int width = consoleInfo.dwSize.X, height = consoleInfo.dwSize.Y;
     int len = width * height;
 
     // 用来清空缓冲区的缓冲
@@ -122,6 +121,8 @@ void gameScene()
     {
         if (kbhit())
         {
+            getch();
+            system("cls");
             break;
         }
     }

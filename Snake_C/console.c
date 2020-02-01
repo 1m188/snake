@@ -16,14 +16,24 @@ void setConsoleTitle(const char *title)
 void initConsole()
 {
     setConsoleTitle("Snake");
-    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO info;
-    GetConsoleScreenBufferInfo(h, &info);
-    COORD c = {info.srWindow.Right + 1, info.srWindow.Bottom + 1};
-    SetConsoleScreenBufferSize(h, c);
+    GetConsoleScreenBufferInfo(handle, &info);
+    info.dwSize.X = info.srWindow.Right + 1, info.dwSize.Y = info.srWindow.Bottom + 1;
+    SetConsoleScreenBufferSize(handle, info.dwSize);
+    displayCursor(handle, false);
 }
 
 void setCursorPos(HANDLE handle, COORD *coord)
 {
     SetConsoleCursorPosition(handle, *coord);
+}
+
+int64_t getConsoleSize(HANDLE handle)
+{
+    CONSOLE_SCREEN_BUFFER_INFO info;
+    GetConsoleScreenBufferInfo(handle, &info);
+    int32_t width = info.srWindow.Right;
+    int32_t height = info.srWindow.Bottom;
+    return ((int64_t)width << 32) + height;
 }
