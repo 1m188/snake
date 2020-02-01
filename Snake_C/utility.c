@@ -2,8 +2,7 @@
 
 const char * const HIGHEST_SCORE_FILE_NAME = "highestscore.txt";
 
-unsigned int HIGHEST_SCORE = 0;
-bool IS_GET_HIGHEST_SCORE = false;
+int HIGHEST_SCORE = -1;
 
 const int getKey(const char *const keyList, const unsigned int size)
 {

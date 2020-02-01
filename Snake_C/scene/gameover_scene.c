@@ -16,6 +16,11 @@ void gameoverScene(const int score)
     COORD coord = {width / 2 - 15, height / 2 - 5};
     setCursorPos(handle, &coord);
     printf("Game Over! Your score is: %d", score);
+    // 记录最高分
+    if (score > HIGHEST_SCORE)
+    {
+        HIGHEST_SCORE = score;
+    }
 
     coord.Y += 4;
     setCursorPos(handle, &coord);
