@@ -1,13 +1,11 @@
-#include "Windows.h"
 #include "stdbool.h"
 #include "console.h"
 #include "scene/start_scene.h"
 #include "scene/game_scene.h"
+#include "scene/gameover_scene.h"
 
 int main(int argc, char *argv[])
 {
-    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-
     initConsole();
 
     bool flag = true;
@@ -19,7 +17,7 @@ int main(int argc, char *argv[])
         {
             // 新游戏
         case '1':
-            gameScene();
+            gameoverScene(gameScene());
             break;
             //最高分
         case '2':

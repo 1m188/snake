@@ -12,10 +12,10 @@ typedef struct Food
 } Food;
 
 // 生成食物
-void initFood(Food *food, char c);
+void initFood(Food *const food, const char c);
 
 // 设置食物的随机坐标，传入坐标的边界
-void setRandomFoodPos(Food *food, int xLimit, int yLimit);
+void setRandomFoodPos(Food *const food, const int xLimit, const int yLimit);
 
 // 判定蛇是否吃到食物
-bool isGetFood(Snake *snake, Food *food);
+const bool isGetFood(const Snake *const snake, const Food *const food);

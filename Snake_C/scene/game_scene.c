@@ -6,7 +6,7 @@
 #include "../snake.h"
 #include "../food.h"
 
-void gameScene()
+const int gameScene()
 {
     // 双缓冲
     // 前台缓冲区
@@ -42,6 +42,9 @@ void gameScene()
     initFood(&food, '*');
     setRandomFoodPos(&food, width, height);
 
+    // 分数
+    int score = 0;
+
     while (true)
     {
         // 检测按键判定移动方向
@@ -71,6 +74,7 @@ void gameScene()
         // 判定蛇是否吃到食物
         if (isGetFood(&snake, &food))
         {
+            score++;
             setRandomFoodPos(&food, width, height);
             snake.len++;
             snake.pos = (COORD *)realloc(snake.pos, snake.len * sizeof(COORD));
@@ -116,14 +120,5 @@ void gameScene()
 
     SetConsoleActiveScreenBuffer(mainHandle);
     system("cls");
-    printf("Game Over!\nPress any key to exit...");
-    while (true)
-    {
-        if (kbhit())
-        {
-            getch();
-            system("cls");
-            break;
-        }
-    }
+    return score;
 }

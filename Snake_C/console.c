@@ -1,6 +1,6 @@
 #include "console.h"
 
-void displayCursor(HANDLE handle, bool isDisplay)
+void displayCursor(const HANDLE handle, const bool isDisplay)
 {
     CONSOLE_CURSOR_INFO info;
     info.bVisible = isDisplay;
@@ -8,7 +8,7 @@ void displayCursor(HANDLE handle, bool isDisplay)
     SetConsoleCursorInfo(handle, &info);
 }
 
-void setConsoleTitle(const char *title)
+void setConsoleTitle(const char *const title)
 {
     SetConsoleTitle(title);
 }
@@ -24,12 +24,12 @@ void initConsole()
     displayCursor(handle, false);
 }
 
-void setCursorPos(HANDLE handle, COORD *coord)
+void setCursorPos(const HANDLE handle, const COORD * const coord)
 {
     SetConsoleCursorPosition(handle, *coord);
 }
 
-int64_t getConsoleSize(HANDLE handle)
+const int64_t getConsoleSize(const HANDLE handle)
 {
     CONSOLE_SCREEN_BUFFER_INFO info;
     GetConsoleScreenBufferInfo(handle, &info);

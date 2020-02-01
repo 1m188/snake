@@ -1,4 +1,5 @@
 #pragma once
 
 // 开始场景
-int startScene();
+// 返回菜单选择
+const int startScene();

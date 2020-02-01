@@ -1,4 +1,5 @@
 #pragma once
 
 // 游戏场景
-void gameScene();
+// 返回获得分数
+const int gameScene();

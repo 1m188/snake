@@ -1,11 +1,11 @@
 #include "start_scene.h"
 #include "stdio.h"
 #include "stdint.h"
-#include "stdbool.h"
 #include "Windows.h"
 #include "../console.h"
+#include "../utility.h"
 
-int startScene()
+const int startScene()
 {
     HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -29,16 +29,9 @@ int startScene()
     setCursorPos(handle, &coord);
     printf("3. exit.");
 
-    while (true)
-    {
-        if (kbhit())
-        {
-            int ch = getch();
-            if (ch == '1' || ch == '2' || ch == '3')
-            {
-                system("cls");
-                return ch;
-            }
-        }
-    }
+    char keyList[] = {'1', '2', '3'};
+    int len = 3;
+    int ch = getKey(keyList, len);
+    system("cls");
+    return ch;
 }

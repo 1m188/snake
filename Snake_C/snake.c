@@ -1,7 +1,7 @@
 #include "snake.h"
 #include "malloc.h"
 
-void initSnake(Snake *snake, int bodyNum, char headC, char bodyC, int initDir, COORD *headPos)
+void initSnake(Snake *const snake, const int bodyNum, const char headC, const char bodyC, const int initDir, const COORD *const headPos)
 {
     snake->len = bodyNum;
 
@@ -46,7 +46,7 @@ void initSnake(Snake *snake, int bodyNum, char headC, char bodyC, int initDir, C
     }
 }
 
-void move(Snake *snake)
+void move(Snake *const snake)
 {
     int i;
     for (i = snake->len - 1; i > 0; i--)
@@ -72,7 +72,7 @@ void move(Snake *snake)
     }
 }
 
-bool isDead(Snake *snake, int leftLimit, int rightLimit, int topLimit, int bottomLimit)
+const bool isDead(const Snake *const snake, const int leftLimit, const int rightLimit, const int topLimit, const int bottomLimit)
 {
     int headX = snake->pos[0].X;
     int headY = snake->pos[0].Y;
