@@ -1,7 +1,7 @@
 #include "snake.h"
 #include "malloc.h"
 
-void initSnake(Snake *snake, int bodyNum, char headC, char bodyC, int initDir, Pos *headPos)
+void initSnake(Snake *snake, int bodyNum, char headC, char bodyC, int initDir, COORD *headPos)
 {
     snake->len = bodyNum;
 
@@ -10,78 +10,78 @@ void initSnake(Snake *snake, int bodyNum, char headC, char bodyC, int initDir, P
 
     snake->currentDir = initDir;
 
-    snake->pos = (Pos *)malloc(snake->len * sizeof(Pos));
-    snake->pos[0].x = headPos->x, snake->pos[0].y = headPos->y;
+    snake->pos = (COORD *)malloc(snake->len * sizeof(COORD));
+    snake->pos[0].X = headPos->X, snake->pos[0].Y = headPos->Y;
     switch (initDir)
     {
         int i;
     case UP:
         for (i = 1; i < snake->len; i++)
         {
-            snake->pos[i].x = snake->pos[i - 1].x;
-            snake->pos[i].y = snake->pos[i - 1].y + 1;
+            snake->pos[i].X = snake->pos[i - 1].X;
+            snake->pos[i].Y = snake->pos[i - 1].Y + 1;
         }
         break;
     case DOWN:
         for (i = 1; i < snake->len; i++)
         {
-            snake->pos[i].x = snake->pos[i - 1].x;
-            snake->pos[i].y = snake->pos[i - 1].y - 1;
+            snake->pos[i].X = snake->pos[i - 1].X;
+            snake->pos[i].Y = snake->pos[i - 1].Y - 1;
         }
         break;
     case LEFT:
         for (i = 1; i < snake->len; i++)
         {
-            snake->pos[i].x = snake->pos[i - 1].x + 1;
-            snake->pos[i].y = snake->pos[i - 1].y;
+            snake->pos[i].X = snake->pos[i - 1].X + 1;
+            snake->pos[i].Y = snake->pos[i - 1].Y;
         }
         break;
     case RIGHT:
         for (i = 1; i < snake->len; i++)
         {
-            snake->pos[i].x = snake->pos[i - 1].x - 1;
-            snake->pos[i].y = snake->pos[i - 1].y;
+            snake->pos[i].X = snake->pos[i - 1].X - 1;
+            snake->pos[i].Y = snake->pos[i - 1].Y;
         }
         break;
     }
 }
 
-void move(Snake *s)
+void move(Snake *snake)
 {
     int i;
-    for (i = s->len - 1; i > 0; i--)
+    for (i = snake->len - 1; i > 0; i--)
     {
-        s->pos[i].x = s->pos[i - 1].x;
-        s->pos[i].y = s->pos[i - 1].y;
+        snake->pos[i].X = snake->pos[i - 1].X;
+        snake->pos[i].Y = snake->pos[i - 1].Y;
     }
 
-    switch (s->currentDir)
+    switch (snake->currentDir)
     {
     case UP:
-        s->pos[0].y--;
+        snake->pos[0].Y--;
         break;
     case DOWN:
-        s->pos[0].y++;
+        snake->pos[0].Y++;
         break;
     case LEFT:
-        s->pos[0].x--;
+        snake->pos[0].X--;
         break;
     case RIGHT:
-        s->pos[0].x++;
+        snake->pos[0].X++;
         break;
     }
 }
 
 bool isDead(Snake *snake, int leftLimit, int rightLimit, int topLimit, int bottomLimit)
 {
-    int headX = snake->pos[0].x;
-    int headY = snake->pos[0].y;
+    int headX = snake->pos[0].X;
+    int headY = snake->pos[0].Y;
 
     // 判定是否撞到自己
     int i;
     for (i = 4; i < snake->len; i++)
     {
-        if (headX == snake->pos[i].x && headY == snake->pos[i].y)
+        if (headX == snake->pos[i].X && headY == snake->pos[i].Y)
         {
             return true;
         }

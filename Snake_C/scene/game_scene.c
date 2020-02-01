@@ -2,7 +2,7 @@
 #include "Windows.h"
 #include "stdbool.h"
 #include "stdio.h"
-#include "../utility.h"
+#include "../console.h"
 #include "../snake.h"
 #include "../food.h"
 
@@ -10,31 +10,35 @@ void gameScene()
 {
     // 双缓冲
     // 前台缓冲区
-    const HANDLE mainHandle = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
+    const HANDLE mainHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     displayCursor(mainHandle, false);
-    SetConsoleActiveScreenBuffer(mainHandle);
 
     // 后台缓冲区
     const HANDLE backgroundHandle = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
     displayCursor(backgroundHandle, false);
 
+    // 当前后台缓冲区
     HANDLE backHandle = backgroundHandle;
-
-    // 控制台信息
-    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
-    GetConsoleScreenBufferInfo(mainHandle, &consoleInfo);
-    int width = consoleInfo.dwSize.X, height = consoleInfo.dwSize.Y;
-    int len = width * height;
 
     COORD coord = {0, 0};
     DWORD b;
 
+    // 设置新创建的缓冲区信息
+    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+    GetConsoleScreenBufferInfo(mainHandle, &consoleInfo);
+    coord.X = consoleInfo.srWindow.Right, coord.Y = consoleInfo.srWindow.Bottom;
+    SetConsoleScreenBufferSize(backgroundHandle, coord);
+    int width = coord.X, height = coord.Y;
+    int len = width * height;
+
+    // 用来清空缓冲区的缓冲
     char *sp = (char *)malloc(len);
     memset(sp, ' ', len);
 
-    Pos pos = {10, 10};
+    // 初始化蛇和食物
+    coord.X = coord.Y = 10;
     Snake snake;
-    initSnake(&snake, 2, '#', '+', RIGHT, &pos);
+    initSnake(&snake, 2, '#', '+', RIGHT, &coord);
     Food food;
     initFood(&food, '*');
     setRandomFoodPos(&food, width, height);
@@ -70,9 +74,9 @@ void gameScene()
         {
             setRandomFoodPos(&food, width, height);
             snake.len++;
-            snake.pos = (Pos *)realloc(snake.pos, snake.len * sizeof(Pos));
-            snake.pos[snake.len - 1].x = snake.pos[snake.len - 2].x + snake.pos[snake.len - 2].x - snake.pos[snake.len - 3].x;
-            snake.pos[snake.len - 1].y = snake.pos[snake.len - 2].y + snake.pos[snake.len - 2].y - snake.pos[snake.len - 3].y;
+            snake.pos = (COORD *)realloc(snake.pos, snake.len * sizeof(COORD));
+            snake.pos[snake.len - 1].X = snake.pos[snake.len - 2].X + snake.pos[snake.len - 2].X - snake.pos[snake.len - 3].X;
+            snake.pos[snake.len - 1].Y = snake.pos[snake.len - 2].Y + snake.pos[snake.len - 2].Y - snake.pos[snake.len - 3].Y;
         }
 
         // 判定蛇是否死亡
@@ -86,17 +90,17 @@ void gameScene()
         WriteConsoleOutputCharacter(backHandle, sp, len, coord, &b);
 
         // 显示蛇身
-        coord.X = snake.pos[0].x, coord.Y = snake.pos[0].y; // 蛇头
+        coord.X = snake.pos[0].X, coord.Y = snake.pos[0].Y; // 蛇头
         WriteConsoleOutputCharacter(backHandle, &snake.headC, 1, coord, &b);
         int i;
         for (i = 1; i < snake.len; i++) // 蛇身
         {
-            coord.X = snake.pos[i].x, coord.Y = snake.pos[i].y;
+            coord.X = snake.pos[i].X, coord.Y = snake.pos[i].Y;
             WriteConsoleOutputCharacter(backHandle, &snake.bodyC, 1, coord, &b);
         }
 
         // 显示食物
-        coord.X = food.pos.x, coord.Y = food.pos.y;
+        coord.X = food.pos.X, coord.Y = food.pos.Y;
         WriteConsoleOutputCharacter(backHandle, &food.c, 1, coord, &b);
 
         // 更换当前缓冲区并且重新确定当前的后台缓冲区
@@ -111,7 +115,8 @@ void gameScene()
     free(snake.pos);
     snake.pos = NULL;
 
-    SetConsoleActiveScreenBuffer(GetStdHandle(STD_OUTPUT_HANDLE));
+    SetConsoleActiveScreenBuffer(mainHandle);
+    system("cls");
     printf("Game Over!\nPress any key to exit...");
     while (true)
     {

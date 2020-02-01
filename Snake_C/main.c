@@ -1,9 +1,9 @@
-#include "Windows.h"
+#include "console.h"
 #include "scene/game_scene.h"
 
 int main(int argc, char *argv[])
 {
-    SetConsoleTitle("Snake");
+    initConsole();
 
     gameScene();
 

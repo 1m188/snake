@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Windows.h"
 #include "stdbool.h"
 #include "snake.h"
 
@@ -7,7 +8,7 @@
 typedef struct Food
 {
     char c;  // 显示字符
-    Pos pos; // 坐标
+    COORD pos; // 坐标
 } Food;
 
 // 生成食物
