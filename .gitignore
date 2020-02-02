@@ -12,6 +12,8 @@ snake_cpp/build
 
 # 忽略snake_cs的obj文件夹
 snake_cs/obj
+# bin
+snake_cs/bin
 
 # 忽略snake_cpp_refactoring的生成文件
 snake_cpp_refactoring/build

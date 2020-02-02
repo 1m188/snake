@@ -1,4 +1,4 @@
-﻿# Snake_Qt
+﻿# snake_qt5
 用C++的Qt框架写的贪吃蛇，简单简陋
 1. 使用Qt5.12.3开发，使用cmake构建。
 2. 基本上是通过Qt的paintEvent重绘界面出来的，很简单的线条和颜色。

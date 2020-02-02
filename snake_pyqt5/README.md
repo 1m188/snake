@@ -1,4 +1,4 @@
-# Snake_PyQt
+# snake_pyqt5
 用pyqt5写的一个简单的贪吃蛇
 
 1. 使用python 3.6.2 32bit和pyqt5 5.11.2 开发。
