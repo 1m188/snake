@@ -1,20 +1,29 @@
-﻿# 忽略Snake_Cpp_Refactoring项目的配置文件
-/Snake_Cpp_Refactoring/config.ini
-# 忽略Qt贪吃蛇的项目的配置文件
-/Snake_Qt/config.ini
-# 忽略pyqt5版本贪吃蛇项目的配置文件
-/Snake_PyQt/config.ini
-# 忽略pyqt5版本贪吃蛇项目的虚拟环境
-/Snake_PyQt/env
+﻿# 忽略vscode的配置文件
+.vscode
+
 # 忽略python项目所有的pyc文件
 *.pyc
-# 忽略vscode的配置文件
-/.vscode
-# 忽略Snake_Cpp的生成文件
-/Snake_Cpp/build
-# 忽略Snake_Cpp_Refactoring的生成文件
-/Snake_Cpp_Refactoring/build
-# 忽略Snake_Qt的生成文件
-/Snake_Qt/build
-# 忽略Snake_C的生成文件
-/Snake_C/build
+
+# 忽略snake_c的生成文件
+snake_c/build
+
+# 忽略snake_cpp的生成文件
+snake_cpp/build
+
+# 忽略snake_cs的obj文件夹
+snake_cs/obj
+
+# 忽略snake_cpp_refactoring的生成文件
+snake_cpp_refactoring/build
+# 忽略snake_cpp_refactoring项目的配置文件
+snake_cpp_refactoring/config.ini
+
+# 忽略snake_pyqt5项目的配置文件
+snake_pyqt5/config.ini
+# 忽略snake_pyqt5项目的虚拟环境
+snake_pyqt5/env
+
+# 忽略snake_qt5项目的配置文件
+snake_qt5/config.ini
+# 忽略snake_qt5的生成文件
+snake_qt5/build
