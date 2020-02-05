@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(Snake_Qt)
+project(snake_qt5)
 
 find_package(Qt5 REQUIRED Widgets)
 set(CMAKE_AUTOMOC ON)
