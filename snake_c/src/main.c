@@ -6,6 +6,7 @@
 #include "game_scene.h"
 #include "gameover_scene.h"
 #include "highestscore_scene.h"
+#include "playmode_scene.h"
 
 int main(int argc, char *argv[])
 {
@@ -34,7 +35,11 @@ int main(int argc, char *argv[])
         {
             // 新游戏
         case '1':
-            gameoverScene(gameScene());
+            result = playmodeScene();
+            if (result != '3')
+            {
+                gameoverScene(gameScene(result));
+            }
             break;
             //最高分
         case '2':

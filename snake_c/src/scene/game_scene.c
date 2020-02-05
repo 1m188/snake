@@ -5,8 +5,9 @@
 #include "console.h"
 #include "snake.h"
 #include "food.h"
+#include "ql.h"
 
-const int gameScene()
+const int gameScene(const int mode)
 {
     // 双缓冲
     // 前台缓冲区
@@ -47,25 +48,29 @@ const int gameScene()
 
     while (true)
     {
-        // 检测按键判定移动方向
-        if (kbhit())
+        char ch = '\0';
+        if (mode == '1' && kbhit()) // 检测按键判定移动方向
         {
-            char ch = getch();
-            switch (ch)
-            {
-            case 'w':
-                snake.currentDir = snake.currentDir == DOWN ? snake.currentDir : UP;
-                break;
-            case 's':
-                snake.currentDir = snake.currentDir == UP ? snake.currentDir : DOWN;
-                break;
-            case 'a':
-                snake.currentDir = snake.currentDir == RIGHT ? snake.currentDir : LEFT;
-                break;
-            case 'd':
-                snake.currentDir = snake.currentDir == LEFT ? snake.currentDir : RIGHT;
-                break;
-            }
+            ch = getch();
+        }
+        else if (mode == '2') // AI play 模式自动玩耍
+        {
+            ch = qlMove(&snake, &food, -1, width, -1, height);
+        }
+        switch (ch)
+        {
+        case 'w':
+            snake.currentDir = snake.currentDir == DOWN ? snake.currentDir : UP;
+            break;
+        case 's':
+            snake.currentDir = snake.currentDir == UP ? snake.currentDir : DOWN;
+            break;
+        case 'a':
+            snake.currentDir = snake.currentDir == RIGHT ? snake.currentDir : LEFT;
+            break;
+        case 'd':
+            snake.currentDir = snake.currentDir == LEFT ? snake.currentDir : RIGHT;
+            break;
         }
 
         // 蛇移动
