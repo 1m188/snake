@@ -2,8 +2,8 @@
 #include "Windows.h"
 #include "stdio.h"
 #include "stdint.h"
-#include "../console.h"
-#include "../utility.h"
+#include "console.h"
+#include "utility.h"
 
 void highestscoreScene()
 {

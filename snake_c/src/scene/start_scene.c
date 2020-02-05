@@ -2,8 +2,8 @@
 #include "stdio.h"
 #include "stdint.h"
 #include "Windows.h"
-#include "../console.h"
-#include "../utility.h"
+#include "console.h"
+#include "utility.h"
 
 const int startScene()
 {

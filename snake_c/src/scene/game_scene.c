@@ -2,9 +2,9 @@
 #include "Windows.h"
 #include "stdbool.h"
 #include "stdio.h"
-#include "../console.h"
-#include "../snake.h"
-#include "../food.h"
+#include "console.h"
+#include "snake.h"
+#include "food.h"
 
 const int gameScene()
 {

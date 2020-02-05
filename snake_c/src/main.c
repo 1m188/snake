@@ -2,10 +2,10 @@
 #include "stdbool.h"
 #include "console.h"
 #include "utility.h"
-#include "scene/start_scene.h"
-#include "scene/game_scene.h"
-#include "scene/gameover_scene.h"
-#include "scene/highestscore_scene.h"
+#include "start_scene.h"
+#include "game_scene.h"
+#include "gameover_scene.h"
+#include "highestscore_scene.h"
 
 int main(int argc, char *argv[])
 {
