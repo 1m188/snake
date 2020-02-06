@@ -1,7 +1,9 @@
 #include "game_scene.h"
-#include "Windows.h"
 #include "stdbool.h"
 #include "stdio.h"
+#include "limits.h"
+#include "Windows.h"
+#include "process.h"
 #include "console.h"
 #include "snake.h"
 #include "food.h"
@@ -47,8 +49,24 @@ const int gameScene(const int mode)
     // 分数
     int score = 0;
 
+    // 用作计时函数中的次数增加
+    int number = 0;
+
+    // 启动另一个线程用作帧率计时
+    _beginthread(timing, 0, &number);
+
     while (true)
     {
+        // when number > 0, excute operations
+        if (number <= 0)
+        {
+            continue;
+        }
+        else
+        {
+            number--;
+        }
+
         char ch = '\0';
         if (mode == PLAYER_PLAY_OPT && kbhit()) // 检测按键判定移动方向
         {
@@ -91,6 +109,10 @@ const int gameScene(const int mode)
         // 判定蛇是否死亡
         if (isDead(&snake, -1, width, -1, height))
         {
+            number = INT_MIN; // set the number min value to tell the child thread exit
+            while (number != INT_MAX) // make sure that child thread has been exited
+            {
+            };
             break;
         }
 
@@ -115,8 +137,6 @@ const int gameScene(const int mode)
         // 更换当前缓冲区并且重新确定当前的后台缓冲区
         SetConsoleActiveScreenBuffer(backHandle);
         backHandle = backHandle == backgroundHandle ? mainHandle : backgroundHandle;
-
-        Sleep(100);
     }
 
     free(sp);
@@ -127,4 +147,21 @@ const int gameScene(const int mode)
     SetConsoleActiveScreenBuffer(mainHandle);
     system("cls");
     return score;
+}
+
+void timing(void *num)
+{
+    int *x = (int *)num;
+    int fac = 0;
+    while (*x >= 0) // if number >= 0 means that all ok, but if it < 0 means that snake has been dead, and this thread should exit
+    {
+        Sleep(1);
+        fac++;
+        if (fac == 60)
+        {
+            fac = 0;
+            (*x)++;
+        }
+    }
+    *x = INT_MAX; // set the number max value to tell the main thread that this thread has been done
 }
