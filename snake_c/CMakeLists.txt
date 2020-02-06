@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(snake_c)
+project(snake_c LANGUAGES C)
 
 file(GLOB_RECURSE sources src/*.c)
 add_executable(${PROJECT_NAME} ${sources})
@@ -18,6 +18,6 @@ function(target_include_directories_recurse target attr root)
 endfunction()
 target_include_directories_recurse(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-if(WIN32)
+if(MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /utf-8)
 endif()
