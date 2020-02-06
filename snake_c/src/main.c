@@ -19,23 +19,21 @@ int main(int argc, char *argv[])
     bool flag = true;
     while (flag)
     {
-        int result = startScene();
-
-        switch (result)
+        switch (startScene())
         {
-            // 新游戏
+        // 新游戏
         case NEWGAME_OPT:
-            result = playmodeScene();
-            if (result != RETURN_TO_MAIN_MENU_OPT)
+            int opt = playmodeScene();
+            if (opt != RETURN_TO_MAIN_MENU_OPT)
             {
-                gameoverScene(gameScene(result));
+                gameoverScene(gameScene(opt));
             }
             break;
-            //最高分
+        // 最高分
         case HIGHEST_SCORE_OPT:
             highestscoreScene();
             break;
-            //退出
+        // 退出
         case EXIT_OPT:
             // 写入最高分
             writeHighestScore(&HIGHEST_SCORE_INFO);

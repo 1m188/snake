@@ -13,7 +13,7 @@ void gameoverScene(const int score)
     int32_t height = size;
     int32_t width = size >> 32;
 
-    COORD coord = {width / 2 - 15, height / 2 - 5};
+    COORD coord = {width / 2 - 15, height / 2 - 3};
     setCursorPos(handle, &coord);
     printf("Game Over! Your score is: %d", score);
     // 记录最高分
@@ -21,10 +21,6 @@ void gameoverScene(const int score)
     {
         HIGHEST_SCORE_INFO.highestScore = score;
     }
-
-    coord.Y += 4;
-    setCursorPos(handle, &coord);
-    printf("Press any key to continue...");
 
     getKey(NULL, 0);
     system("cls");
