@@ -1,5 +1,4 @@
 #include "utility.h"
-
 #include "stdio.h"
 
 HighestScoreInfo HIGHEST_SCORE_INFO = {"highestscore.txt", -1};
