@@ -14,7 +14,7 @@ void highestscoreScene()
     int32_t width = size >> 32;
 
     COORD coord;
-    if (HIGHEST_SCORE < 0)
+    if (HIGHEST_SCORE_INFO.highestScore < 0)
     {
         coord.X = width / 2 - 25, coord.Y = height / 2 - 5;
         setCursorPos(handle, &coord);
@@ -24,7 +24,7 @@ void highestscoreScene()
     {
         coord.X = width / 2 - 13, coord.Y = height / 2 - 5;
         setCursorPos(handle, &coord);
-        printf("The highest score is: %d", HIGHEST_SCORE);
+        printf("The highest score is: %d", HIGHEST_SCORE_INFO.highestScore);
     }
 
     getKey(NULL, 0);

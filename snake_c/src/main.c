@@ -11,14 +11,14 @@
 int main(int argc, char *argv[])
 {
     // 读入最高分
-    FILE *f = fopen(HIGHEST_SCORE_FILE_NAME, "r");
+    FILE *f = fopen(HIGHEST_SCORE_INFO.highestScoreFileName, "r");
     if (!f)
     {
-        f = fopen(HIGHEST_SCORE_FILE_NAME, "w");
+        f = fopen(HIGHEST_SCORE_INFO.highestScoreFileName, "w");
     }
     else
     {
-        fscanf(f, "%d", &HIGHEST_SCORE);
+        fscanf(f, "%d", &HIGHEST_SCORE_INFO.highestScore);
     }
     fclose(f);
 
@@ -48,8 +48,8 @@ int main(int argc, char *argv[])
             //退出
         case '3':
             // 写入最高分
-            FILE *f = fopen(HIGHEST_SCORE_FILE_NAME, "w");
-            fprintf(f, "%d", HIGHEST_SCORE);
+            FILE *f = fopen(HIGHEST_SCORE_INFO.highestScoreFileName, "w");
+            fprintf(f, "%d", HIGHEST_SCORE_INFO.highestScore);
             fclose(f);
             flag = false;
             break;

@@ -2,11 +2,12 @@
 
 #include "stdbool.h"
 
-// 最高分数据记录文件
-extern const char *const HIGHEST_SCORE_FILE_NAME;
-
-// 当前最高分
-extern int HIGHEST_SCORE;
+typedef struct HighestScoreInfo
+{
+    const char *const highestScoreFileName; // 最高分数据记录文件
+    int highestScore; // 当前最高分
+} HighestScoreInfo;
+extern HighestScoreInfo HIGHEST_SCORE_INFO; // 记录最高分相关信息结构体实例
 
 // 阻塞获取按键，直到按键为keyList中的值为止
 // 传入按键列表和其长度

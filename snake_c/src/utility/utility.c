@@ -1,8 +1,6 @@
 #include "utility.h"
 
-const char * const HIGHEST_SCORE_FILE_NAME = "highestscore.txt";
-
-int HIGHEST_SCORE = -1;
+HighestScoreInfo HIGHEST_SCORE_INFO = {"highestscore.txt", -1};
 
 const int getKey(const char *const keyList, const unsigned int size)
 {
