@@ -1,6 +1,29 @@
 #include "utility.h"
 
+#include "stdio.h"
+
 HighestScoreInfo HIGHEST_SCORE_INFO = {"highestscore.txt", -1};
+
+void readHighestScore(HighestScoreInfo *const highestScoreInfo)
+{
+    FILE *f = fopen(highestScoreInfo->highestScoreFileName, "r");
+    if (!f) // 文件不存在则创建文件
+    {
+        f = fopen(highestScoreInfo->highestScoreFileName, "w");
+    }
+    else
+    {
+        fscanf(f, "%d", &highestScoreInfo->highestScore);
+    }
+    fclose(f);
+}
+
+void writeHighestScore(const HighestScoreInfo *const highestScoreInfo)
+{
+    FILE *f = fopen(highestScoreInfo->highestScoreFileName, "w");
+    fprintf(f, "%d", highestScoreInfo->highestScore);
+    fclose(f);
+}
 
 const int getKey(const char *const keyList, const unsigned int size)
 {

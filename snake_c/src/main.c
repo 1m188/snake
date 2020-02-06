@@ -1,4 +1,3 @@
-#include "stdio.h"
 #include "stdbool.h"
 #include "console.h"
 #include "utility.h"
@@ -11,16 +10,7 @@
 int main(int argc, char *argv[])
 {
     // 读入最高分
-    FILE *f = fopen(HIGHEST_SCORE_INFO.highestScoreFileName, "r");
-    if (!f)
-    {
-        f = fopen(HIGHEST_SCORE_INFO.highestScoreFileName, "w");
-    }
-    else
-    {
-        fscanf(f, "%d", &HIGHEST_SCORE_INFO.highestScore);
-    }
-    fclose(f);
+    readHighestScore(&HIGHEST_SCORE_INFO);
 
     // 初始化控制台信息
     initConsole();
@@ -48,9 +38,7 @@ int main(int argc, char *argv[])
             //退出
         case EXIT_OPT:
             // 写入最高分
-            FILE *f = fopen(HIGHEST_SCORE_INFO.highestScoreFileName, "w");
-            fprintf(f, "%d", HIGHEST_SCORE_INFO.highestScore);
-            fclose(f);
+            writeHighestScore(&HIGHEST_SCORE_INFO);
             flag = false;
             break;
         }
