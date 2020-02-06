@@ -6,6 +6,7 @@
 #include "snake.h"
 #include "food.h"
 #include "ql.h"
+#include "playmode_scene.h"
 
 const int gameScene(const int mode)
 {
@@ -49,11 +50,11 @@ const int gameScene(const int mode)
     while (true)
     {
         char ch = '\0';
-        if (mode == '1' && kbhit()) // 检测按键判定移动方向
+        if (mode == PLAYER_PLAY_OPT && kbhit()) // 检测按键判定移动方向
         {
             ch = getch();
         }
-        else if (mode == '2') // AI play 模式自动玩耍
+        else if (mode == AI_PLAY_OPT) // AI play 模式自动玩耍
         {
             ch = qlMove(&snake, &food, -1, width, -1, height);
         }

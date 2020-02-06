@@ -33,5 +33,5 @@ const int playmodeScene()
     int len = 3;
     int ch = getKey(keyList, len);
     system("cls");
-    return ch;
+    return ch - '0';
 }

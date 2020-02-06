@@ -34,19 +34,19 @@ int main(int argc, char *argv[])
         switch (result)
         {
             // 新游戏
-        case '1':
+        case NEWGAME_OPT:
             result = playmodeScene();
-            if (result != '3')
+            if (result != RETURN_TO_MAIN_MENU_OPT)
             {
                 gameoverScene(gameScene(result));
             }
             break;
             //最高分
-        case '2':
+        case HIGHEST_SCORE_OPT:
             highestscoreScene();
             break;
             //退出
-        case '3':
+        case EXIT_OPT:
             // 写入最高分
             FILE *f = fopen(HIGHEST_SCORE_INFO.highestScoreFileName, "w");
             fprintf(f, "%d", HIGHEST_SCORE_INFO.highestScore);
