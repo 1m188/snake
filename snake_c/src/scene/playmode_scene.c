@@ -19,20 +19,24 @@ const int playmodeScene()
     setCursorPos(h, &c);
     printf(text);
 
-    text = "1. player play.";
+    text = "1. Classic Mode.";
     c.X = width / 2 - strlen(text) / 2, c.Y += 4;
     setCursorPos(h, &c);
     printf(text);
 
     c.Y += 3;
     setCursorPos(h, &c);
-    printf("2. AI play.");
+    printf("2. Endless Mode.");
 
     c.Y += 3;
     setCursorPos(h, &c);
-    printf("3. return to main menu.");
+    printf("3. AI Play.");
 
-    char keyList[] = {'1', '2', '3', '\0'};
+    c.Y += 3;
+    setCursorPos(h, &c);
+    printf("4. Return To Main Menu.");
+
+    char keyList[] = {'1', '2', '3', '4', '\0'};
     int ch = getKey(keyList, strlen(keyList));
     system("cls");
     return ch - '0';

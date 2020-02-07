@@ -68,7 +68,7 @@ const int gameScene(const int mode)
         }
 
         char ch = '\0';
-        if (mode == PLAYER_PLAY_OPT && kbhit()) // 检测按键判定移动方向
+        if (mode != AI_PLAY_OPT && kbhit()) // 检测按键判定移动方向
         {
             ch = getch();
         }
@@ -93,7 +93,7 @@ const int gameScene(const int mode)
         }
 
         // 蛇移动
-        move(&snake);
+        move(&snake, mode, -1, height, -1, width);
 
         // 判定蛇是否吃到食物
         if (isGetFood(&snake, &food))
@@ -107,9 +107,9 @@ const int gameScene(const int mode)
         }
 
         // 判定蛇是否死亡
-        if (isDead(&snake, -1, width, -1, height))
+        if (isDead(&snake, mode, -1, height, -1, width))
         {
-            number = INT_MIN; // set the number min value to tell the child thread exit
+            number = INT_MIN;         // set the number min value to tell the child thread exit
             while (number != INT_MAX) // make sure that child thread has been exited
             {
             };

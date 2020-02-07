@@ -1,5 +1,6 @@
 #include "snake.h"
 #include "malloc.h"
+#include "playmode_scene.h"
 
 void initSnake(Snake *const snake, const int bodyNum, const char headC, const char bodyC, const int initDir, const COORD *const headPos)
 {
@@ -46,7 +47,7 @@ void initSnake(Snake *const snake, const int bodyNum, const char headC, const ch
     }
 }
 
-void move(Snake *const snake)
+void move(Snake *const snake, const int mode, const int topLimit, const int bottomLimit, const int leftLimit, const int rightLimit)
 {
     int i;
     for (i = snake->len - 1; i > 0; i--)
@@ -70,9 +71,30 @@ void move(Snake *const snake)
         snake->pos[0].X++;
         break;
     }
+
+    // endless mode
+    if (mode == ENDLESS_MODE_OPT)
+    {
+        if (snake->pos[0].X == leftLimit)
+        {
+            snake->pos[0].X = rightLimit - 1;
+        }
+        else if (snake->pos[0].X == rightLimit)
+        {
+            snake->pos[0].X = leftLimit + 1;
+        }
+        else if (snake->pos[0].Y == topLimit)
+        {
+            snake->pos[0].Y = bottomLimit - 1;
+        }
+        else if (snake->pos[0].Y == bottomLimit)
+        {
+            snake->pos[0].Y = topLimit + 1;
+        }
+    }
 }
 
-const bool isDead(const Snake *const snake, const int leftLimit, const int rightLimit, const int topLimit, const int bottomLimit)
+const bool isDead(const Snake *const snake, const int mode, const int topLimit, const int bottomLimit, const int leftLimit, const int rightLimit)
 {
     int headX = snake->pos[0].X;
     int headY = snake->pos[0].Y;
@@ -88,5 +110,11 @@ const bool isDead(const Snake *const snake, const int leftLimit, const int right
     }
 
     // 判定是否撞到边界
-    return headX <= leftLimit || headX >= rightLimit || headY <= topLimit || headY >= bottomLimit;
+    // endless mode
+    if (mode != ENDLESS_MODE_OPT && (headX <= leftLimit || headX >= rightLimit || headY <= topLimit || headY >= bottomLimit))
+    {
+        return true;
+    }
+
+    return false;
 }

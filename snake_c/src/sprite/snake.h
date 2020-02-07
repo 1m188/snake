@@ -24,7 +24,10 @@ typedef struct Snake
 void initSnake(Snake *const snake, const int bodyNum, const char headC, const char bodyC, const int initDir, const COORD *const headPos);
 
 // 蛇移动
-void move(Snake *const snake);
+// input args: snake struct, play mode, the left, right, top, and bottom border of the map
+void move(Snake *const snake, const int mode, const int topLimit, const int bottomLimit, const int leftLimit, const int rightLimit);
 
 // 判定蛇是否死亡
-const bool isDead(const Snake *const snake, const int leftLimit, const int rightLimit, const int topLimit, const int bottomLimit);
+// input args: snake struct, play mode, the left, right, top, and bottom border of the map
+// return: if the snake has been dead
+const bool isDead(const Snake *const snake, const int mode, const int topLimit, const int bottomLimit, const int leftLimit, const int rightLimit);
