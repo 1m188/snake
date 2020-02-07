@@ -162,15 +162,14 @@ const int gameScene(const int mode)
 void timing(void *num)
 {
     int *x = (int *)num;
-    int fac = 0;
+    clock_t start = clock(), end = clock();
     while (*x >= 0) // if number >= 0 means that all ok, but if it < 0 means that snake has been dead, and this thread should exit
     {
-        Sleep(1);
-        fac++;
-        if (fac == 60)
+        end = clock();
+        if ((double)(end - start) / CLOCKS_PER_SEC * 1000 >= 100)
         {
-            fac = 0;
             (*x)++;
+            start = clock();
         }
     }
     *x = INT_MAX; // set the number max value to tell the main thread that this thread has been done
