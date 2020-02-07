@@ -34,6 +34,9 @@ const int gameScene(const int mode)
     int width = consoleInfo.dwSize.X, height = consoleInfo.dwSize.Y;
     int len = width * height;
 
+    // map border array
+    const int mapBorder[4] = {-1, height, -1, width};
+
     // 用来清空缓冲区的缓冲
     char *sp = (char *)malloc(len);
     memset(sp, ' ', len);
@@ -74,7 +77,7 @@ const int gameScene(const int mode)
         }
         else if (mode == AI_PLAY_OPT) // AI play 模式自动玩耍
         {
-            ch = qlMove(&snake, &food, -1, width, -1, height);
+            ch = qlMove(&snake, &food, mapBorder);
         }
         switch (ch)
         {
@@ -93,7 +96,7 @@ const int gameScene(const int mode)
         }
 
         // 蛇移动
-        move(&snake, mode, -1, height, -1, width);
+        move(&snake, mode, mapBorder);
 
         // 判定蛇是否吃到食物
         if (isGetFood(&snake, &food))
@@ -107,7 +110,7 @@ const int gameScene(const int mode)
         }
 
         // 判定蛇是否死亡
-        if (isDead(&snake, mode, -1, height, -1, width))
+        if (isDead(&snake, mode, mapBorder))
         {
             number = INT_MIN;         // set the number min value to tell the child thread exit
             while (number != INT_MAX) // make sure that child thread has been exited

@@ -47,7 +47,7 @@ void initSnake(Snake *const snake, const int bodyNum, const char headC, const ch
     }
 }
 
-void move(Snake *const snake, const int mode, const int topLimit, const int bottomLimit, const int leftLimit, const int rightLimit)
+void move(Snake *const snake, const int mode, const int *const mapBorder)
 {
     int i;
     for (i = snake->len - 1; i > 0; i--)
@@ -75,26 +75,27 @@ void move(Snake *const snake, const int mode, const int topLimit, const int bott
     // endless mode
     if (mode == ENDLESS_MODE_OPT)
     {
-        if (snake->pos[0].X == leftLimit)
+        int top = mapBorder[0], bottom = mapBorder[1], left = mapBorder[2], right = mapBorder[3];
+        if (snake->pos[0].X == left)
         {
-            snake->pos[0].X = rightLimit - 1;
+            snake->pos[0].X = right - 1;
         }
-        else if (snake->pos[0].X == rightLimit)
+        else if (snake->pos[0].X == right)
         {
-            snake->pos[0].X = leftLimit + 1;
+            snake->pos[0].X = left + 1;
         }
-        else if (snake->pos[0].Y == topLimit)
+        else if (snake->pos[0].Y == top)
         {
-            snake->pos[0].Y = bottomLimit - 1;
+            snake->pos[0].Y = bottom - 1;
         }
-        else if (snake->pos[0].Y == bottomLimit)
+        else if (snake->pos[0].Y == bottom)
         {
-            snake->pos[0].Y = topLimit + 1;
+            snake->pos[0].Y = top + 1;
         }
     }
 }
 
-const bool isDead(const Snake *const snake, const int mode, const int topLimit, const int bottomLimit, const int leftLimit, const int rightLimit)
+const bool isDead(const Snake *const snake, const int mode, const int *const mapBorder)
 {
     int headX = snake->pos[0].X;
     int headY = snake->pos[0].Y;
@@ -111,7 +112,7 @@ const bool isDead(const Snake *const snake, const int mode, const int topLimit, 
 
     // 判定是否撞到边界
     // endless mode
-    if (mode != ENDLESS_MODE_OPT && (headX <= leftLimit || headX >= rightLimit || headY <= topLimit || headY >= bottomLimit))
+    if (mode != ENDLESS_MODE_OPT && (headX <= mapBorder[2] || headX >= mapBorder[3] || headY <= mapBorder[0] || headY >= mapBorder[1]))
     {
         return true;
     }

@@ -3,7 +3,7 @@
 #include "float.h"
 #include "Windows.h"
 
-const char qlMove(const Snake *const snake, const Food *const food, const int leftLim, const int rightLim, const int upLim, const int downLim)
+const char qlMove(const Snake *const snake, const Food *const food, const int *const mapBorder)
 {
     COORD head = snake->pos[0];
 
@@ -26,7 +26,7 @@ const char qlMove(const Snake *const snake, const Food *const food, const int le
     for (i = 0; i < 4; i++)
     {
         COORD c = actionSet[i];
-        if (c.X <= leftLim || c.X >= rightLim || c.Y <= upLim || c.Y >= downLim)
+        if (c.X <= mapBorder[2] || c.X >= mapBorder[3] || c.Y <= mapBorder[0] || c.Y >= mapBorder[1])
         {
             q[i] = DBL_MAX;
         }
