@@ -77,12 +77,18 @@ const int gameScene(const int mode)
 
         // get input for changing snake's direction
         char ch = '\0';
-        if (playerMode == PLAYER_PLAY_OPT && kbhit()) // 检测按键判定移动方向
+        if (playerMode == PLAYER_PLAY_OPT)
         {
-            ch = getch();
+            // 检测按键判定移动方向
+            if (kbhit())
+            {
+                ch = getch();
+            }
         }
         else if (playerMode == AI_PLAY_OPT) // AI play 模式自动玩耍
         {
+            if (playMode == CLASSIC_MODE_OPT)
+            {
             ch = qlPressKey(&snake, &food, mapBorder);
         }
         switch (ch)
