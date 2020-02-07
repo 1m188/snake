@@ -3,7 +3,7 @@
 #include "float.h"
 #include "Windows.h"
 
-const char qlMove(const Snake *const snake, const Food *const food, const int *const mapBorder)
+const char qlPressKey(const Snake *const snake, const Food *const food, const int *const mapBorder)
 {
     COORD head = snake->pos[0];
 

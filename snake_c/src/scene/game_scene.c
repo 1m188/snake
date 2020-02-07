@@ -77,7 +77,7 @@ const int gameScene(const int mode)
         }
         else if (mode == AI_PLAY_OPT) // AI play 模式自动玩耍
         {
-            ch = qlMove(&snake, &food, mapBorder);
+            ch = qlPressKey(&snake, &food, mapBorder);
         }
         switch (ch)
         {
