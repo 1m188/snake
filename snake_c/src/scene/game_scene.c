@@ -12,6 +12,10 @@
 
 const int gameScene(const int mode)
 {
+    // get the bit of the mode, and judge if player play and classic mode
+    const int playMode = (mode & 0x01) ? ENDLESS_MODE_OPT : CLASSIC_MODE_OPT;
+    const int playerMode = (mode & 0x02) ? AI_PLAY_OPT : PLAYER_PLAY_OPT;
+
     // 双缓冲
     // 前台缓冲区
     const HANDLE mainHandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -73,11 +77,11 @@ const int gameScene(const int mode)
 
         // get input for changing snake's direction
         char ch = '\0';
-        if (mode != AI_PLAY_OPT && kbhit()) // 检测按键判定移动方向
+        if (playerMode == PLAYER_PLAY_OPT && kbhit()) // 检测按键判定移动方向
         {
             ch = getch();
         }
-        else if (mode == AI_PLAY_OPT) // AI play 模式自动玩耍
+        else if (playerMode == AI_PLAY_OPT) // AI play 模式自动玩耍
         {
             ch = qlPressKey(&snake, &food, mapBorder);
         }
@@ -98,7 +102,7 @@ const int gameScene(const int mode)
         }
 
         // 蛇移动
-        move(&snake, mode, mapBorder);
+        move(&snake, playMode, mapBorder);
 
         // 判定蛇是否吃到食物
         if (isGetFood(&snake, &food))
@@ -112,7 +116,7 @@ const int gameScene(const int mode)
         }
 
         // 判定蛇是否死亡
-        if (isDead(&snake, mode, mapBorder))
+        if (isDead(&snake, playMode, mapBorder))
         {
             number = INT_MIN;         // set the number min value to tell the child thread exit
             while (number != INT_MAX) // make sure that child thread has been exited
