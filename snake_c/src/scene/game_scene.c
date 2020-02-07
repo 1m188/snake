@@ -24,6 +24,7 @@ const int gameScene(const int mode)
     // 当前后台缓冲区
     HANDLE backHandle = backgroundHandle;
 
+    // used for painting
     COORD coord = {0, 0};
     DWORD b;
 
@@ -70,6 +71,7 @@ const int gameScene(const int mode)
             number--;
         }
 
+        // get input for changing snake's direction
         char ch = '\0';
         if (mode != AI_PLAY_OPT && kbhit()) // 检测按键判定移动方向
         {
@@ -119,6 +121,7 @@ const int gameScene(const int mode)
             break;
         }
 
+        // paint
         // 清空后台缓冲区
         coord.X = 0, coord.Y = 0;
         WriteConsoleOutputCharacter(backHandle, sp, len, coord, &b);
