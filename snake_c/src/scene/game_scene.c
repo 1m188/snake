@@ -2,6 +2,7 @@
 #include "stdbool.h"
 #include "stdio.h"
 #include "limits.h"
+#include "time.h"
 #include "Windows.h"
 #include "process.h"
 #include "console.h"
@@ -89,7 +90,12 @@ const int gameScene(const int mode)
         {
             if (playMode == CLASSIC_MODE_OPT)
             {
-            ch = qlPressKey(&snake, &food, mapBorder);
+                ch = qlPressKey(&snake, &food, mapBorder);
+            }
+            else if (playMode == ENDLESS_MODE_OPT)
+            {
+                ch = qlPressKeyEndless(&snake, &food, mapBorder);
+            }
         }
         switch (ch)
         {
