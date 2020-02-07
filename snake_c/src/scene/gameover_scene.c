@@ -17,7 +17,7 @@ void gameoverScene(const int score)
     // generate the text will be printed
     char text[50];
     memset(text, '\0', 50);
-    strcpy(text, "Game Over! Your score is: ");
+    strcpy(text, "Game over! Your score is: ");
     sprintf(text + strlen(text), "%d", score);
 
     COORD c = {width / 2 - strlen(text) / 2, height / 2 - 3};

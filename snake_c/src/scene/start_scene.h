@@ -1,7 +1,7 @@
 #pragma once
 
-#define NEWGAME_OPT 1
-#define HIGHEST_SCORE_OPT 2
+#define NEWGAME_OPT 1       // new game
+#define HIGHEST_SCORE_OPT 2 // highest score
 #define EXIT_OPT 3
 
 // 开始场景

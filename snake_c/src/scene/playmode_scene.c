@@ -14,27 +14,27 @@ const int playmodeScene()
     int32_t height = size;
     int32_t width = size >> 32;
 
-    const char *text = "Play Mode Choose";
+    const char *text = "Play mode choose";
     COORD c = {width / 2 - strlen(text) / 2, height / 2 - 10};
     setCursorPos(h, &c);
     printf(text);
 
-    text = "1. Classic Mode.";
+    text = "1. Classic mode.";
     c.X = width / 2 - strlen(text) / 2, c.Y += 4;
     setCursorPos(h, &c);
     printf(text);
 
     c.Y += 3;
     setCursorPos(h, &c);
-    printf("2. Endless Mode.");
+    printf("2. Endless mode.");
 
     c.Y += 3;
     setCursorPos(h, &c);
-    printf("3. AI Play.");
+    printf("3. AI play.");
 
     c.Y += 3;
     setCursorPos(h, &c);
-    printf("4. Return To Main Menu.");
+    printf("4. Return to main menu.");
 
     char keyList[] = {'1', '2', '3', '4', '\0'};
     int ch = getKey(keyList, strlen(keyList));

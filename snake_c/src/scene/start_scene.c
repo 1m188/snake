@@ -19,18 +19,18 @@ const int startScene()
     setCursorPos(h, &c);
     printf(text);
 
-    text = "1. New Game.";
+    text = "1. New game.";
     c.X = width / 2 - strlen(text) / 2, c.Y += 4;
     setCursorPos(h, &c);
     printf(text);
 
     c.Y += 3;
     setCursorPos(h, &c);
-    printf("2. Highest Score.");
+    printf("2. Highest score.");
 
     c.Y += 3;
     setCursorPos(h, &c);
-    printf("3. exit.");
+    printf("3. Exit.");
 
     char keyList[] = {'1', '2', '3', '\0'};
     int ch = getKey(keyList, strlen(keyList));
