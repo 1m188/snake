@@ -58,7 +58,7 @@ const int gameScene(const int mode)
     // 分数
     int score = 0;
 
-    // 用作计时函数中的次数增加
+    // 指示是否执行游戏流程
     int number = 0;
 
     // 启动另一个线程用作帧率计时
