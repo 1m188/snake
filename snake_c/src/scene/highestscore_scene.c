@@ -16,7 +16,7 @@ void highestscoreScene()
 
     char text[100];
     memset(text, '\0', 100);
-    if (HIGHEST_SCORE_INFO.highestScore < 0)
+    if (HIGHEST_SCORE_INFO.highestScore < 0 || !HIGHEST_SCORE_INFO.name)
     {
         strcpy(text, "There are no highest score. Waiting for you to creating!");
     }
@@ -24,6 +24,8 @@ void highestscoreScene()
     {
         strcpy(text, "The highest score is: ");
         sprintf(text + strlen(text), "%d", HIGHEST_SCORE_INFO.highestScore);
+        strcat(text, "   owener: ");
+        strcat(text, HIGHEST_SCORE_INFO.name);
     }
     COORD c = {width / 2 - strlen(text) / 2, height / 2 - 5};
     setCursorPos(h, &c);

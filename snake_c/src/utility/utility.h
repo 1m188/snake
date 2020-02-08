@@ -6,6 +6,7 @@ typedef struct HighestScoreInfo
 {
     const char *const highestScoreFileName; // 最高分数据记录文件
     int highestScore;                       // 当前最高分
+    char *name;                             // 最高分保持者
 } HighestScoreInfo;
 extern HighestScoreInfo HIGHEST_SCORE_INFO; // 记录最高分相关信息结构体实例
 

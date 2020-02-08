@@ -1,7 +1,9 @@
 #include "utility.h"
 #include "stdio.h"
+#include "string.h"
+#include "malloc.h"
 
-HighestScoreInfo HIGHEST_SCORE_INFO = {"highestscore.txt", -1};
+HighestScoreInfo HIGHEST_SCORE_INFO = {"highestscore.txt", -1, NULL};
 
 void readHighestScore(HighestScoreInfo *const highestScoreInfo)
 {
@@ -12,7 +14,16 @@ void readHighestScore(HighestScoreInfo *const highestScoreInfo)
     }
     else
     {
+        // 读入分数
         fscanf(f, "%d", &highestScoreInfo->highestScore);
+
+        // 读入最高分保持者名字
+        char temp[100];
+        memset(temp, '\0', 100);
+        fscanf(f, "%s", temp);
+        highestScoreInfo->name = (char *)malloc((strlen(temp) + 1) * sizeof(char));
+        memset(highestScoreInfo->name, '\0', (strlen(temp) + 1) * sizeof(char));
+        strcpy(highestScoreInfo->name, temp);
     }
     fclose(f);
 }
@@ -21,6 +32,9 @@ void writeHighestScore(const HighestScoreInfo *const highestScoreInfo)
 {
     FILE *f = fopen(highestScoreInfo->highestScoreFileName, "w");
     fprintf(f, "%d", highestScoreInfo->highestScore);
+    fprintf(f, "%s", " ");
+    fprintf(f, "%s", highestScoreInfo->name);
+    free(highestScoreInfo->name);
     fclose(f);
 }
 
