@@ -14,8 +14,8 @@ void highestscoreScene()
     int32_t height = size;
     int32_t width = size >> 32;
 
-    char text[50];
-    memset(text, '\0', 50);
+    char text[100];
+    memset(text, '\0', 100);
     if (HIGHEST_SCORE_INFO.highestScore < 0)
     {
         strcpy(text, "There are no highest score. Waiting for you to creating!");
