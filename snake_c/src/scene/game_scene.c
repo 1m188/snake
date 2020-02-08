@@ -6,6 +6,7 @@
 #include "Windows.h"
 #include "process.h"
 #include "console.h"
+#include "utility.h"
 #include "snake.h"
 #include "food.h"
 #include "ql.h"
@@ -166,6 +167,7 @@ const int gameScene(const int mode)
     free(snake.pos);
     snake.pos = NULL;
 
+    getKey(NULL, 0);
     SetConsoleActiveScreenBuffer(mainHandle);
     system("cls");
     return score;
