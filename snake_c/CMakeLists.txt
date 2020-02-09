@@ -1,4 +1,9 @@
 cmake_minimum_required(VERSION 3.15)
+
+if(NOT WIN32)
+    message(FATAL_ERROR "Platform is not windows, and this project can just run in windows.")
+endif()
+
 project(snake_c LANGUAGES C)
 
 file(GLOB_RECURSE sources src/*.c)
