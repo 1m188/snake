@@ -9,7 +9,7 @@
 #include "utility.h"
 #include "snake.h"
 #include "food.h"
-#include "ql.h"
+#include "auto.h"
 #include "playmode_scene.h"
 
 const int gameScene(const int mode)
@@ -91,11 +91,11 @@ const int gameScene(const int mode)
         {
             if (playMode == CLASSIC_MODE_OPT)
             {
-                ch = qlPressKey(&snake, &food, mapBorder);
+                ch = autoPressKey(&snake, &food, mapBorder);
             }
             else if (playMode == ENDLESS_MODE_OPT)
             {
-                ch = qlPressKeyEndless(&snake, &food, mapBorder);
+                ch = autoPressKeyEndless(&snake, &food, mapBorder);
             }
         }
         switch (ch)

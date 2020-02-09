@@ -1,9 +1,9 @@
-#include "ql.h"
+#include "auto.h"
 #include "math.h"
 #include "float.h"
 #include "Windows.h"
 
-const char qlPressKey(const Snake *const snake, const Food *const food, const int *const mapBorder)
+const char autoPressKey(const Snake *const snake, const Food *const food, const int *const mapBorder)
 {
     COORD head = snake->pos[0];
 
@@ -11,7 +11,7 @@ const char qlPressKey(const Snake *const snake, const Food *const food, const in
     // the order is: up down left right
     COORD actionSet[4] = {{head.X, head.Y - 1}, {head.X, head.Y + 1}, {head.X - 1, head.Y}, {head.X + 1, head.Y}};
 
-    // q table
+    // score table
     // the distance from the point in the action set to the food's pos
     double q[4];
     int i;
@@ -67,14 +67,14 @@ const char qlPressKey(const Snake *const snake, const Food *const food, const in
     }
 }
 
-const char qlPressKeyEndless(const Snake *const snake, const Food *const food, const int *const mapBorder)
+const char autoPressKeyEndless(const Snake *const snake, const Food *const food, const int *const mapBorder)
 {
     COORD head = snake->pos[0];
     // action set
     // the order is: up down left right
     COORD actionSet[4] = {{head.X, head.Y - 1}, {head.X, head.Y + 1}, {head.X - 1, head.Y}, {head.X + 1, head.Y}};
 
-    // q table
+    // score table
     // the distance from the point in the action set to the food's pos
     double q[4];
     int i;
