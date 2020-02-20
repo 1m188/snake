@@ -29,3 +29,6 @@ snake_pyqt5/env
 snake_qt5/config.ini
 # 忽略snake_qt5的生成文件
 snake_qt5/build
+
+# 虚拟环境
+snake_pygame/env
