@@ -1,8 +1,10 @@
 from enum import Enum
+from random import randint
 import pygame
 import config
 
 
+# 方向
 class Direction(Enum):
     UP = (0, -1)
     DOWN = (0, 1)
@@ -10,22 +12,26 @@ class Direction(Enum):
     RIGHT = (1, 0)
 
 
+# 蛇
 class Snake:
     def __init__(self):
         self.pos = [(2, 2), (1, 2)]
         self.curDir = Direction.RIGHT
         pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, config.snakeMoveTimeInr)
 
+    # 蛇的移动
     def move(self):
         self.pos.pop(-1)
         head = self.pos[0]
         newHead = (head[0] + self.curDir.value[0], head[1] + self.curDir.value[1])
         self.pos.insert(0, newHead)
 
+    # 控制方向
     def ctrlDir(self, d: Direction):
         if (d == Direction.UP and self.curDir != Direction.DOWN) or (d == Direction.DOWN and self.curDir != Direction.UP) or (d == Direction.LEFT and self.curDir != Direction.RIGHT) or (d == Direction.RIGHT and self.curDir != Direction.LEFT):
             self.curDir = d
 
+    # 判断是否死亡
     def isDead(self) -> bool:
         head = self.pos[0]
         if head[0] < 0 or head[0] > config.horzInrNum - 1 or head[1] < 0 or head[1] > config.vertInrNum - 1:
@@ -35,8 +41,40 @@ class Snake:
                 return True
         return False
 
+    # 判断是否吃到食物
+    def isGetFood(self, food) -> bool:
+        return self.pos[0] == food.pos
+
     def draw(self, screen: pygame.surface.Surface):
         for pos in self.pos:
             rect = pygame.rect.Rect(pos[0] * config.horzInr, pos[1] * config.vertInr, config.horzInr + 2, config.vertInr + 2)
             color = (0, 0, 255)
             screen.fill(color, rect)
+
+
+# 食物
+class Food:
+    def __init__(self):
+        self.pos = None
+
+    # 随机生成食物，确保食物的坐标和之前的坐标以及蛇身的坐标不重合
+    def randGenPos(self, snake: Snake):
+        pos = None
+        while True:
+            pos = (randint(0, config.horzInrNum - 1), randint(0, config.vertInrNum - 1))
+            if pos == self.pos:
+                continue
+            isContinue = False
+            for p in snake.pos:
+                if pos == p:
+                    isContinue = True
+                    break
+            if isContinue:
+                continue
+            break
+        self.pos = pos
+
+    def draw(self, screen: pygame.surface.Surface):
+        color = (255, 0, 255)
+        rect = pygame.rect.Rect(self.pos[0] * config.horzInr, self.pos[1] * config.vertInr, config.horzInr, config.vertInr)
+        pygame.draw.ellipse(screen, color, rect)

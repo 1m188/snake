@@ -1,7 +1,7 @@
 import sys
 import pygame
 import config
-from sprite import Snake, Direction
+from sprite import Snake, Direction, Food
 
 pygame.init()
 
@@ -9,6 +9,8 @@ config.screen = pygame.display.set_mode(config.size)
 pygame.display.set_caption("Snake")
 
 snake = Snake()
+food = Food()
+food.randGenPos(snake)
 
 clock = pygame.time.Clock()
 
@@ -34,6 +36,10 @@ while True:
 
     if snake.isDead():
         snake = Snake()
+        food.randGenPos(snake)
+
+    if snake.isGetFood(food):
+        food.randGenPos(snake)
 
     config.screen.fill((255, 255, 255))
 
@@ -43,5 +49,7 @@ while True:
         pygame.draw.line(config.screen, (0, 0, 0), (i * config.horzInr, 0), (i * config.horzInr, config.height))
 
     snake.draw(config.screen)
+
+    food.draw(config.screen)
 
     pygame.display.flip()
