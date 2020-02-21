@@ -9,3 +9,6 @@ vertInrNum = 15
 # 水平/垂直方向间隔大小
 horzInr = width / horzInrNum
 vertInr = height / vertInrNum
+
+snakeMoveEventID = 1
+snakeMoveTimeInr = 300
