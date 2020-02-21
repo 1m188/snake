@@ -1,15 +1,10 @@
 import sys
 import pygame
-
-size = (width, height) = (500, 500)
-horzInrNum = 15
-vertInrNum = 15
-horzInr = width / horzInrNum
-vertInr = height / vertInrNum
+import config
 
 pygame.init()
 
-screen = pygame.display.set_mode(size)
+config.screen = pygame.display.set_mode(config.size)
 pygame.display.set_caption("Snake")
 
 clock = pygame.time.Clock()
@@ -21,11 +16,11 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
 
-    screen.fill((255, 255, 255))
+    config.screen.fill((255, 255, 255))
 
-    for i in range(vertInrNum):
-        pygame.draw.line(screen, (0, 0, 0), (0, i * vertInr), (width, i * vertInr))
-    for i in range(1, horzInrNum):
-        pygame.draw.line(screen, (0, 0, 0), (i * horzInr, 0), (i * horzInr, height))
+    for i in range(config.vertInrNum):
+        pygame.draw.line(config.screen, (0, 0, 0), (0, i * config.vertInr), (config.width, i * config.vertInr))
+    for i in range(1, config.horzInrNum):
+        pygame.draw.line(config.screen, (0, 0, 0), (i * config.horzInr, 0), (i * config.horzInr, config.height))
 
     pygame.display.flip()
