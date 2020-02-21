@@ -45,6 +45,14 @@ class Snake:
     def isGetFood(self, food) -> bool:
         return self.pos[0] == food.pos
 
+    # 吃到食物之后的增长
+    def grow(self):
+        tail = self.pos[-1]
+        secondTail = self.pos[-2]
+        newTail = (tail[0] + tail[0] - secondTail[0], tail[1] + tail[1] - secondTail[1])
+        self.pos.append(newTail)
+
+    # 绘制
     def draw(self, screen: pygame.surface.Surface):
         for pos in self.pos:
             rect = pygame.rect.Rect(pos[0] * config.horzInr, pos[1] * config.vertInr, config.horzInr + 2, config.vertInr + 2)
@@ -74,6 +82,7 @@ class Food:
             break
         self.pos = pos
 
+    # 绘制
     def draw(self, screen: pygame.surface.Surface):
         color = (255, 0, 255)
         rect = pygame.rect.Rect(self.pos[0] * config.horzInr, self.pos[1] * config.vertInr, config.horzInr, config.vertInr)

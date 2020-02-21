@@ -39,6 +39,7 @@ while True:
         food.randGenPos(snake)
 
     if snake.isGetFood(food):
+        snake.grow()
         food.randGenPos(snake)
 
     config.screen.fill((255, 255, 255))
