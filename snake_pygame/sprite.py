@@ -19,6 +19,9 @@ class Snake:
         self.curDir = Direction.RIGHT
         pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, config.snakeMoveTimeInr)
 
+    def acc(self, isAcc: bool):
+        pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, int(config.snakeMoveTimeInr / 3) if isAcc else config.snakeMoveTimeInr)
+
     # 蛇的移动
     def move(self):
         self.pos.pop(-1)

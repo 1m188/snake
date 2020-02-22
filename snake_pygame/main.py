@@ -21,16 +21,21 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            d = snake.curDir
-            if event.key == pygame.K_w:
-                d = Direction.UP
-            elif event.key == pygame.K_s:
-                d = Direction.DOWN
-            elif event.key == pygame.K_a:
-                d = Direction.LEFT
-            elif event.key == pygame.K_d:
-                d = Direction.RIGHT
-            snake.ctrlDir(d)
+            if event.key == pygame.K_SPACE:
+                snake.acc(True)
+            else:
+                d = snake.curDir
+                if event.key == pygame.K_w:
+                    d = Direction.UP
+                elif event.key == pygame.K_s:
+                    d = Direction.DOWN
+                elif event.key == pygame.K_a:
+                    d = Direction.LEFT
+                elif event.key == pygame.K_d:
+                    d = Direction.RIGHT
+                snake.ctrlDir(d)
+        elif event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
+            snake.acc(False)
         elif event.type == pygame.USEREVENT + config.snakeMoveEventID:
             snake.move()
 
