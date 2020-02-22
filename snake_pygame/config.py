@@ -10,5 +10,6 @@ vertInrNum = 15
 horzInr = width / horzInrNum
 vertInr = height / vertInrNum
 
+# 蛇移动事件
 snakeMoveEventID = 1
-snakeMoveTimeInr = 300
+snakeMoveTimeInr = 200
