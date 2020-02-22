@@ -25,13 +25,13 @@ while True:
                 snake.acc(True)
             else:
                 d = snake.curDir
-                if event.key == pygame.K_w:
+                if event.key == pygame.K_UP:
                     d = Direction.UP
-                elif event.key == pygame.K_s:
+                elif event.key == pygame.K_DOWN:
                     d = Direction.DOWN
-                elif event.key == pygame.K_a:
+                elif event.key == pygame.K_LEFT:
                     d = Direction.LEFT
-                elif event.key == pygame.K_d:
+                elif event.key == pygame.K_RIGHT:
                     d = Direction.RIGHT
                 snake.ctrlDir(d)
         elif event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
