@@ -28,7 +28,8 @@ class Snake:
 
     # 控制方向
     def ctrlDir(self, d: Direction):
-        if (d == Direction.UP and self.curDir != Direction.DOWN) or (d == Direction.DOWN and self.curDir != Direction.UP) or (d == Direction.LEFT and self.curDir != Direction.RIGHT) or (d == Direction.RIGHT and self.curDir != Direction.LEFT):
+        curDir = Direction((self.pos[0][0] - self.pos[1][0], self.pos[0][1] - self.pos[1][1]))  # 这里使用的方向是用当前坐标计算的实际方向，而不是保存的应该的方向。防止在尚未移动的时候就转换了方向导致绘制的时候出现反常情况。
+        if (d == Direction.UP and curDir != Direction.DOWN) or (d == Direction.DOWN and curDir != Direction.UP) or (d == Direction.LEFT and curDir != Direction.RIGHT) or (d == Direction.RIGHT and curDir != Direction.LEFT):
             self.curDir = d
 
     # 判断是否死亡
