@@ -13,6 +13,10 @@ class Scene:
         self.fps = fps
         self.isRunning = False
 
+    def appExit(self):
+        config.HighestScore.saveHighestScore()
+        sys.exit()
+
     # 场景开始之前的准备
     def prepare(self):
         pass
@@ -40,7 +44,7 @@ class Scene:
             self.fpsClock.tick_busy_loop(self.fps)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    sys.exit()
+                    self.appExit()
                 else:
                     self.eventHandle(event)
             self.update()
@@ -98,9 +102,10 @@ class StartScene(Scene):
                 self.isRunning = False
                 config.curScene = GameScene(False)
             elif event.signal == self.highestScoreBtn.clicked:  # 点击最高分按钮
-                pass
+                self.isRunning = False
+                config.curScene = HighestScoreScene()
             elif event.signal == self.exitBtn.clicked:  # 点击退出按钮
-                sys.exit()
+                self.appExit()
         self.classicBtn.eventHandle(event)
         self.endlessBtn.eventHandle(event)
         self.highestScoreBtn.eventHandle(event)
@@ -209,6 +214,50 @@ class GameoverScene(Scene):
         self.screen.fill((255, 255, 255))
         self.gameoverLab.draw(self.screen)
         self.scoreLab.draw(self.screen)
+        self.backBtn.draw(self.screen)
+
+    def end(self):
+        config.curScene = StartScene()
+        config.curScene.run()
+
+
+# 最高分场景
+class HighestScoreScene(Scene):
+    def __init__(self):
+        super().__init__(pygame.display.get_surface(), config.FPS)
+
+    def prepare(self):
+        width = self.screen.get_width()
+        height = self.screen.get_height()
+
+        self.highestScoreLab = sprite.Label("Highest Score", pygame.font.Font(None, 60), (0, 0, 0))
+        self.highestScoreLab.rect.center = (width / 2, height / 4)
+
+        self.classicHighestScoreLab = sprite.Label(f"Classic Mode: {config.HighestScore.classicHighestScore}", pygame.font.Font(None, 40), (0, 0, 0))
+        self.classicHighestScoreLab.rect.center = self.highestScoreLab.rect.center
+        self.classicHighestScoreLab.rect.centery = height / 2
+
+        interval = (height - self.classicHighestScoreLab.rect.top) / 3 - self.classicHighestScoreLab.rect.height
+
+        self.endlessHighestScoreLab = sprite.Label(f"Endless Mode: {config.HighestScore.endlessHighestScore}", pygame.font.Font(None, 40), (0, 0, 0))
+        self.endlessHighestScoreLab.rect.center = self.highestScoreLab.rect.center
+        self.endlessHighestScoreLab.rect.centery = self.classicHighestScoreLab.rect.bottom + interval
+
+        self.backBtn = sprite.Button("Back To Start", pygame.font.Font(None, 40), (0, 0, 0))
+        self.backBtn.rect.center = self.endlessHighestScoreLab.rect.center
+        self.backBtn.rect.centery = self.endlessHighestScoreLab.rect.bottom + interval
+
+    def eventHandle(self, event):
+        self.backBtn.eventHandle(event)
+        if event.type == pygame.USEREVENT:
+            if event.signal == self.backBtn.clicked:
+                self.isRunning = False
+
+    def render(self):
+        self.screen.fill((255, 255, 255))
+        self.highestScoreLab.draw(self.screen)
+        self.classicHighestScoreLab.draw(self.screen)
+        self.endlessHighestScoreLab.draw(self.screen)
         self.backBtn.draw(self.screen)
 
     def end(self):
