@@ -1,4 +1,3 @@
-import sys
 import pygame
 import sprite
 import config
@@ -12,10 +11,7 @@ class Scene:
         self.fpsClock = pygame.time.Clock()
         self.fps = fps
         self.isRunning = False
-
-    def appExit(self):
-        config.HighestScore.saveHighestScore()
-        sys.exit()
+        self.nextScene = None
 
     # 场景开始之前的准备
     def prepare(self):
@@ -44,7 +40,7 @@ class Scene:
             self.fpsClock.tick_busy_loop(self.fps)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.appExit()
+                    self.isRunning = False
                 else:
                     self.eventHandle(event)
             self.update()
@@ -97,15 +93,15 @@ class StartScene(Scene):
         if event.type == pygame.USEREVENT:
             if event.signal == self.classicBtn.clicked:  # 点击经典模式按钮
                 self.isRunning = False
-                config.curScene = GameScene(True)
+                self.nextScene = GameScene(True)
             elif event.signal == self.endlessBtn.clicked:  # 点击无尽模式按钮
                 self.isRunning = False
-                config.curScene = GameScene(False)
+                self.nextScene = GameScene(False)
             elif event.signal == self.highestScoreBtn.clicked:  # 点击最高分按钮
                 self.isRunning = False
-                config.curScene = HighestScoreScene()
+                self.nextScene = HighestScoreScene()
             elif event.signal == self.exitBtn.clicked:  # 点击退出按钮
-                self.appExit()
+                self.isRunning = False
         self.classicBtn.eventHandle(event)
         self.endlessBtn.eventHandle(event)
         self.highestScoreBtn.eventHandle(event)
@@ -118,9 +114,6 @@ class StartScene(Scene):
         self.endlessBtn.draw(self.screen)
         self.highestScoreBtn.draw(self.screen)
         self.exitBtn.draw(self.screen)
-
-    def end(self):
-        config.curScene.run()
 
 
 # 游戏场景
@@ -176,8 +169,7 @@ class GameScene(Scene):
         self.food.draw(self.screen)
 
     def end(self):
-        config.curScene = GameoverScene(self.score)
-        config.curScene.run()
+        self.nextScene = GameoverScene(self.score)
 
 
 # 游戏结束场景
@@ -209,16 +201,13 @@ class GameoverScene(Scene):
         if event.type == pygame.USEREVENT:
             if event.signal == self.backBtn.clicked:
                 self.isRunning = False
+                self.nextScene = StartScene()
 
     def render(self):
         self.screen.fill((255, 255, 255))
         self.gameoverLab.draw(self.screen)
         self.scoreLab.draw(self.screen)
         self.backBtn.draw(self.screen)
-
-    def end(self):
-        config.curScene = StartScene()
-        config.curScene.run()
 
 
 # 最高分场景
@@ -252,6 +241,7 @@ class HighestScoreScene(Scene):
         if event.type == pygame.USEREVENT:
             if event.signal == self.backBtn.clicked:
                 self.isRunning = False
+                self.nextScene = StartScene()
 
     def render(self):
         self.screen.fill((255, 255, 255))
@@ -259,7 +249,3 @@ class HighestScoreScene(Scene):
         self.classicHighestScoreLab.draw(self.screen)
         self.endlessHighestScoreLab.draw(self.screen)
         self.backBtn.draw(self.screen)
-
-    def end(self):
-        config.curScene = StartScene()
-        config.curScene.run()

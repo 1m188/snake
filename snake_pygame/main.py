@@ -9,5 +9,9 @@ pygame.display.set_caption("Snake")
 
 config.HighestScore.loadHighestScore()
 
-config.curScene = scene.StartScene()
-config.curScene.run()
+curScene = scene.StartScene()
+while curScene:
+    curScene.run()
+    curScene = curScene.nextScene
+
+config.HighestScore.saveHighestScore()
