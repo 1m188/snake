@@ -50,6 +50,66 @@ class Scene:
         self.end(*args, **kwargs)
 
 
+# 开始场景
+class StartScene(Scene):
+    def __init__(self):
+        super().__init__(config.screen, config.FPS)
+
+    def prepare(self, *args, **kwargs):
+        infoTextFont = pygame.font.Font(None, 60)
+        btnTextFont = pygame.font.Font(None, 40)
+        textColor = (0, 0, 0)
+
+        # 标题信息
+        self.infoLab = sprite.Label("Snake", infoTextFont, textColor)
+        self.infoLab.rect.center = (config.width / 2, config.height / 4)
+
+        # 经典模式
+        self.classicBtn = sprite.Button("Classic Mode", btnTextFont, textColor)
+        self.classicBtn.rect.center = self.infoLab.rect.center
+        self.classicBtn.rect.centery = config.height / 2
+
+        intervl = (config.height - self.classicBtn.rect.top) / 4 - self.classicBtn.rect.height
+
+        # 无尽模式
+        self.endlessBtn = sprite.Button("Endless Mode", btnTextFont, textColor)
+        self.endlessBtn.rect.center = self.classicBtn.rect.center
+        self.endlessBtn.rect.top = self.classicBtn.rect.bottom + intervl
+
+        # 最高分
+        self.highestScoreBtn = sprite.Button("Highest Score", btnTextFont, textColor)
+        self.highestScoreBtn.rect.center = self.endlessBtn.rect.center
+        self.highestScoreBtn.rect.top = self.endlessBtn.rect.bottom + intervl
+
+        # 退出
+        self.exitBtn = sprite.Button("Exit", btnTextFont, textColor)
+        self.exitBtn.rect.center = self.highestScoreBtn.rect.center
+        self.exitBtn.rect.top = self.highestScoreBtn.rect.bottom + intervl
+
+    def eventHandle(self, event):
+        if event.type == pygame.USEREVENT:
+            if event.signal == self.classicBtn.clicked:  # 点击经典模式按钮
+                pass
+            elif event.signal == self.endlessBtn.clicked:  # 点击无尽模式按钮
+                pass
+            elif event.signal == self.highestScoreBtn.clicked:  # 点击最高分按钮
+                pass
+            elif event.signal == self.exitBtn.clicked:  # 点击退出按钮
+                sys.exit()
+        self.classicBtn.eventHandle(event)
+        self.endlessBtn.eventHandle(event)
+        self.highestScoreBtn.eventHandle(event)
+        self.exitBtn.eventHandle(event)
+
+    def render(self, *args, **kwargs):
+        self.screen.fill((255, 255, 255))
+        self.infoLab.draw(self.screen)
+        self.classicBtn.draw(self.screen)
+        self.endlessBtn.draw(self.screen)
+        self.highestScoreBtn.draw(self.screen)
+        self.exitBtn.draw(self.screen)
+
+
 # 游戏场景
 class GameScene(Scene):
     def __init__(self):
