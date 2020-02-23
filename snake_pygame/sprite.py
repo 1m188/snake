@@ -88,6 +88,6 @@ class Food:
 
     # 绘制
     def draw(self, screen: pygame.surface.Surface):
-        color = (255, 0, 255)
+        color = (255, 0, 0)
         rect = pygame.rect.Rect(self.pos[0] * config.horzInr, self.pos[1] * config.vertInr, config.horzInr + 1, config.vertInr + 1)
         pygame.draw.ellipse(screen, color, rect)
