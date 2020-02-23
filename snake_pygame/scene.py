@@ -14,7 +14,7 @@ class Scene:
         self.isRunning = False
 
     # 场景开始之前的准备
-    def prepare(self, *args, **kwargs):
+    def prepare(self):
         pass
 
     # 事件处理
@@ -22,19 +22,19 @@ class Scene:
         pass
 
     # 每帧的状态更新
-    def update(self, *args, **kwargs):
+    def update(self):
         pass
 
     # 每帧渲染
-    def render(self, *args, **kwargs):
+    def render(self):
         pass
 
     # 场景结束之后的处理
-    def end(self, *args, **kwargs):
+    def end(self):
         pass
 
-    def run(self, *args, **kwargs):
-        self.prepare(*args, **kwargs)
+    def run(self):
+        self.prepare()
         self.isRunning = True
         while self.isRunning:
             self.fpsClock.tick_busy_loop(self.fps)
@@ -43,11 +43,11 @@ class Scene:
                     sys.exit()
                 else:
                     self.eventHandle(event)
-            self.update(*args, **kwargs)
+            self.update()
             self.screen.fill((0, 0, 0))
-            self.render(*args, **kwargs)
+            self.render()
             pygame.display.flip()
-        self.end(*args, **kwargs)
+        self.end()
 
 
 # 开始场景
@@ -55,7 +55,7 @@ class StartScene(Scene):
     def __init__(self):
         super().__init__(pygame.display.get_surface(), config.FPS)
 
-    def prepare(self, *args, **kwargs):
+    def prepare(self):
         width = self.screen.get_width()
         height = self.screen.get_height()
 
@@ -106,7 +106,7 @@ class StartScene(Scene):
         self.highestScoreBtn.eventHandle(event)
         self.exitBtn.eventHandle(event)
 
-    def render(self, *args, **kwargs):
+    def render(self):
         self.screen.fill((255, 255, 255))
         self.infoLab.draw(self.screen)
         self.classicBtn.draw(self.screen)
@@ -114,7 +114,7 @@ class StartScene(Scene):
         self.highestScoreBtn.draw(self.screen)
         self.exitBtn.draw(self.screen)
 
-    def end(self, *args, **kwargs):
+    def end(self):
         config.curScene.run()
 
 
@@ -124,7 +124,7 @@ class GameScene(Scene):
         super().__init__(pygame.display.get_surface(), config.FPS)
         self.isClassic = isClassic
 
-    def prepare(self, *args, **kwargs):
+    def prepare(self):
         self.snake = sprite.Snake(self.isClassic)
         self.food = sprite.Food()
         self.food.randGenPos(self.snake)
@@ -150,7 +150,7 @@ class GameScene(Scene):
         elif event.type == pygame.USEREVENT + config.snakeMoveEventID:
             self.snake.move()
 
-    def update(self, *args, **kwargs):
+    def update(self):
         if self.snake.isDead():
             self.isRunning = False
 
@@ -159,7 +159,7 @@ class GameScene(Scene):
             self.food.randGenPos(self.snake)
             self.score += 1
 
-    def render(self, *args, **kwargs):
+    def render(self):
         width = self.screen.get_width()
         height = self.screen.get_height()
         self.screen.fill((255, 255, 255))
@@ -170,26 +170,26 @@ class GameScene(Scene):
         self.snake.draw(self.screen)
         self.food.draw(self.screen)
 
-    def end(self, *args, **kwargs):
-        config.curScene = GameoverScene()
-        config.curScene.run(score=self.score)
+    def end(self):
+        config.curScene = GameoverScene(self.score)
+        config.curScene.run()
 
 
 # 游戏结束场景
 class GameoverScene(Scene):
-    def __init__(self):
+    def __init__(self, score: int):
         super().__init__(pygame.display.get_surface(), config.FPS)
 
-    def prepare(self, *args, **kwargs):
-        score = kwargs["score"]
+        self.score = score
 
+    def prepare(self):
         width = self.screen.get_width()
         height = self.screen.get_height()
 
         self.gameoverLab = sprite.Label("Game Over", pygame.font.Font(None, 60), (0, 0, 0))
         self.gameoverLab.rect.center = (width / 2, height / 4)
 
-        self.scoreLab = sprite.Label(f"Your score is: {score}", pygame.font.Font(None, 40), (0, 0, 0))
+        self.scoreLab = sprite.Label(f"Your score is: {self.score}", pygame.font.Font(None, 40), (0, 0, 0))
         self.scoreLab.rect.center = self.gameoverLab.rect.center
         self.scoreLab.rect.centery = height / 2
 
@@ -205,12 +205,12 @@ class GameoverScene(Scene):
             if event.signal == self.backBtn.clicked:
                 self.isRunning = False
 
-    def render(self, *args, **kwargs):
+    def render(self):
         self.screen.fill((255, 255, 255))
         self.gameoverLab.draw(self.screen)
         self.scoreLab.draw(self.screen)
         self.backBtn.draw(self.screen)
 
-    def end(self, *args, **kwargs):
+    def end(self):
         config.curScene = StartScene()
         config.curScene.run()
