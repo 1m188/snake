@@ -112,11 +112,12 @@ class StartScene(Scene):
 
 # 游戏场景
 class GameScene(Scene):
-    def __init__(self):
+    def __init__(self, isClassic: bool):
         super().__init__(config.screen, config.FPS)
+        self.isClassic = isClassic
 
     def prepare(self, *args, **kwargs):
-        self.snake = sprite.Snake()
+        self.snake = sprite.Snake(self.isClassic)
         self.food = sprite.Food()
         self.food.randGenPos(self.snake)
 

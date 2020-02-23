@@ -14,37 +14,48 @@ class Direction(Enum):
 
 # 蛇
 class Snake:
-    def __init__(self):
+    def __init__(self, isClassic: bool):
         self.pos = [(2, 2), (1, 2)]
         self.curDir = Direction.RIGHT
         pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, config.snakeMoveTimeInr)
+        self.isClassic = isClassic
 
     # 加速
     def acc(self, isAcc: bool):
         pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, int(config.snakeMoveTimeInr / 3) if isAcc else config.snakeMoveTimeInr)
+
+    # 通过坐标位置获取当前实际方向
+    def getCurDir(self) -> Direction:
+        tmpDir = [self.pos[0][0] - self.pos[1][0], self.pos[0][1] - self.pos[1][1]]
+        if not self.isClassic:
+            if abs(tmpDir[0]) > 1:
+                tmpDir[0] %= (-1 if tmpDir[0] > 0 else 1) * config.horzInrNum
+            if abs(tmpDir[1]) > 1:
+                tmpDir[1] %= (-1 if tmpDir[1] > 0 else 1) * config.vertInrNum
+        return Direction(tuple(tmpDir))
 
     # 蛇的移动
     def move(self):
         self.pos.pop(-1)
         head = self.pos[0]
         newHead = (head[0] + self.curDir.value[0], head[1] + self.curDir.value[1])
+        if not self.isClassic:
+            newHead = ((newHead[0] + config.horzInrNum) % config.horzInrNum, (newHead[1] + config.vertInrNum) % config.vertInrNum)
         self.pos.insert(0, newHead)
 
     # 控制方向
     def ctrlDir(self, d: Direction):
-        curDir = Direction((self.pos[0][0] - self.pos[1][0], self.pos[0][1] - self.pos[1][1]))  # 这里使用的方向是用当前坐标计算的实际方向，而不是保存的应该的方向。防止在尚未移动的时候就转换了方向导致绘制的时候出现反常情况。
+        curDir = self.getCurDir()
         if (d == Direction.UP and curDir != Direction.DOWN) or (d == Direction.DOWN and curDir != Direction.UP) or (d == Direction.LEFT and curDir != Direction.RIGHT) or (d == Direction.RIGHT and curDir != Direction.LEFT):
             self.curDir = d
 
     # 判断是否死亡
     def isDead(self) -> bool:
         head = self.pos[0]
-        if head[0] < 0 or head[0] > config.horzInrNum - 1 or head[1] < 0 or head[1] > config.vertInrNum - 1:
-            return True
         for pos in self.pos[1:]:
             if head == pos:
                 return True
-        return False
+        return self.isClassic and (head[0] < 0 or head[0] > config.horzInrNum - 1 or head[1] < 0 or head[1] > config.vertInrNum - 1)
 
     # 判断是否吃到食物
     def isGetFood(self, food) -> bool:
@@ -68,7 +79,7 @@ class Snake:
                 rectL.width /= 4
                 rectL.height /= 4
                 rectR = rectL.copy()
-                curDir = Direction((self.pos[0][0] - self.pos[1][0], self.pos[0][1] - self.pos[1][1]))
+                curDir = self.getCurDir()
                 if curDir == Direction.UP:
                     rectL.center = (pos[0] * config.horzInr + config.horzInr / 4, pos[1] * config.vertInr + config.vertInr / 4)
                     rectR.center = (pos[0] * config.horzInr + config.horzInr / 4 * 3, pos[1] * config.vertInr + config.vertInr / 4)
