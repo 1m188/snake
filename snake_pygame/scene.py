@@ -53,23 +53,26 @@ class Scene:
 # 开始场景
 class StartScene(Scene):
     def __init__(self):
-        super().__init__(config.screen, config.FPS)
+        super().__init__(pygame.display.get_surface(), config.FPS)
 
     def prepare(self, *args, **kwargs):
+        width = self.screen.get_width()
+        height = self.screen.get_height()
+
         infoTextFont = pygame.font.Font(None, 60)
         btnTextFont = pygame.font.Font(None, 40)
         textColor = (0, 0, 0)
 
         # 标题信息
         self.infoLab = sprite.Label("Snake", infoTextFont, textColor)
-        self.infoLab.rect.center = (config.width / 2, config.height / 4)
+        self.infoLab.rect.center = (width / 2, height / 4)
 
         # 经典模式
         self.classicBtn = sprite.Button("Classic Mode", btnTextFont, textColor)
         self.classicBtn.rect.center = self.infoLab.rect.center
-        self.classicBtn.rect.centery = config.height / 2
+        self.classicBtn.rect.centery = height / 2
 
-        intervl = (config.height - self.classicBtn.rect.top) / 4 - self.classicBtn.rect.height
+        intervl = (height - self.classicBtn.rect.top) / 4 - self.classicBtn.rect.height
 
         # 无尽模式
         self.endlessBtn = sprite.Button("Endless Mode", btnTextFont, textColor)
@@ -89,9 +92,11 @@ class StartScene(Scene):
     def eventHandle(self, event):
         if event.type == pygame.USEREVENT:
             if event.signal == self.classicBtn.clicked:  # 点击经典模式按钮
-                pass
+                self.isRunning = False
+                config.curScene = GameScene(True)
             elif event.signal == self.endlessBtn.clicked:  # 点击无尽模式按钮
-                pass
+                self.isRunning = False
+                config.curScene = GameScene(False)
             elif event.signal == self.highestScoreBtn.clicked:  # 点击最高分按钮
                 pass
             elif event.signal == self.exitBtn.clicked:  # 点击退出按钮
@@ -109,11 +114,14 @@ class StartScene(Scene):
         self.highestScoreBtn.draw(self.screen)
         self.exitBtn.draw(self.screen)
 
+    def end(self, *args, **kwargs):
+        config.curScene.run()
+
 
 # 游戏场景
 class GameScene(Scene):
     def __init__(self, isClassic: bool):
-        super().__init__(config.screen, config.FPS)
+        super().__init__(pygame.display.get_surface(), config.FPS)
         self.isClassic = isClassic
 
     def prepare(self, *args, **kwargs):
@@ -150,10 +158,16 @@ class GameScene(Scene):
             self.food.randGenPos(self.snake)
 
     def render(self, *args, **kwargs):
+        width = self.screen.get_width()
+        height = self.screen.get_height()
         self.screen.fill((255, 255, 255))
         for i in range(config.vertInrNum):
-            pygame.draw.line(self.screen, (0, 0, 0), (0, i * config.vertInr), (config.width, i * config.vertInr))
+            pygame.draw.line(self.screen, (0, 0, 0), (0, i * config.vertInr), (width, i * config.vertInr))
         for i in range(1, config.horzInrNum):
-            pygame.draw.line(self.screen, (0, 0, 0), (i * config.horzInr, 0), (i * config.horzInr, config.height))
+            pygame.draw.line(self.screen, (0, 0, 0), (i * config.horzInr, 0), (i * config.horzInr, height))
         self.snake.draw(self.screen)
         self.food.draw(self.screen)
+
+    def end(self, *args, **kwargs):
+        config.curScene = StartScene()
+        config.curScene.run()
