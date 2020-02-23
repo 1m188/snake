@@ -62,6 +62,12 @@ class Snake:
             rect = pygame.rect.Rect(pos[0] * config.horzInr, pos[1] * config.vertInr, config.horzInr + 2, config.vertInr + 2)
             color = (0, 0, 255)
             screen.fill(color, rect)
+            if pos == self.pos[0]:
+                rect.width /= 3
+                rect.height /= 3
+                rect.center = (pos[0] * config.horzInr + config.horzInr / 2, pos[1] * config.vertInr + config.vertInr / 2)
+                color = (250, 235, 215)
+                pygame.draw.ellipse(screen, color, rect)
 
 
 # 食物
