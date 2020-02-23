@@ -32,3 +32,5 @@ snake_qt5/build
 
 # 虚拟环境
 snake_pygame/env
+# 生成文件
+snake_pygame/data
