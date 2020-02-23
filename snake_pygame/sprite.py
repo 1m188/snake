@@ -112,3 +112,56 @@ class Food:
         color = (255, 0, 0)
         rect = pygame.rect.Rect(self.pos[0] * config.horzInr, self.pos[1] * config.vertInr, config.horzInr + 1, config.vertInr + 1)
         pygame.draw.ellipse(screen, color, rect)
+
+
+# 标签
+class Label:
+    # @param text:待渲染文本 font:用来渲染文本使用的字体 color:渲染文本时文本的颜色
+    def __init__(self, text: str, font: pygame.font.Font, color: pygame.color.Color):
+        self.font = font
+        self.text = text
+        self.color = color
+        self.image = font.render(text, True, color)
+        self.rect = self.image.get_rect()
+
+    # @param 将要改变的颜色
+    def setColor(self, color: pygame.color.Color):
+        self.color = color
+        self.image = self.font.render(self.text, True, self.color)
+
+    def draw(self, screen: pygame.surface.Surface):
+        screen.blit(self.image, self.rect)
+
+
+# 按钮
+class Button(Label):
+    def __init__(self, text: str, font: pygame.font.Font, color: pygame.color.Color):
+        super().__init__(text, font, color)
+        self.isClickedDown = False
+
+    # 测定pos坐标是否在按钮之内
+    # @param pos:鼠标坐标
+    def isPosIn(self, pos: tuple):
+        return pos[0] >= self.rect.left and pos[0] <= self.rect.right and pos[1] >= self.rect.top and pos[1] <= self.rect.bottom
+
+    def eventHandle(self, event):
+        pos = pygame.mouse.get_pos()
+        # 模拟点击按钮事件
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.isPosIn(pos):
+                self.isClickedDown = True
+        elif event.type == pygame.MOUSEBUTTONUP:
+            if self.isPosIn(pos):
+                if self.isClickedDown:
+                    pygame.event.post(pygame.event.Event(pygame.USEREVENT, sender=self, signal=self.clicked))
+            self.isClickedDown = False
+        # 显示按钮被鼠标所指
+        elif event.type == pygame.MOUSEMOTION:
+            if self.isPosIn(pos):
+                self.setColor((192, 192, 192))
+            else:
+                self.setColor((0, 0, 0))
+
+    # 被点击信号
+    def clicked(self):
+        pass
