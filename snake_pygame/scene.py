@@ -169,15 +169,21 @@ class GameScene(Scene):
         self.food.draw(self.screen)
 
     def end(self):
-        self.nextScene = GameoverScene(self.score)
+        self.nextScene = GameoverScene(self.isClassic, self.score)
 
 
 # 游戏结束场景
 class GameoverScene(Scene):
-    def __init__(self, score: int):
+    def __init__(self, isClassic: bool, score: int):
         super().__init__(pygame.display.get_surface(), config.FPS)
 
         self.score = score
+        self.isNewHighestScore = (isClassic and score > config.HighestScore.classicHighestScore) or (not isClassic and score > config.HighestScore.endlessHighestScore)
+        if self.isNewHighestScore:
+            if isClassic:
+                config.HighestScore.classicHighestScore = score
+            else:
+                config.HighestScore.endlessHighestScore = score
 
     def prepare(self):
         width = self.screen.get_width()
@@ -190,11 +196,18 @@ class GameoverScene(Scene):
         self.scoreLab.rect.center = self.gameoverLab.rect.center
         self.scoreLab.rect.centery = height / 2
 
-        interval = (height - self.scoreLab.rect.top) / 2 - self.scoreLab.rect.height
+        interval = (height - self.scoreLab.rect.top) / (3 if self.isNewHighestScore else 2) - self.scoreLab.rect.height
+
+        preLab = self.scoreLab
+        if self.isNewHighestScore:
+            self.newHighestScoreLab = sprite.Label("New Highest Score!", pygame.font.Font(None, 40), (0, 0, 0))
+            self.newHighestScoreLab.rect.center = preLab.rect.center
+            self.newHighestScoreLab.rect.centery = preLab.rect.bottom + interval
+            preLab = self.newHighestScoreLab
 
         self.backBtn = sprite.Button("Back To Start", pygame.font.Font(None, 40), (0, 0, 0))
-        self.backBtn.rect.center = self.scoreLab.rect.center
-        self.backBtn.rect.centery = self.scoreLab.rect.bottom + interval
+        self.backBtn.rect.center = preLab.rect.center
+        self.backBtn.rect.centery = preLab.rect.bottom + interval
 
     def eventHandle(self, event):
         self.backBtn.eventHandle(event)
@@ -207,6 +220,8 @@ class GameoverScene(Scene):
         self.screen.fill((255, 255, 255))
         self.gameoverLab.draw(self.screen)
         self.scoreLab.draw(self.screen)
+        if self.isNewHighestScore:
+            self.newHighestScoreLab.draw(self.screen)
         self.backBtn.draw(self.screen)
 
 
