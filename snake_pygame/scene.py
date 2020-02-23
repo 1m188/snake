@@ -128,6 +128,7 @@ class GameScene(Scene):
         self.snake = sprite.Snake(self.isClassic)
         self.food = sprite.Food()
         self.food.randGenPos(self.snake)
+        self.score = 0
 
     def eventHandle(self, event):
         if event.type == pygame.KEYDOWN:
@@ -156,6 +157,7 @@ class GameScene(Scene):
         if self.snake.isGetFood(self.food):
             self.snake.grow()
             self.food.randGenPos(self.snake)
+            self.score += 1
 
     def render(self, *args, **kwargs):
         width = self.screen.get_width()
@@ -167,6 +169,47 @@ class GameScene(Scene):
             pygame.draw.line(self.screen, (0, 0, 0), (i * config.horzInr, 0), (i * config.horzInr, height))
         self.snake.draw(self.screen)
         self.food.draw(self.screen)
+
+    def end(self, *args, **kwargs):
+        config.curScene = GameoverScene()
+        config.curScene.run(score=self.score)
+
+
+# 游戏结束场景
+class GameoverScene(Scene):
+    def __init__(self):
+        super().__init__(pygame.display.get_surface(), config.FPS)
+
+    def prepare(self, *args, **kwargs):
+        score = kwargs["score"]
+
+        width = self.screen.get_width()
+        height = self.screen.get_height()
+
+        self.gameoverLab = sprite.Label("Game Over", pygame.font.Font(None, 60), (0, 0, 0))
+        self.gameoverLab.rect.center = (width / 2, height / 4)
+
+        self.scoreLab = sprite.Label(f"Your score is: {score}", pygame.font.Font(None, 40), (0, 0, 0))
+        self.scoreLab.rect.center = self.gameoverLab.rect.center
+        self.scoreLab.rect.centery = height / 2
+
+        interval = (height - self.scoreLab.rect.top) / 2 - self.scoreLab.rect.height
+
+        self.backBtn = sprite.Button("Back To Start", pygame.font.Font(None, 40), (0, 0, 0))
+        self.backBtn.rect.center = self.scoreLab.rect.center
+        self.backBtn.rect.centery = self.scoreLab.rect.bottom + interval
+
+    def eventHandle(self, event):
+        self.backBtn.eventHandle(event)
+        if event.type == pygame.USEREVENT:
+            if event.signal == self.backBtn.clicked:
+                self.isRunning = False
+
+    def render(self, *args, **kwargs):
+        self.screen.fill((255, 255, 255))
+        self.gameoverLab.draw(self.screen)
+        self.scoreLab.draw(self.screen)
+        self.backBtn.draw(self.screen)
 
     def end(self, *args, **kwargs):
         config.curScene = StartScene()
