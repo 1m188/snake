@@ -1,5 +1,7 @@
 # 一些配置属性和全局变量
 
+FPS = 60  # 帧率
+
 screen = None  # 窗口surface
 size = (width, height) = (500, 500)  # 窗口大小
 
