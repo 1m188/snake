@@ -20,7 +20,7 @@ snakeMoveTimeInr = 200
 
 # 最高分
 class HighestScore:
-    fileName = "data"
+    fileName = "data/highest_score"
 
     @classmethod
     def loadHighestScore(cls):
