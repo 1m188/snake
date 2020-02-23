@@ -19,6 +19,7 @@ class Snake:
         self.curDir = Direction.RIGHT
         pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, config.snakeMoveTimeInr)
 
+    # 加速
     def acc(self, isAcc: bool):
         pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, int(config.snakeMoveTimeInr / 3) if isAcc else config.snakeMoveTimeInr)
 
