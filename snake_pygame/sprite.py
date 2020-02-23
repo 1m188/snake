@@ -63,11 +63,26 @@ class Snake:
             color = (0, 0, 255)
             screen.fill(color, rect)
             if pos == self.pos[0]:
-                rect.width /= 3
-                rect.height /= 3
-                rect.center = (pos[0] * config.horzInr + config.horzInr / 2, pos[1] * config.vertInr + config.vertInr / 2)
+                rectL = rect
+                rectL.width /= 4
+                rectL.height /= 4
+                rectR = rectL.copy()
+                curDir = Direction((self.pos[0][0] - self.pos[1][0], self.pos[0][1] - self.pos[1][1]))
+                if curDir == Direction.UP:
+                    rectL.center = (pos[0] * config.horzInr + config.horzInr / 4, pos[1] * config.vertInr + config.vertInr / 4)
+                    rectR.center = (pos[0] * config.horzInr + config.horzInr / 4 * 3, pos[1] * config.vertInr + config.vertInr / 4)
+                elif curDir == Direction.DOWN:
+                    rectL.center = (pos[0] * config.horzInr + config.horzInr / 4 * 3, pos[1] * config.vertInr + config.vertInr / 4 * 3)
+                    rectR.center = (pos[0] * config.horzInr + config.horzInr / 4, pos[1] * config.vertInr + config.vertInr / 4 * 3)
+                elif curDir == Direction.LEFT:
+                    rectL.center = (pos[0] * config.horzInr + config.horzInr / 4, pos[1] * config.vertInr + config.vertInr / 4 * 3)
+                    rectR.center = (pos[0] * config.horzInr + config.horzInr / 4, pos[1] * config.vertInr + config.vertInr / 4)
+                elif curDir == Direction.RIGHT:
+                    rectL.center = (pos[0] * config.horzInr + config.horzInr / 4 * 3, pos[1] * config.vertInr + config.vertInr / 4)
+                    rectR.center = (pos[0] * config.horzInr + config.horzInr / 4 * 3, pos[1] * config.vertInr + config.vertInr / 4 * 3)
                 color = (250, 235, 215)
-                pygame.draw.ellipse(screen, color, rect)
+                pygame.draw.ellipse(screen, color, rectL)
+                pygame.draw.ellipse(screen, color, rectR)
 
 
 # 食物
