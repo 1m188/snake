@@ -1,7 +1,7 @@
 import pygame
 import sprite
 import config
-from config import HighestScore, Mode
+from config import HighestScore, Mode, Direction
 
 
 # 场景
@@ -136,13 +136,13 @@ class GameScene(Scene):
             else:
                 d = self.snake.curDir
                 if event.key == pygame.K_UP:
-                    d = config.Direction.UP
+                    d = Direction.UP
                 elif event.key == pygame.K_DOWN:
-                    d = config.Direction.DOWN
+                    d = Direction.DOWN
                 elif event.key == pygame.K_LEFT:
-                    d = config.Direction.LEFT
+                    d = Direction.LEFT
                 elif event.key == pygame.K_RIGHT:
-                    d = config.Direction.RIGHT
+                    d = Direction.RIGHT
                 self.snake.ctrlDir(d)
         elif event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
             self.snake.acc(False)
