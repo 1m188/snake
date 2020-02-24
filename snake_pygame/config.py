@@ -1,4 +1,5 @@
 from enum import Enum
+import json
 
 # 一些配置属性和全局变量
 
@@ -43,11 +44,7 @@ class HighestScore:
     def loadHighestScore(cls):
         try:
             data = open(cls.fileName)
-            lines = data.readlines()
-            index = 0
-            for mode in Mode:
-                cls.score[mode.value] = int(lines[index].strip())
-                index += 1
+            cls.score = json.loads(data.read())
         except FileNotFoundError:
             data = open(cls.fileName, "w")
             for mode in Mode:
@@ -58,5 +55,4 @@ class HighestScore:
     @classmethod
     def saveHighestScore(cls):
         with open(cls.fileName, "w") as data:
-            for mode in Mode:
-                data.write(str(cls.score[mode.value]) + "\n")
+            data.write(json.dumps(cls.score))
