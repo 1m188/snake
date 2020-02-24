@@ -125,7 +125,7 @@ class Label:
         self.font = font
         self.text = text
         self.color = color
-        self.image = font.render(text, True, color)
+        self.image = font.render(text, True, color).convert_alpha()
         self.rect = self.image.get_rect()
 
     # @param 将要改变的颜色
