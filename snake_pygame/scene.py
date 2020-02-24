@@ -14,6 +14,11 @@ class Scene:
         self.isRunning = False
         self.nextScene = None
 
+        # 禁止该抽象基类被实例化
+        # 不用abc是因为所有的方法都可以被选择实现，但是该类不能够被实例化
+        if type(self) == Scene:
+            raise TypeError("can not create instance of the type Scene")
+
     # 场景开始之前的准备
     def prepare(self):
         pass
