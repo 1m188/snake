@@ -65,35 +65,35 @@ class StartScene(Scene):
         width = self.screen.get_width()
         height = self.screen.get_height()
 
-        infoTextFont = pygame.font.Font(None, 60)
-        btnTextFont = pygame.font.Font(None, 40)
-        textColor = (0, 0, 0)
-
         # 标题信息
-        self.infoLab = sprite.Label("Snake", infoTextFont, textColor)
+        self.infoLab = sprite.Label("Snake", pygame.font.Font(None, 60), (0, 0, 0))
         self.infoLab.center = (width / 2, height / 4)
 
         # 经典模式
-        self.classicBtn = sprite.Button("Classic Mode", btnTextFont, textColor)
-        self.classicBtn.center = self.infoLab.center
-        self.classicBtn.centery = height / 2
+        self.classicBtn = sprite.Button("Classic Mode", pygame.font.Font(None, 40), (0, 0, 0))
+        self.classicBtn.centerx = width / 2
+        self.classicBtn.top = height / 2
 
-        intervl = (height - self.classicBtn.top) / 4 - self.classicBtn.height
+        preCtrl = self.classicBtn
+        intervl = (height - self.classicBtn.top) / 4
 
         # 无尽模式
-        self.endlessBtn = sprite.Button("Endless Mode", btnTextFont, textColor)
-        self.endlessBtn.center = self.classicBtn.center
-        self.endlessBtn.top = self.classicBtn.bottom + intervl
+        self.endlessBtn = sprite.Button("Endless Mode", pygame.font.Font(None, 40), (0, 0, 0))
+        self.endlessBtn.centerx = width / 2
+        self.endlessBtn.top = preCtrl.top + intervl
+        preCtrl = self.endlessBtn
 
         # 最高分
-        self.highestScoreBtn = sprite.Button("Highest Score", btnTextFont, textColor)
-        self.highestScoreBtn.center = self.endlessBtn.center
-        self.highestScoreBtn.top = self.endlessBtn.bottom + intervl
+        self.highestScoreBtn = sprite.Button("Highest Score", pygame.font.Font(None, 40), (0, 0, 0))
+        self.highestScoreBtn.centerx = width / 2
+        self.highestScoreBtn.top = preCtrl.top + intervl
+        preCtrl = self.highestScoreBtn
 
         # 退出
-        self.exitBtn = sprite.Button("Exit", btnTextFont, textColor)
-        self.exitBtn.center = self.highestScoreBtn.center
-        self.exitBtn.top = self.highestScoreBtn.bottom + intervl
+        self.exitBtn = sprite.Button("Exit", pygame.font.Font(None, 40), (0, 0, 0))
+        self.exitBtn.centerx = width / 2
+        self.exitBtn.top = preCtrl.top + intervl
+        preCtrl = self.exitBtn
 
     def eventHandle(self, event):
         if event.type == pygame.USEREVENT:
@@ -177,6 +177,7 @@ class GameoverScene(Scene):
     def __init__(self, mode: Mode, score: int):
         super().__init__(pygame.display.get_surface(), config.FPS)
 
+        self.mode = mode
         self.score = score
         self.isNewHighestScore = False
         for m in Mode:
@@ -194,21 +195,27 @@ class GameoverScene(Scene):
         self.gameoverLab.center = (width / 2, height / 4)
 
         self.scoreLab = sprite.Label(f"Your score is: {self.score}", pygame.font.Font(None, 40), (0, 0, 0))
-        self.scoreLab.center = self.gameoverLab.center
-        self.scoreLab.centery = height / 2
+        self.scoreLab.centerx = width / 2
+        self.scoreLab.top = height / 2
 
-        interval = (height - self.scoreLab.top) / (3 if self.isNewHighestScore else 2) - self.scoreLab.height
+        preCtrl = self.scoreLab
+        interval = (height - self.scoreLab.top) / (4 if self.isNewHighestScore else 3)
 
-        preLab = self.scoreLab
+        self.modeLab = sprite.Label(f"Your mode is: {self.mode.value}", pygame.font.Font(None, 40), (0, 0, 0))
+        self.modeLab.centerx = width / 2
+        self.modeLab.top = preCtrl.top + interval
+        preCtrl = self.modeLab
+
         if self.isNewHighestScore:
             self.newHighestScoreLab = sprite.Label("New Highest Score!", pygame.font.Font(None, 40), (0, 0, 0))
-            self.newHighestScoreLab.center = preLab.center
-            self.newHighestScoreLab.centery = preLab.bottom + interval
-            preLab = self.newHighestScoreLab
+            self.newHighestScoreLab.centerx = width / 2
+            self.newHighestScoreLab.top = preCtrl.top + interval
+            preCtrl = self.newHighestScoreLab
 
         self.backBtn = sprite.Button("Back To Start", pygame.font.Font(None, 40), (0, 0, 0))
-        self.backBtn.center = preLab.center
-        self.backBtn.centery = preLab.bottom + interval
+        self.backBtn.centerx = width / 2
+        self.backBtn.top = preCtrl.top + interval
+        preCtrl = self.modeLab
 
     def eventHandle(self, event):
         self.backBtn.eventHandle(event)
@@ -221,6 +228,7 @@ class GameoverScene(Scene):
         self.screen.fill((255, 255, 255))
         self.gameoverLab.draw(self.screen)
         self.scoreLab.draw(self.screen)
+        self.modeLab.draw(self.screen)
         if self.isNewHighestScore:
             self.newHighestScoreLab.draw(self.screen)
         self.backBtn.draw(self.screen)
@@ -239,18 +247,21 @@ class HighestScoreScene(Scene):
         self.highestScoreLab.center = (width / 2, height / 4)
 
         self.classicHighestScoreLab = sprite.Label(f"Classic Mode: {HighestScore.score[Mode.Classic.value]}", pygame.font.Font(None, 40), (0, 0, 0))
-        self.classicHighestScoreLab.center = self.highestScoreLab.center
-        self.classicHighestScoreLab.centery = height / 2
+        self.classicHighestScoreLab.centerx = width / 2
+        self.classicHighestScoreLab.top = height / 2
 
-        interval = (height - self.classicHighestScoreLab.top) / 3 - self.classicHighestScoreLab.height
+        preCtrl = self.classicHighestScoreLab
+        interval = (height - self.classicHighestScoreLab.top) / 3
 
         self.endlessHighestScoreLab = sprite.Label(f"Endless Mode: {HighestScore.score[Mode.Endless.value]}", pygame.font.Font(None, 40), (0, 0, 0))
-        self.endlessHighestScoreLab.center = self.highestScoreLab.center
-        self.endlessHighestScoreLab.centery = self.classicHighestScoreLab.bottom + interval
+        self.endlessHighestScoreLab.centerx = width / 2
+        self.endlessHighestScoreLab.top = preCtrl.top + interval
+        preCtrl = self.endlessHighestScoreLab
 
         self.backBtn = sprite.Button("Back To Start", pygame.font.Font(None, 40), (0, 0, 0))
-        self.backBtn.center = self.endlessHighestScoreLab.center
-        self.backBtn.centery = self.endlessHighestScoreLab.bottom + interval
+        self.backBtn.centerx = width / 2
+        self.backBtn.top = preCtrl.top + interval
+        preCtrl = self.backBtn
 
     def eventHandle(self, event):
         self.backBtn.eventHandle(event)
