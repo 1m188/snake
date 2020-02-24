@@ -128,10 +128,35 @@ class Label:
         self.image = font.render(text, True, color).convert_alpha()
         self.rect = self.image.get_rect()
 
+    # 通过当前保存的字体参数获取字体渲染出来的图片
+    def getImgWithFont(self) -> pygame.surface.Surface:
+        return self.font.render(self.text, True, self.color).convert_alpha()
+
+    # 设置文本颜色
     # @param 将要改变的颜色
     def setColor(self, color: pygame.color.Color):
         self.color = color
-        self.image = self.font.render(self.text, True, self.color)
+        self.image = self.getImgWithFont()
+
+    # 以下设置文本参数导致文本预渲染surface大小改变了的，改变之后的rect对齐原rect的左边和上面
+
+    # 设置文本字体
+    def setFont(self, font: pygame.font.Font):
+        self.font = font
+        self.image = self.getImgWithFont()
+        if self.image.get_size() != self.rect.size:
+            topLeft = self.rect.topLeft
+            self.rect = self.image.get_rect()
+            self.rect.topLeft = topLeft
+
+    # 设置文本内容
+    def setText(self, text: str):
+        self.text = text
+        self.image = self.getImgWithFont()
+        if self.image.get_size() != self.rect.size:
+            topLeft = self.rect.topLeft
+            self.rect = self.image.get_rect()
+            self.rect.topLeft = topLeft
 
     def draw(self, screen: pygame.surface.Surface):
         screen.blit(self.image, self.rect)
@@ -165,6 +190,15 @@ class Button(Label):
                 self.setColor((192, 192, 192))
             else:
                 self.setColor((0, 0, 0))
+
+    # 添加按钮边框线（不太好看）
+    # def getImgWithFont(self) -> pygame.surface.Surface:
+    #     image = super().getImgWithFont()
+    #     pygame.draw.line(image, (0, 0, 0), (0, 0), (image.get_width(), 0))
+    #     pygame.draw.line(image, (0, 0, 0), (0, 0), (0, image.get_height()))
+    #     pygame.draw.line(image, (0, 0, 0), (image.get_width() - 1, 0), (image.get_width() - 1, image.get_height()))
+    #     pygame.draw.line(image, (0, 0, 0), (0, image.get_height() - 1), (image.get_width(), image.get_height() - 1))
+    #     return image
 
     # 被点击信号
     def clicked(self):
