@@ -1,3 +1,5 @@
+from enum import Enum
+
 # 一些配置属性和全局变量
 
 size = (width, height) = (500, 500)  # 窗口大小
@@ -16,6 +18,20 @@ vertInr = height / vertInrNum
 # 蛇移动事件
 snakeMoveEventID = 1
 snakeMoveTimeInr = 200
+
+
+# 方向
+class Direction(Enum):
+    UP = (0, -1)
+    DOWN = (0, 1)
+    LEFT = (-1, 0)
+    RIGHT = (1, 0)
+
+
+# 模式
+class Mode(Enum):
+    Classic = "Classic"
+    Endless = "Endless"
 
 
 # 最高分

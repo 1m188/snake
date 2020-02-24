@@ -1,22 +1,13 @@
-from enum import Enum
 from random import randint
 import pygame
 import config
-
-
-# 方向
-class Direction(Enum):
-    UP = (0, -1)
-    DOWN = (0, 1)
-    LEFT = (-1, 0)
-    RIGHT = (1, 0)
 
 
 # 蛇
 class Snake:
     def __init__(self, isClassic: bool):
         self.pos = [(2, 2), (1, 2)]
-        self.curDir = Direction.RIGHT
+        self.curDir = config.Direction.RIGHT
         pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, config.snakeMoveTimeInr)
         self.isClassic = isClassic
 
@@ -25,14 +16,14 @@ class Snake:
         pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, int(config.snakeMoveTimeInr / 3) if isAcc else config.snakeMoveTimeInr)
 
     # 通过坐标位置获取当前实际方向
-    def getCurDir(self) -> Direction:
+    def getCurDir(self) -> config.Direction:
         tmpDir = [self.pos[0][0] - self.pos[1][0], self.pos[0][1] - self.pos[1][1]]
         if not self.isClassic:
             if abs(tmpDir[0]) > 1:
                 tmpDir[0] %= (-1 if tmpDir[0] > 0 else 1) * config.horzInrNum
             if abs(tmpDir[1]) > 1:
                 tmpDir[1] %= (-1 if tmpDir[1] > 0 else 1) * config.vertInrNum
-        return Direction(tuple(tmpDir))
+        return config.Direction(tuple(tmpDir))
 
     # 蛇的移动
     def move(self):
@@ -44,9 +35,9 @@ class Snake:
         self.pos.insert(0, newHead)
 
     # 控制方向
-    def ctrlDir(self, d: Direction):
+    def ctrlDir(self, d: config.Direction):
         curDir = self.getCurDir()
-        if (d == Direction.UP and curDir != Direction.DOWN) or (d == Direction.DOWN and curDir != Direction.UP) or (d == Direction.LEFT and curDir != Direction.RIGHT) or (d == Direction.RIGHT and curDir != Direction.LEFT):
+        if (d == config.Direction.UP and curDir != config.Direction.DOWN) or (d == config.Direction.DOWN and curDir != config.Direction.UP) or (d == config.Direction.LEFT and curDir != config.Direction.RIGHT) or (d == config.Direction.RIGHT and curDir != config.Direction.LEFT):
             self.curDir = d
 
     # 判断是否死亡
@@ -80,16 +71,16 @@ class Snake:
                 rectL.height /= 4
                 rectR = rectL.copy()
                 curDir = self.getCurDir()
-                if curDir == Direction.UP:
+                if curDir == config.Direction.UP:
                     rectL.center = (pos[0] * config.horzInr + config.horzInr / 4, pos[1] * config.vertInr + config.vertInr / 4)
                     rectR.center = (pos[0] * config.horzInr + config.horzInr / 4 * 3, pos[1] * config.vertInr + config.vertInr / 4)
-                elif curDir == Direction.DOWN:
+                elif curDir == config.Direction.DOWN:
                     rectL.center = (pos[0] * config.horzInr + config.horzInr / 4 * 3, pos[1] * config.vertInr + config.vertInr / 4 * 3)
                     rectR.center = (pos[0] * config.horzInr + config.horzInr / 4, pos[1] * config.vertInr + config.vertInr / 4 * 3)
-                elif curDir == Direction.LEFT:
+                elif curDir == config.Direction.LEFT:
                     rectL.center = (pos[0] * config.horzInr + config.horzInr / 4, pos[1] * config.vertInr + config.vertInr / 4 * 3)
                     rectR.center = (pos[0] * config.horzInr + config.horzInr / 4, pos[1] * config.vertInr + config.vertInr / 4)
-                elif curDir == Direction.RIGHT:
+                elif curDir == config.Direction.RIGHT:
                     rectL.center = (pos[0] * config.horzInr + config.horzInr / 4 * 3, pos[1] * config.vertInr + config.vertInr / 4)
                     rectR.center = (pos[0] * config.horzInr + config.horzInr / 4 * 3, pos[1] * config.vertInr + config.vertInr / 4 * 3)
                 color = (250, 235, 215)

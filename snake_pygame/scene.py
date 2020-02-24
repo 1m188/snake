@@ -135,13 +135,13 @@ class GameScene(Scene):
             else:
                 d = self.snake.curDir
                 if event.key == pygame.K_UP:
-                    d = sprite.Direction.UP
+                    d = config.Direction.UP
                 elif event.key == pygame.K_DOWN:
-                    d = sprite.Direction.DOWN
+                    d = config.Direction.DOWN
                 elif event.key == pygame.K_LEFT:
-                    d = sprite.Direction.LEFT
+                    d = config.Direction.LEFT
                 elif event.key == pygame.K_RIGHT:
-                    d = sprite.Direction.RIGHT
+                    d = config.Direction.RIGHT
                 self.snake.ctrlDir(d)
         elif event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
             self.snake.acc(False)
