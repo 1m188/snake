@@ -31,13 +31,13 @@ class Direction(Enum):
 
 # 模式
 class Mode(Enum):
-    Classic = "Classic"
-    Endless = "Endless"
+    Classic = "Classic"  # 经典模式
+    Endless = "Endless"  # 无尽模式
 
 
 # 最高分
 class HighestScore:
-    fileName = "data/highest_score"
+    fileName = "data/highest_score"  # 最高分文件名
     score = {}
 
     @classmethod

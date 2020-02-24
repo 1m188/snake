@@ -12,7 +12,7 @@ class Scene:
         self.fpsClock = pygame.time.Clock()
         self.fps = fps
         self.isRunning = False
-        self.nextScene = None
+        self.nextScene = None  # 下一个场景，设置了这个变量之后，当前场景结束之后会进入下一个场景
 
         # 禁止该抽象基类被实例化
         # 不用abc是因为所有的方法都可以被选择实现，但是该类不能够被实例化
@@ -40,20 +40,21 @@ class Scene:
         pass
 
     def run(self):
-        self.prepare()
-        self.isRunning = True
+        self.prepare()  # 首先进行场景开始前的准备
+        self.isRunning = True  # 标志场景是否在事件-更新-渲染的循环之中
         while self.isRunning:
-            self.fpsClock.tick_busy_loop(self.fps)
+            self.fpsClock.tick_busy_loop(self.fps)  # 确保帧率
+            # 事件处理
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                if event.type == pygame.QUIT:  # 退出事件统一处理，其他的场景特异性事件另外处理
                     self.isRunning = False
                 else:
                     self.eventHandle(event)
-            self.update()
-            self.screen.fill((0, 0, 0))
-            self.render()
-            pygame.display.flip()
-        self.end()
+            self.update()  # 场景之中的状态更新
+            self.screen.fill((0, 0, 0))  # 在新的渲染开始之前抹去之前渲染的所有东西
+            self.render()  # 渲染
+            pygame.display.flip()  # pygame自带的双缓冲
+        self.end()  # 场景结束之后的资源回收场景整理之类的功能，但是不可以写场景切换的代码
 
 
 # 开始场景
@@ -179,6 +180,9 @@ class GameoverScene(Scene):
 
         self.mode = mode
         self.score = score
+
+        # 判断是否最高分
+        # 是的话更新最高分并且设置标志位
         self.isNewHighestScore = False
         for m in Mode:
             if m == mode:
@@ -191,9 +195,11 @@ class GameoverScene(Scene):
         width = self.screen.get_width()
         height = self.screen.get_height()
 
+        # 游戏结束标题
         self.gameoverLab = sprite.Label("Game Over", pygame.font.Font(None, 60), (0, 0, 0))
         self.gameoverLab.center = (width / 2, height / 4)
 
+        # 分数
         self.scoreLab = sprite.Label(f"Your score is: {self.score}", pygame.font.Font(None, 40), (0, 0, 0))
         self.scoreLab.centerx = width / 2
         self.scoreLab.top = height / 2
@@ -201,17 +207,20 @@ class GameoverScene(Scene):
         preCtrl = self.scoreLab
         interval = (height - self.scoreLab.top) / (4 if self.isNewHighestScore else 3)
 
+        # 当前模式
         self.modeLab = sprite.Label(f"Your mode is: {self.mode.value}", pygame.font.Font(None, 40), (0, 0, 0))
         self.modeLab.centerx = width / 2
         self.modeLab.top = preCtrl.top + interval
         preCtrl = self.modeLab
 
+        # 最高分提醒
         if self.isNewHighestScore:
             self.newHighestScoreLab = sprite.Label("New Highest Score!", pygame.font.Font(None, 40), (0, 0, 0))
             self.newHighestScoreLab.centerx = width / 2
             self.newHighestScoreLab.top = preCtrl.top + interval
             preCtrl = self.newHighestScoreLab
 
+        # 返回按钮
         self.backBtn = sprite.Button("Back To Start", pygame.font.Font(None, 40), (0, 0, 0))
         self.backBtn.centerx = width / 2
         self.backBtn.top = preCtrl.top + interval
@@ -243,12 +252,14 @@ class HighestScoreScene(Scene):
         width = self.screen.get_width()
         height = self.screen.get_height()
 
+        # 最高分标题
         self.highestScoreLab = sprite.Label("Highest Score", pygame.font.Font(None, 60), (0, 0, 0))
         self.highestScoreLab.center = (width / 2, height / 4)
 
         interval = height / 2 / (len(Mode) + 1)
         preCtrl = pygame.rect.Rect(0, height / 2 - interval, 1, 1)
 
+        # 按照模式的种类一行一行往下展示
         self.scoreLabList = []
         for mode in Mode:
             scoreLab = sprite.Label(f"{mode.value} Mode: {HighestScore.score[mode.value]}", pygame.font.Font(None, 40), (0, 0, 0))
@@ -257,6 +268,7 @@ class HighestScoreScene(Scene):
             preCtrl = scoreLab
             self.scoreLabList.append(scoreLab)
 
+        # 返回按钮
         self.backBtn = sprite.Button("Back To Start", pygame.font.Font(None, 40), (0, 0, 0))
         self.backBtn.centerx = width / 2
         self.backBtn.top = preCtrl.top + interval

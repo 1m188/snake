@@ -27,18 +27,19 @@ class Background(Sprite):
 
 # 蛇
 class Snake(Sprite):
+    # @param mode:游戏模式，对不同的模式蛇的行为有所不同
     def __init__(self, mode: Mode):
         super().__init__()
         self.pos = [(2, 2), (1, 2)]
         self.curDir = Direction.RIGHT
-        pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, config.snakeMoveTimeInr)
+        pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, config.snakeMoveTimeInr)  # 每隔多长时间发送一次移动事件
         self.mode = mode
 
     # 加速
     def acc(self, isAcc: bool):
         pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, int(config.snakeMoveTimeInr / 3) if isAcc else config.snakeMoveTimeInr)
 
-    # 通过坐标位置获取当前实际方向
+    # 通过第一节和第二节坐标位置获取当前实际方向
     def getCurDir(self) -> Direction:
         tmpDir = [self.pos[0][0] - self.pos[1][0], self.pos[0][1] - self.pos[1][1]]
         if self.mode == Mode.Endless:
@@ -53,6 +54,7 @@ class Snake(Sprite):
         self.pos.pop(-1)
         head = self.pos[0]
         newHead = (head[0] + self.curDir.value[0], head[1] + self.curDir.value[1])
+        # 无尽模式穿墙
         if self.mode == Mode.Endless:
             newHead = ((newHead[0] + config.horzInrNum) % config.horzInrNum, (newHead[1] + config.vertInrNum) % config.vertInrNum)
         self.pos.insert(0, newHead)
@@ -66,9 +68,11 @@ class Snake(Sprite):
     # 判断是否死亡
     def isDead(self) -> bool:
         head = self.pos[0]
+        # 是否撞到自己
         for pos in self.pos[1:]:
             if head == pos:
                 return True
+        # 是否撞墙
         return self.mode == Mode.Classic and (head[0] < 0 or head[0] > config.horzInrNum - 1 or head[1] < 0 or head[1] > config.vertInrNum - 1)
 
     # 判断是否吃到食物
@@ -85,9 +89,11 @@ class Snake(Sprite):
     # 绘制
     def draw(self, screen: pygame.surface.Surface):
         for pos in self.pos:
+            # 绘制蛇身
             rect = pygame.rect.Rect(pos[0] * config.horzInr, pos[1] * config.vertInr, config.horzInr + 2, config.vertInr + 2)
             color = (0, 0, 255)
             screen.fill(color, rect)
+            # 绘制蛇的两个眼睛
             if pos == self.pos[0]:
                 rectL = rect
                 rectL.width /= 4
@@ -149,7 +155,7 @@ class Label(Sprite, pygame.rect.Rect):
         self.font = font
         self.text = text
         self.color = color
-        self.image = self.getImgWithFont()
+        self.image = self.getImgWithFont()  # 文本的预渲染surface
         pygame.rect.Rect.__init__(self, self.image.get_rect())
 
     # 通过当前保存的字体参数获取字体渲染出来的图片
