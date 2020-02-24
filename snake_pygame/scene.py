@@ -246,17 +246,16 @@ class HighestScoreScene(Scene):
         self.highestScoreLab = sprite.Label("Highest Score", pygame.font.Font(None, 60), (0, 0, 0))
         self.highestScoreLab.center = (width / 2, height / 4)
 
-        self.classicHighestScoreLab = sprite.Label(f"Classic Mode: {HighestScore.score[Mode.Classic.value]}", pygame.font.Font(None, 40), (0, 0, 0))
-        self.classicHighestScoreLab.centerx = width / 2
-        self.classicHighestScoreLab.top = height / 2
+        interval = height / 2 / (len(Mode) + 1)
+        preCtrl = pygame.rect.Rect(0, height / 2 - interval, 1, 1)
 
-        preCtrl = self.classicHighestScoreLab
-        interval = (height - self.classicHighestScoreLab.top) / 3
-
-        self.endlessHighestScoreLab = sprite.Label(f"Endless Mode: {HighestScore.score[Mode.Endless.value]}", pygame.font.Font(None, 40), (0, 0, 0))
-        self.endlessHighestScoreLab.centerx = width / 2
-        self.endlessHighestScoreLab.top = preCtrl.top + interval
-        preCtrl = self.endlessHighestScoreLab
+        self.scoreLabList = []
+        for mode in Mode:
+            scoreLab = sprite.Label(f"{mode.value} Mode: {HighestScore.score[mode.value]}", pygame.font.Font(None, 40), (0, 0, 0))
+            scoreLab.centerx = width / 2
+            scoreLab.top = preCtrl.top + interval
+            preCtrl = scoreLab
+            self.scoreLabList.append(scoreLab)
 
         self.backBtn = sprite.Button("Back To Start", pygame.font.Font(None, 40), (0, 0, 0))
         self.backBtn.centerx = width / 2
@@ -273,6 +272,6 @@ class HighestScoreScene(Scene):
     def render(self):
         self.screen.fill((255, 255, 255))
         self.highestScoreLab.draw(self.screen)
-        self.classicHighestScoreLab.draw(self.screen)
-        self.endlessHighestScoreLab.draw(self.screen)
+        for scoreLab in self.scoreLabList:
+            scoreLab.draw(self.screen)
         self.backBtn.draw(self.screen)
