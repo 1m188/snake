@@ -1,11 +1,21 @@
 from random import randint
+from abc import ABC, abstractmethod
 import pygame
 import config
 from config import Mode, Direction
 
 
+# 精灵基础抽象类
+class Sprite(ABC):
+    # 绘制
+    # @param screen:待绘制上去的surface
+    @abstractmethod
+    def draw(self, screen: pygame.surface.Surface):
+        pass
+
+
 # 游戏时格子背景
-class Background:
+class Background(Sprite):
     def draw(self, screen: pygame.surface.Surface):
         width = screen.get_width()
         height = screen.get_height()
@@ -16,8 +26,9 @@ class Background:
 
 
 # 蛇
-class Snake:
+class Snake(Sprite):
     def __init__(self, mode: Mode):
+        super().__init__()
         self.pos = [(2, 2), (1, 2)]
         self.curDir = Direction.RIGHT
         pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, config.snakeMoveTimeInr)
@@ -101,8 +112,9 @@ class Snake:
 
 
 # 食物
-class Food:
+class Food(Sprite):
     def __init__(self):
+        super().__init__()
         self.pos = None
 
     # 随机生成食物，确保食物的坐标和之前的坐标以及蛇身的坐标不重合
@@ -130,14 +142,15 @@ class Food:
 
 
 # 标签
-class Label(pygame.rect.Rect):
+class Label(Sprite, pygame.rect.Rect):
     # @param text:待渲染文本 font:用来渲染文本使用的字体 color:渲染文本时文本的颜色
     def __init__(self, text: str, font: pygame.font.Font, color: pygame.color.Color):
+        Sprite.__init__(self)
         self.font = font
         self.text = text
         self.color = color
         self.image = self.getImgWithFont()
-        super().__init__(self.image.get_rect())
+        pygame.rect.Rect.__init__(self, self.image.get_rect())
 
     # 通过当前保存的字体参数获取字体渲染出来的图片
     def getImgWithFont(self) -> pygame.surface.Surface:
