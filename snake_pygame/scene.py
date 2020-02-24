@@ -158,6 +158,7 @@ class GameScene(Scene):
     def update(self):
         if self.snake.isDead():
             self.isRunning = False
+            self.nextScene = GameoverScene(self.mode, self.score)
 
         if self.snake.isGetFood(self.food):
             self.snake.grow()
@@ -169,9 +170,6 @@ class GameScene(Scene):
         self.background.draw(self.screen)
         self.snake.draw(self.screen)
         self.food.draw(self.screen)
-
-    def end(self):
-        self.nextScene = GameoverScene(self.mode, self.score)
 
 
 # 游戏结束场景
