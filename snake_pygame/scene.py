@@ -1,6 +1,7 @@
 import pygame
 import sprite
 import config
+from config import HighestScore, Mode
 
 
 # 场景
@@ -93,10 +94,10 @@ class StartScene(Scene):
         if event.type == pygame.USEREVENT:
             if event.signal == self.classicBtn.clicked:  # 点击经典模式按钮
                 self.isRunning = False
-                self.nextScene = GameScene(True)
+                self.nextScene = GameScene(Mode.Classic)
             elif event.signal == self.endlessBtn.clicked:  # 点击无尽模式按钮
                 self.isRunning = False
-                self.nextScene = GameScene(False)
+                self.nextScene = GameScene(Mode.Endless)
             elif event.signal == self.highestScoreBtn.clicked:  # 点击最高分按钮
                 self.isRunning = False
                 self.nextScene = HighestScoreScene()
@@ -118,12 +119,12 @@ class StartScene(Scene):
 
 # 游戏场景
 class GameScene(Scene):
-    def __init__(self, isClassic: bool):
+    def __init__(self, mode: Mode):
         super().__init__(pygame.display.get_surface(), config.FPS)
-        self.isClassic = isClassic
+        self.mode = mode
 
     def prepare(self):
-        self.snake = sprite.Snake(self.isClassic)
+        self.snake = sprite.Snake(self.mode)
         self.food = sprite.Food()
         self.food.randGenPos(self.snake)
         self.score = 0
@@ -169,21 +170,22 @@ class GameScene(Scene):
         self.food.draw(self.screen)
 
     def end(self):
-        self.nextScene = GameoverScene(self.isClassic, self.score)
+        self.nextScene = GameoverScene(self.mode, self.score)
 
 
 # 游戏结束场景
 class GameoverScene(Scene):
-    def __init__(self, isClassic: bool, score: int):
+    def __init__(self, mode: Mode, score: int):
         super().__init__(pygame.display.get_surface(), config.FPS)
 
         self.score = score
-        self.isNewHighestScore = (isClassic and score > config.HighestScore.classicHighestScore) or (not isClassic and score > config.HighestScore.endlessHighestScore)
-        if self.isNewHighestScore:
-            if isClassic:
-                config.HighestScore.classicHighestScore = score
-            else:
-                config.HighestScore.endlessHighestScore = score
+        self.isNewHighestScore = False
+        for m in Mode:
+            if m == mode:
+                if score > HighestScore.score[m.value]:
+                    HighestScore.score[m.value] = score
+                    self.isNewHighestScore = True
+                break
 
     def prepare(self):
         width = self.screen.get_width()
@@ -237,13 +239,13 @@ class HighestScoreScene(Scene):
         self.highestScoreLab = sprite.Label("Highest Score", pygame.font.Font(None, 60), (0, 0, 0))
         self.highestScoreLab.rect.center = (width / 2, height / 4)
 
-        self.classicHighestScoreLab = sprite.Label(f"Classic Mode: {config.HighestScore.classicHighestScore}", pygame.font.Font(None, 40), (0, 0, 0))
+        self.classicHighestScoreLab = sprite.Label(f"Classic Mode: {HighestScore.score[Mode.Classic.value]}", pygame.font.Font(None, 40), (0, 0, 0))
         self.classicHighestScoreLab.rect.center = self.highestScoreLab.rect.center
         self.classicHighestScoreLab.rect.centery = height / 2
 
         interval = (height - self.classicHighestScoreLab.rect.top) / 3 - self.classicHighestScoreLab.rect.height
 
-        self.endlessHighestScoreLab = sprite.Label(f"Endless Mode: {config.HighestScore.endlessHighestScore}", pygame.font.Font(None, 40), (0, 0, 0))
+        self.endlessHighestScoreLab = sprite.Label(f"Endless Mode: {HighestScore.score[Mode.Endless.value]}", pygame.font.Font(None, 40), (0, 0, 0))
         self.endlessHighestScoreLab.rect.center = self.highestScoreLab.rect.center
         self.endlessHighestScoreLab.rect.centery = self.classicHighestScoreLab.rect.bottom + interval
 

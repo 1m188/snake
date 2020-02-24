@@ -1,15 +1,16 @@
 from random import randint
 import pygame
 import config
+from config import Mode
 
 
 # 蛇
 class Snake:
-    def __init__(self, isClassic: bool):
+    def __init__(self, mode: Mode):
         self.pos = [(2, 2), (1, 2)]
         self.curDir = config.Direction.RIGHT
         pygame.time.set_timer(pygame.USEREVENT + config.snakeMoveEventID, config.snakeMoveTimeInr)
-        self.isClassic = isClassic
+        self.mode = mode
 
     # 加速
     def acc(self, isAcc: bool):
@@ -18,7 +19,7 @@ class Snake:
     # 通过坐标位置获取当前实际方向
     def getCurDir(self) -> config.Direction:
         tmpDir = [self.pos[0][0] - self.pos[1][0], self.pos[0][1] - self.pos[1][1]]
-        if not self.isClassic:
+        if self.mode == Mode.Endless:
             if abs(tmpDir[0]) > 1:
                 tmpDir[0] %= (-1 if tmpDir[0] > 0 else 1) * config.horzInrNum
             if abs(tmpDir[1]) > 1:
@@ -30,7 +31,7 @@ class Snake:
         self.pos.pop(-1)
         head = self.pos[0]
         newHead = (head[0] + self.curDir.value[0], head[1] + self.curDir.value[1])
-        if not self.isClassic:
+        if self.mode == Mode.Endless:
             newHead = ((newHead[0] + config.horzInrNum) % config.horzInrNum, (newHead[1] + config.vertInrNum) % config.vertInrNum)
         self.pos.insert(0, newHead)
 
@@ -46,7 +47,7 @@ class Snake:
         for pos in self.pos[1:]:
             if head == pos:
                 return True
-        return self.isClassic and (head[0] < 0 or head[0] > config.horzInrNum - 1 or head[1] < 0 or head[1] > config.vertInrNum - 1)
+        return self.mode == Mode.Classic and (head[0] < 0 or head[0] > config.horzInrNum - 1 or head[1] < 0 or head[1] > config.vertInrNum - 1)
 
     # 判断是否吃到食物
     def isGetFood(self, food) -> bool:

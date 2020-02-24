@@ -37,23 +37,26 @@ class Mode(Enum):
 # 最高分
 class HighestScore:
     fileName = "data/highest_score"
+    score = {}
 
     @classmethod
     def loadHighestScore(cls):
         try:
             data = open(cls.fileName)
-            contents = data.read().rstrip().split('\n')
-            cls.classicHighestScore = int(contents[0])
-            cls.endlessHighestScore = int(contents[1])
+            lines = data.readlines()
+            index = 0
+            for mode in Mode:
+                cls.score[mode.value] = int(lines[index].strip())
+                index += 1
         except FileNotFoundError:
             data = open(cls.fileName, "w")
-            cls.classicHighestScore = 0
-            cls.endlessHighestScore = 0
+            for mode in Mode:
+                cls.score[mode.value] = 0
         finally:
             data.close()
 
     @classmethod
     def saveHighestScore(cls):
         with open(cls.fileName, "w") as data:
-            data.write(str(cls.classicHighestScore) + "\n")
-            data.write(str(cls.endlessHighestScore) + "\n")
+            for mode in Mode:
+                data.write(str(cls.score[mode.value]) + "\n")
