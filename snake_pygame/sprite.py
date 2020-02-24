@@ -4,6 +4,17 @@ import config
 from config import Mode, Direction
 
 
+# 游戏时格子背景
+class Background:
+    def draw(self, screen: pygame.surface.Surface):
+        width = screen.get_width()
+        height = screen.get_height()
+        for i in range(config.vertInrNum):
+            pygame.draw.line(screen, (0, 0, 0), (0, i * config.vertInr), (width, i * config.vertInr))
+        for i in range(1, config.horzInrNum):
+            pygame.draw.line(screen, (0, 0, 0), (i * config.horzInr, 0), (i * config.horzInr, height))
+
+
 # 蛇
 class Snake:
     def __init__(self, mode: Mode):

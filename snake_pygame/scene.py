@@ -129,6 +129,7 @@ class GameScene(Scene):
         self.mode = mode
 
     def prepare(self):
+        self.background = sprite.Background()
         self.snake = sprite.Snake(self.mode)
         self.food = sprite.Food()
         self.food.randGenPos(self.snake)
@@ -164,13 +165,8 @@ class GameScene(Scene):
             self.score += 1
 
     def render(self):
-        width = self.screen.get_width()
-        height = self.screen.get_height()
         self.screen.fill((255, 255, 255))
-        for i in range(config.vertInrNum):
-            pygame.draw.line(self.screen, (0, 0, 0), (0, i * config.vertInr), (width, i * config.vertInr))
-        for i in range(1, config.horzInrNum):
-            pygame.draw.line(self.screen, (0, 0, 0), (i * config.horzInr, 0), (i * config.horzInr, height))
+        self.background.draw(self.screen)
         self.snake.draw(self.screen)
         self.food.draw(self.screen)
 
