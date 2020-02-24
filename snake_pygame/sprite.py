@@ -119,14 +119,14 @@ class Food:
 
 
 # 标签
-class Label:
+class Label(pygame.rect.Rect):
     # @param text:待渲染文本 font:用来渲染文本使用的字体 color:渲染文本时文本的颜色
     def __init__(self, text: str, font: pygame.font.Font, color: pygame.color.Color):
         self.font = font
         self.text = text
         self.color = color
-        self.image = font.render(text, True, color).convert_alpha()
-        self.rect = self.image.get_rect()
+        self.image = self.getImgWithFont()
+        super().__init__(self.image.get_rect())
 
     # 通过当前保存的字体参数获取字体渲染出来的图片
     def getImgWithFont(self) -> pygame.surface.Surface:
@@ -144,22 +144,22 @@ class Label:
     def setFont(self, font: pygame.font.Font):
         self.font = font
         self.image = self.getImgWithFont()
-        if self.image.get_size() != self.rect.size:
-            topLeft = self.rect.topLeft
-            self.rect = self.image.get_rect()
-            self.rect.topLeft = topLeft
+        if self.image.get_size() != self.size:
+            topLeft = self.topLeft
+            super.__init__(self.image.get_rect())
+            self.topLeft = topLeft
 
     # 设置文本内容
     def setText(self, text: str):
         self.text = text
         self.image = self.getImgWithFont()
-        if self.image.get_size() != self.rect.size:
-            topLeft = self.rect.topLeft
-            self.rect = self.image.get_rect()
-            self.rect.topLeft = topLeft
+        if self.image.get_size() != self.size:
+            topLeft = self.topLeft
+            super.__init__(self.image.get_rect())
+            self.topLeft = topLeft
 
     def draw(self, screen: pygame.surface.Surface):
-        screen.blit(self.image, self.rect)
+        screen.blit(self.image, self)
 
 
 # 按钮
@@ -171,7 +171,7 @@ class Button(Label):
     # 测定pos坐标是否在按钮之内
     # @param pos:鼠标坐标
     def isPosIn(self, pos: tuple):
-        return pos[0] >= self.rect.left and pos[0] <= self.rect.right and pos[1] >= self.rect.top and pos[1] <= self.rect.bottom
+        return pos[0] >= self.left and pos[0] <= self.right and pos[1] >= self.top and pos[1] <= self.bottom
 
     def eventHandle(self, event):
         pos = pygame.mouse.get_pos()
