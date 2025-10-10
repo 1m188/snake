@@ -35,13 +35,21 @@ gameCircle:
 			case termbox.KeyEsc:
 				break gameCircle
 			case termbox.KeyArrowUp:
-				snk.Dir = snake.Up
+				if snk.Dir != snake.Down {
+					snk.Dir = snake.Up
+				}
 			case termbox.KeyArrowDown:
-				snk.Dir = snake.Down
+				if snk.Dir != snake.Up {
+					snk.Dir = snake.Down
+				}
 			case termbox.KeyArrowLeft:
-				snk.Dir = snake.Left
+				if snk.Dir != snake.Right {
+					snk.Dir = snake.Left
+				}
 			case termbox.KeyArrowRight:
-				snk.Dir = snake.Right
+				if snk.Dir != snake.Left {
+					snk.Dir = snake.Right
+				}
 			}
 		}
 
