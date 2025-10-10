@@ -67,10 +67,11 @@ func New(dir Direction, R, C, length int) *Snake {
 }
 
 func (snake *Snake) Move() {
-	v := moveMap[snake.Dir]
-	for i := range len(snake.Pos) {
-		snake.Pos[i].Add(&v)
+	for i := len(snake.Pos) - 1; i > 0; i-- {
+		snake.Pos[i] = snake.Pos[i-1]
 	}
+	v := moveMap[snake.Dir]
+	snake.Pos[0].Add(&v)
 }
 
 func (snake *Snake) Draw(b byte) {
