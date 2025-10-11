@@ -78,7 +78,32 @@ gameCircle:
 		}
 
 		console.Clear()
+
 		snk.Draw('#')
+		fod.Draw('*')
+
+		// 地图边界绘制
+		console.MoveCursor(0, 0)
+		console.Draw('+')
+		console.MoveCursor(height-1, width-1)
+		console.Draw('+')
+		console.MoveCursor(height-1, 0)
+		console.Draw('+')
+		console.MoveCursor(0, width-1)
+		console.Draw('+')
+		for i := 1; i < width-1; i++ {
+			console.MoveCursor(0, i)
+			console.Draw('-')
+			console.MoveCursor(height-1, i)
+			console.Draw('-')
+		}
+		for i := 1; i < height-1; i++ {
+			console.MoveCursor(i, 0)
+			console.Draw('|')
+			console.MoveCursor(i, width-1)
+			console.Draw('|')
+		}
+
 		console.Flush()
 	}
 
