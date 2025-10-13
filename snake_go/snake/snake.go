@@ -80,3 +80,17 @@ func (snake *Snake) Draw(b byte) {
 		console.Draw(b)
 	}
 }
+
+func (snake *Snake) Grow() {
+	if len(snake.Pos) == 1 {
+		pos := SnakePos{snake.Pos[0].R, snake.Pos[0].C}
+		v := moveMap[snake.Dir]
+		pos.Sub(&v)
+		snake.Pos = append(snake.Pos, pos)
+	} else {
+		last := snake.Pos[len(snake.Pos)-1]
+		pre := snake.Pos[len(snake.Pos)-2]
+		v := SnakePos{last.R*2 - pre.R, last.C*2 - pre.C}
+		snake.Pos = append(snake.Pos, v)
+	}
+}

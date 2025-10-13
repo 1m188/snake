@@ -61,6 +61,7 @@ gameCircle:
 		snk.Move()
 
 		if snk.Pos[0].R == fod.Row && snk.Pos[0].C == fod.Col {
+			snk.Grow()
 			r, c := 0, 0
 			f := true
 			for f {
