@@ -24,14 +24,18 @@ func main() {
 	keyboard.Listen()
 	defer keyboard.Exit()
 
-	ticker := time.NewTicker(500 * time.Millisecond)
+	timeFrame := 400 // 每帧的时间 ms
+	speedCnt := 1    // 加速档位
+	MAXSPEEDCNT := 5 // 最大加速档位
+	ticker := time.NewTicker(time.Duration(timeFrame/speedCnt) * time.Millisecond)
 	defer ticker.Stop()
 
 	snk := snake.New(snake.Right, 1, 5, 5)
 	fod := food.New(1, 7, 1)
 
 gameCircle:
-	for range ticker.C {
+	for {
+		<-ticker.C
 
 		width, height := termbox.Size()
 
@@ -39,6 +43,10 @@ gameCircle:
 			switch key {
 			case termbox.KeyEsc:
 				break gameCircle
+			case termbox.KeySpace:
+				ticker.Stop()
+				speedCnt = speedCnt%MAXSPEEDCNT + 1
+				ticker = time.NewTicker(time.Duration(timeFrame/speedCnt) * time.Millisecond)
 			case termbox.KeyArrowUp:
 				if snk.Dir != snake.Down {
 					snk.Dir = snake.Up
