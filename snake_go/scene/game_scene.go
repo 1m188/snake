@@ -44,8 +44,8 @@ gameCircle:
 
 		width, height := termbox.Size()
 
-		if key, ok := keyboard.GetInputKey(); ok {
-			switch key {
+		if ev, ok := keyboard.GetInputKeyEv(); ok && ev.Ch == 0 {
+			switch ev.Key {
 			case termbox.KeyEsc:
 				break gameCircle
 			case termbox.KeySpace:
