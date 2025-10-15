@@ -27,10 +27,19 @@ func (s *StartScene) Run() {
 	defer keyboard.Exit()
 
 	width, height := termbox.Size()
-	console.MoveCursor(height/2-5, width/2-2)
-	console.DrawString("贪吃蛇\n\n")
-	console.MoveCursor(height/2, width/2-6)
-	console.DrawString("按任意键开始游戏\n")
+
+	title := "贪吃蛇"
+	chose1 := "1. 经典模式"
+	chose2 := "2. 无界模式"
+	pressAnyKey := "按对应数字键继续"
+	console.MoveCursor(height/2-5, width/2-len(title)/2)
+	console.DrawString(title)
+	console.MoveCursor(height/2-1, width/2-len(chose1)/2)
+	console.DrawString(chose1)
+	console.MoveCursor(height/2+1, width/2-len(chose2)/2)
+	console.DrawString(chose2)
+	console.MoveCursor(height/2+3, width/2-len(pressAnyKey)/2+3)
+	console.DrawString(pressAnyKey)
 	console.Flush()
 
 	ticker := time.NewTicker(200 * time.Millisecond)
