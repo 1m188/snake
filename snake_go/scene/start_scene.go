@@ -4,6 +4,8 @@ import (
 	"snake/console"
 	"snake/keyboard"
 	"time"
+
+	"github.com/nsf/termbox-go"
 )
 
 // 开始场景
@@ -24,8 +26,10 @@ func (s *StartScene) Run() {
 	keyboard.Listen()
 	defer keyboard.Exit()
 
-	console.MoveCursor(0, 0)
+	width, height := termbox.Size()
+	console.MoveCursor(height/2-5, width/2-2)
 	console.DrawString("贪吃蛇\n\n")
+	console.MoveCursor(height/2, width/2-6)
 	console.DrawString("按任意键开始游戏\n")
 	console.Flush()
 
