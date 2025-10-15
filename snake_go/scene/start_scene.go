@@ -46,7 +46,7 @@ func (s *StartScene) Run() {
 	defer ticker.Stop()
 
 	for range ticker.C {
-		if _, ok := keyboard.GetInputKey(); ok {
+		if ev, ok := keyboard.GetInputKeyEv(); ok && ev.Ch == '1' {
 			break
 		}
 	}
