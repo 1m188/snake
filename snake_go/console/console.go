@@ -29,5 +29,8 @@ func MoveCursor(rowIndex, colIndex int) { fmt.Fprintf(out, "\033[%d;%dH", rowInd
 // 绘制
 func Draw(b byte) { out.WriteByte(b) }
 
+// 绘制字符串
+func DrawString(s string) { out.WriteString(s) }
+
 // 刷新终端
 func Flush() { out.Flush() }
