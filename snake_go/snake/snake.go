@@ -94,3 +94,13 @@ func (snake *Snake) Grow() {
 		snake.Pos = append(snake.Pos, v)
 	}
 }
+
+// 蛇是否撞上自己
+func (s *Snake) IsKnockSelf() bool {
+	for i := 1; i < len(s.Pos); i++ {
+		if s.Pos[0] == s.Pos[i] {
+			return true
+		}
+	}
+	return false
+}

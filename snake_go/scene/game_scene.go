@@ -72,6 +72,9 @@ gameCircle:
 		}
 
 		snk.Move()
+		if snk.IsKnockSelf() {
+			break gameCircle
+		}
 
 		if snk.Pos[0].R == fod.Row && snk.Pos[0].C == fod.Col {
 			snk.Grow()
