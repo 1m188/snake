@@ -72,7 +72,8 @@ gameCircle:
 		}
 
 		snk.Move()
-		if snk.IsKnockSelf() {
+		// 碰撞判断
+		if snk.IsKnockSelf() || (snk.Pos[0].R == 0 || snk.Pos[0].R == height-1 || snk.Pos[0].C == 0 || snk.Pos[0].C == width-1) {
 			break gameCircle
 		}
 
