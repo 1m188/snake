@@ -11,6 +11,8 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
+var gameSceneIndex int // 游戏场景序号
+
 // 游戏场景
 type GameScene struct {
 	IScene
@@ -72,9 +74,29 @@ gameCircle:
 		}
 
 		snk.Move()
+		if gameSceneIndex == 2 {
+			if snk.Pos[0].R <= 0 {
+				snk.Pos[0].R = height - 2
+			}
+			if snk.Pos[0].R >= height-1 {
+				snk.Pos[0].R = 1
+			}
+			if snk.Pos[0].C <= 0 {
+				snk.Pos[0].C = width - 2
+			}
+			if snk.Pos[0].C >= width-1 {
+				snk.Pos[0].C = 1
+			}
+		}
 		// 碰撞判断
-		if snk.IsKnockSelf() || (snk.Pos[0].R == 0 || snk.Pos[0].R == height-1 || snk.Pos[0].C == 0 || snk.Pos[0].C == width-1) {
-			break gameCircle
+		if gameSceneIndex == 1 {
+			if snk.IsKnockSelf() || (snk.Pos[0].R == 0 || snk.Pos[0].R == height-1 || snk.Pos[0].C == 0 || snk.Pos[0].C == width-1) {
+				break gameCircle
+			}
+		} else if gameSceneIndex == 2 {
+			if snk.IsKnockSelf() {
+				break gameCircle
+			}
 		}
 
 		if snk.Pos[0].R == fod.Row && snk.Pos[0].C == fod.Col {
