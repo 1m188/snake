@@ -1,6 +1,7 @@
 package scene
 
 import (
+	"os"
 	"snake/console"
 	"snake/keyboard"
 	"time"
@@ -31,6 +32,7 @@ func (s *StartScene) Run() {
 	title := "贪吃蛇"
 	chose1 := "1. 经典模式"
 	chose2 := "2. 无界模式"
+	chose3 := "3. 退出游戏"
 	pressAnyKey := "按对应数字键继续"
 	console.MoveCursor(height/2-5, width/2-len(title)/2)
 	console.DrawString(title)
@@ -38,7 +40,9 @@ func (s *StartScene) Run() {
 	console.DrawString(chose1)
 	console.MoveCursor(height/2+1, width/2-len(chose2)/2)
 	console.DrawString(chose2)
-	console.MoveCursor(height/2+3, width/2-len(pressAnyKey)/2+3)
+	console.MoveCursor(height/2+3, width/2-len(chose2)/2)
+	console.DrawString(chose3)
+	console.MoveCursor(height/2+5, width/2-len(pressAnyKey)/2+3)
 	console.DrawString(pressAnyKey)
 	console.Flush()
 
@@ -53,6 +57,11 @@ func (s *StartScene) Run() {
 			} else if ev.Ch == '2' {
 				gameSceneIndex = 2
 				break
+			} else if ev.Ch == '3' {
+				console.Clear()
+				console.ShowCursor()
+				console.Flush()
+				os.Exit(0)
 			}
 		}
 	}
