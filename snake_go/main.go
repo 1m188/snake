@@ -11,10 +11,15 @@ func main() {
 	termbox.Init()
 	defer termbox.Close()
 
-	startScene := scene.NewStartScene()
-	startScene.Run()
+	for {
+		startScene := scene.NewStartScene()
+		startScene.Run()
 
-	gameScene := scene.NewGameScene()
-	gameScene.Run()
+		gameScene := scene.NewGameScene()
+		gameScene.Run()
+
+		endScene := scene.NewEndScene()
+		endScene.Run()
+	}
 
 }
