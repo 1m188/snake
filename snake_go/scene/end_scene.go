@@ -19,6 +19,8 @@ func NewEndScene() *EndScene {
 
 func (s *EndScene) Run() {
 	console.HideCursor()
+	console.Clear()
+	console.Flush()
 	defer console.Flush()
 	defer console.ShowCursor()
 	defer console.Clear()
