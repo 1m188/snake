@@ -17,7 +17,7 @@ import sys
 import unicodedata
 
 
-class Renderer:
+class Render:
     """
     终端渲染器。
 

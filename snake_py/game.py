@@ -13,7 +13,7 @@ from enum import Enum, auto
 
 from food import Food
 from input import disable_raw_mode, enable_raw_mode, get_key
-from renderer import Renderer
+from render import Render
 from snake import Direction, Snake
 
 
@@ -48,7 +48,7 @@ class Game:
 
     def __init__(self):
         """初始化游戏对象，创建各子模块实例。"""
-        self._renderer = Renderer()
+        self._render = Render()
         self._state = None
         self._score = 0
         self._snake = None
@@ -225,6 +225,6 @@ class Game:
     def _render(self):
         """根据当前游戏状态调用渲染器绘制对应画面。"""
         if self._state == GameState.PLAYING:
-            self._renderer.render_playing(self._snake, self._food, self._score)
+            self._render.render_playing(self._snake, self._food, self._score)
         elif self._state == GameState.GAME_OVER:
-            self._renderer.render_game_over(self._score)
+            self._render.render_game_over(self._score)
