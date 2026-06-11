@@ -6,14 +6,14 @@
 通过帧计数控制移动间隔，实现正常速度与三倍速的切换。
 """
 
-import shutil
 import sys
 import time
 from enum import Enum, auto
 
+import console
 from food import Food
 from input import disable_raw_mode, enable_raw_mode, get_key
-from render import Render
+from render import render_game_over, render_playing
 from snake import Direction, Snake
 
 
@@ -48,7 +48,6 @@ class Game:
 
     def __init__(self):
         """初始化游戏对象，创建各子模块实例。"""
-        self._render = Render()
         self._state = None
         self._score = 0
         self._snake = None
@@ -71,12 +70,14 @@ class Game:
             self._main_loop()
         finally:
             disable_raw_mode()
-            sys.stdout.write("\033[H\033[2J")
-            sys.stdout.flush()
+            console.home()
+            console.clear()
+            console.show_cursor()
+            console.flush()
 
     def _start_new_round(self):
         """初始化新一局游戏：创建蛇、生成食物、重置分数与速度。"""
-        cols, rows = self._term_size()
+        cols, rows = console.term_size()
 
         if cols < self.MIN_COLS or rows < self.MIN_ROWS:
             print(
@@ -101,17 +102,6 @@ class Game:
         self._move_interval = self.NORMAL_SPEED_INTERVAL
         self._frame_count = 0
         self._state = GameState.PLAYING
-
-    @staticmethod
-    def _term_size():
-        """
-        当前终端尺寸。
-
-        Returns:
-            tuple: (列数, 行数)。
-        """
-        size = shutil.get_terminal_size()
-        return size.columns, size.lines
 
     def _main_loop(self):
         """以 60FPS 固定帧率运行的游戏主循环。"""
@@ -193,7 +183,7 @@ class Game:
         刷新终端尺寸以响应用户缩放窗口；通过帧计数控制蛇的移动频率；
         移动后检测墙体碰撞、自身碰撞和食物吃取。
         """
-        cols, rows = self._term_size()
+        cols, rows = console.term_size()
         self._game_width = cols - 2
         self._game_height = rows - 2
 
@@ -223,8 +213,8 @@ class Game:
             self._food.spawn(self._game_width, self._game_height, set(self._snake.body))
 
     def _render(self):
-        """根据当前游戏状态调用渲染器绘制对应画面。"""
+        """根据当前游戏状态渲染对应画面。"""
         if self._state == GameState.PLAYING:
-            self._render.render_playing(self._snake, self._food, self._score)
+            render_playing(self._snake, self._food, self._score)
         elif self._state == GameState.GAME_OVER:
-            self._render.render_game_over(self._score)
+            render_game_over(self._score)

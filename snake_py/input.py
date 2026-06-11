@@ -10,6 +10,8 @@ import sys
 import select
 import atexit
 
+import console
+
 _is_raw_enabled = False
 
 if sys.platform == "win32":
@@ -19,16 +21,16 @@ if sys.platform == "win32":
         """启用原始终端模式。Windows 下无需特殊设置，仅隐藏光标。"""
         global _is_raw_enabled
         if not _is_raw_enabled:
-            sys.stdout.write("\033[?25l")
-            sys.stdout.flush()
+            console.hide_cursor()
+            console.flush()
             _is_raw_enabled = True
 
     def disable_raw_mode():
         """恢复终端设置并显示光标。"""
         global _is_raw_enabled
         if _is_raw_enabled:
-            sys.stdout.write("\033[?25h")
-            sys.stdout.flush()
+            console.show_cursor()
+            console.flush()
             _is_raw_enabled = False
 
     def get_key():
@@ -64,8 +66,8 @@ else:
             fd = sys.stdin.fileno()
             _original_settings = termios.tcgetattr(fd)
             tty.setraw(fd)
-            sys.stdout.write("\033[?25l")
-            sys.stdout.flush()
+            console.hide_cursor()
+            console.flush()
             atexit.register(_restore_terminal)
             _is_raw_enabled = True
 
@@ -73,8 +75,8 @@ else:
         """恢复终端到原始设置并显示光标。"""
         global _is_raw_enabled, _original_settings
         if _is_raw_enabled:
-            sys.stdout.write("\033[?25h")
-            sys.stdout.flush()
+            console.show_cursor()
+            console.flush()
             _restore_terminal()
             _is_raw_enabled = False
 
