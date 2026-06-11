@@ -12,23 +12,31 @@ CJK（中文）文本通过光标定位直接写入目标位置，不与
   清屏 → 画地图 → 画蛇 → 画食物 → 画 UI 文字 → 刷新
 """
 
-import console
+from __future__ import annotations
+
 import unicodedata
+from typing import TYPE_CHECKING
+
+import console
+
+if TYPE_CHECKING:
+    from food import Food
+    from snake import Snake
 
 # ─── 工具函数 ───────────────────────────────────────────────────
 
 
-def _visual_width(s):
+def _visual_width(s: str) -> int:
     """
     计算字符串在终端中的视觉宽度。
 
     CJK 字符（East Asian Width 为 W 或 F）占 2 列，其余占 1 列。
 
     Args:
-        s (str): 输入字符串。
+        s: 输入字符串。
 
     Returns:
-        int: 终端列数。
+        终端列数。
     """
     return sum(2 if unicodedata.east_asian_width(ch) in ("W", "F") else 1 for ch in s)
 
@@ -36,14 +44,14 @@ def _visual_width(s):
 # ─── 总编排函数 ─────────────────────────────────────────────────
 
 
-def render_playing(snake, food, score):
+def render_playing(snake: Snake, food: Food, score: int) -> None:
     """
     渲染游戏进行中的完整一帧。
 
     Args:
-        snake (Snake): 蛇实体。
-        food (Food): 食物实体。
-        score (int): 当前得分。
+        snake: 蛇实体。
+        food: 食物实体。
+        score: 当前得分。
     """
     cols, rows = console.term_size()
 
@@ -57,12 +65,12 @@ def render_playing(snake, food, score):
     console.flush()
 
 
-def render_game_over(score):
+def render_game_over(score: int) -> None:
     """
     渲染游戏结束画面。
 
     Args:
-        score (int): 最终得分。
+        score: 最终得分。
     """
     cols, rows = console.term_size()
 
@@ -77,15 +85,15 @@ def render_game_over(score):
 # ─── 游戏对象渲染函数 ────────────────────────────────────────────
 
 
-def render_map(cols, rows):
+def render_map(cols: int, rows: int) -> None:
     """
     绘制地图边界。
 
     上下边界使用水平长字符串一次 write；左右边界逐行定位写 '|'。
 
     Args:
-        cols (int): 终端列数。
-        rows (int): 终端行数。
+        cols: 终端列数。
+        rows: 终端行数。
     """
     console.move(1, 1)
     console.write("+" + "-" * (cols - 2) + "+")
@@ -100,7 +108,7 @@ def render_map(cols, rows):
         console.write("|")
 
 
-def render_snake(snake, cols, rows):
+def render_snake(snake: Snake, cols: int, rows: int) -> None:
     """
     逐节绘制蛇身。
 
@@ -108,9 +116,9 @@ def render_snake(snake, cols, rows):
     确保内部区域紧贴边界内侧。超出边界的节不绘制。
 
     Args:
-        snake (Snake): 蛇实体。
-        cols (int): 终端列数。
-        rows (int): 终端行数。
+        snake: 蛇实体。
+        cols: 终端列数。
+        rows: 终端行数。
     """
     for i, (gx, gy) in enumerate(snake.body):
         tx = gx + 2
@@ -120,7 +128,7 @@ def render_snake(snake, cols, rows):
             console.write(snake.HEAD_SYMBOL if i == 0 else snake.BODY_SYMBOL)
 
 
-def render_food(food, cols, rows):
+def render_food(food: Food, cols: int, rows: int) -> None:
     """
     绘制食物。
 
@@ -128,9 +136,9 @@ def render_food(food, cols, rows):
     坐标加 2 偏移后定位到内部区域。
 
     Args:
-        food (Food): 食物实体。
-        cols (int): 终端列数。
-        rows (int): 终端行数。
+        food: 食物实体。
+        cols: 终端列数。
+        rows: 终端行数。
     """
     if food.position is None:
         return
@@ -145,15 +153,15 @@ def render_food(food, cols, rows):
 # ─── UI 文本渲染函数 ─────────────────────────────────────────────
 
 
-def render_score(score, cols):
+def render_score(score: int, cols: int) -> None:
     """
     在右上角绘制得分（含 CJK 文字）。
 
     分数位于第 2 行，右对齐至右边界内侧。
 
     Args:
-        score (int): 当前得分。
-        cols (int): 终端列数。
+        score: 当前得分。
+        cols: 终端列数。
     """
     text = f"分数: {score}"
     sw = _visual_width(text)
@@ -162,16 +170,16 @@ def render_score(score, cols):
     console.write(text)
 
 
-def render_game_over_text(score, cols, rows):
+def render_game_over_text(score: int, cols: int, rows: int) -> None:
     """
     在画面中央绘制游戏结束文本组（含 CJK）。
 
     垂直与水平方向均居中排列。
 
     Args:
-        score (int): 最终得分。
-        cols (int): 终端列数。
-        rows (int): 终端行数。
+        score: 最终得分。
+        cols: 终端列数。
+        rows: 终端行数。
     """
     text_lines = [
         "游戏结束！",

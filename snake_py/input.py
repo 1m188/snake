@@ -12,12 +12,12 @@ import atexit
 
 import console
 
-_is_raw_enabled = False
+_is_raw_enabled: bool = False
 
 if sys.platform == "win32":
     import msvcrt
 
-    def enable_raw_mode():
+    def enable_raw_mode() -> None:
         """启用原始终端模式。Windows 下无需特殊设置，仅隐藏光标。"""
         global _is_raw_enabled
         if not _is_raw_enabled:
@@ -25,7 +25,7 @@ if sys.platform == "win32":
             console.flush()
             _is_raw_enabled = True
 
-    def disable_raw_mode():
+    def disable_raw_mode() -> None:
         """恢复终端设置并显示光标。"""
         global _is_raw_enabled
         if _is_raw_enabled:
@@ -33,12 +33,12 @@ if sys.platform == "win32":
             console.flush()
             _is_raw_enabled = False
 
-    def get_key():
+    def get_key() -> str | None:
         """
         非阻塞读取单个按键。
 
         Returns:
-            str | None: 按下的字符，无按键时返回 None。
+            按下的字符，无按键时返回 None。
         """
         if msvcrt.kbhit():
             ch = msvcrt.getch()
@@ -52,9 +52,9 @@ else:
     import tty
     import termios
 
-    _original_settings = None
+    _original_settings: list | None = None
 
-    def enable_raw_mode():
+    def enable_raw_mode() -> None:
         """
         启用原始终端模式，隐藏光标。
 
@@ -71,7 +71,7 @@ else:
             atexit.register(_restore_terminal)
             _is_raw_enabled = True
 
-    def disable_raw_mode():
+    def disable_raw_mode() -> None:
         """恢复终端到原始设置并显示光标。"""
         global _is_raw_enabled, _original_settings
         if _is_raw_enabled:
@@ -80,7 +80,7 @@ else:
             _restore_terminal()
             _is_raw_enabled = False
 
-    def _restore_terminal():
+    def _restore_terminal() -> None:
         """安全恢复终端属性，可重复调用。"""
         global _original_settings
         if _original_settings is not None:
@@ -91,7 +91,7 @@ else:
                 pass
             _original_settings = None
 
-    def get_key():
+    def get_key() -> str | None:
         """
         非阻塞读取单个按键。
 
@@ -100,7 +100,7 @@ else:
         否则视为单独的 ESC 按键。
 
         Returns:
-            str | None: 按下的字符或转义序列，无按键时返回 None。
+            按下的字符或转义序列，无按键时返回 None。
         """
         if select.select([sys.stdin], [], [], 0)[0]:
             ch = sys.stdin.read(1)

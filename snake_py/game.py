@@ -6,15 +6,21 @@
 通过帧计数控制移动间隔，实现正常速度与三倍速的切换。
 """
 
+from __future__ import annotations
+
 import sys
 import time
 from enum import Enum, auto
+from typing import TYPE_CHECKING
 
 import console
 from food import Food
 from input import disable_raw_mode, enable_raw_mode, get_key
 from render import render_game_over, render_playing
 from snake import Direction, Snake
+
+if TYPE_CHECKING:
+    pass
 
 
 class GameState(Enum):
@@ -29,36 +35,28 @@ class Game:
     贪吃蛇游戏主类。
 
     管理游戏的主循环、状态切换、输入处理和模块协调。
-
-    Class Attributes:
-        TARGET_FPS (int): 目标帧率（60）。
-        FRAME_TIME (float): 每帧目标时长（秒）。
-        NORMAL_SPEED_INTERVAL (int): 正常速度下蛇每 N 帧移动一次。
-        FAST_SPEED_INTERVAL (int): 三倍速下蛇每 N 帧移动一次。
-        MIN_COLS (int): 最低终端列数要求。
-        MIN_ROWS (int): 最低终端行数要求。
     """
 
-    TARGET_FPS = 60
-    FRAME_TIME = 1.0 / TARGET_FPS
-    NORMAL_SPEED_INTERVAL = 6
-    FAST_SPEED_INTERVAL = 2
-    MIN_COLS = 20
-    MIN_ROWS = 10
+    TARGET_FPS: int = 60
+    FRAME_TIME: float = 1.0 / TARGET_FPS
+    NORMAL_SPEED_INTERVAL: int = 6
+    FAST_SPEED_INTERVAL: int = 2
+    MIN_COLS: int = 20
+    MIN_ROWS: int = 10
 
-    def __init__(self):
+    def __init__(self) -> None:
         """初始化游戏对象，创建各子模块实例。"""
-        self._state = None
-        self._score = 0
-        self._snake = None
-        self._food = None
-        self._move_interval = self.NORMAL_SPEED_INTERVAL
-        self._frame_count = 0
-        self._is_fast = False
-        self._game_width = 0
-        self._game_height = 0
+        self._state: GameState | None = None
+        self._score: int = 0
+        self._snake: Snake | None = None
+        self._food: Food | None = None
+        self._move_interval: int = self.NORMAL_SPEED_INTERVAL
+        self._frame_count: int = 0
+        self._is_fast: bool = False
+        self._game_width: int = 0
+        self._game_height: int = 0
 
-    def run(self):
+    def run(self) -> None:
         """
         启动游戏。
 
@@ -75,7 +73,7 @@ class Game:
             console.show_cursor()
             console.flush()
 
-    def _start_new_round(self):
+    def _start_new_round(self) -> None:
         """初始化新一局游戏：创建蛇、生成食物、重置分数与速度。"""
         cols, rows = console.term_size()
 
@@ -103,7 +101,7 @@ class Game:
         self._frame_count = 0
         self._state = GameState.PLAYING
 
-    def _main_loop(self):
+    def _main_loop(self) -> None:
         """以 60FPS 固定帧率运行的游戏主循环。"""
         while True:
             frame_start = time.perf_counter()
@@ -120,7 +118,7 @@ class Game:
             if sleep_time > 0:
                 time.sleep(sleep_time)
 
-    def _process_input(self):
+    def _process_input(self) -> None:
         """
         消费 stdin 缓冲区中的所有待处理按键。
 
@@ -135,7 +133,7 @@ class Game:
             elif self._state == GameState.GAME_OVER:
                 self._handle_game_over_input(key)
 
-    def _handle_playing_input(self, key):
+    def _handle_playing_input(self, key: str) -> None:
         """
         游戏进行中的按键处理。
 
@@ -144,7 +142,7 @@ class Game:
         - 其他按键：忽略。
 
         Args:
-            key (str): 按键字符。
+            key: 按键字符。
         """
         if key == "w":
             self._snake.set_direction(Direction.UP)
@@ -162,7 +160,7 @@ class Game:
                 else self.NORMAL_SPEED_INTERVAL
             )
 
-    def _handle_game_over_input(self, key):
+    def _handle_game_over_input(self, key: str) -> None:
         """
         游戏结束状态下的按键处理。
 
@@ -170,13 +168,13 @@ class Game:
         - 其他任意键：开始新一局。
 
         Args:
-            key (str): 按键字符。
+            key: 按键字符。
         """
         if key in ("\x1b", "\x03"):
             sys.exit(0)
         self._start_new_round()
 
-    def _update(self):
+    def _update(self) -> None:
         """
         每帧更新游戏逻辑。
 
@@ -212,7 +210,7 @@ class Game:
             self._score += 1
             self._food.spawn(self._game_width, self._game_height, set(self._snake.body))
 
-    def _render(self):
+    def _render(self) -> None:
         """根据当前游戏状态渲染对应画面。"""
         if self._state == GameState.PLAYING:
             render_playing(self._snake, self._food, self._score)

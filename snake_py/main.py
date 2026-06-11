@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from game import Game
 
 
-def main():
+def main() -> None:
     """启动贪吃蛇游戏。"""
     game = Game()
     game.run()

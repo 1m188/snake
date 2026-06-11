@@ -6,6 +6,7 @@
 """
 
 import random
+from collections.abc import Iterable
 
 
 class Food:
@@ -13,20 +14,18 @@ class Food:
     食物实体。
 
     Attributes:
-        position (tuple | None): 当前食物在游戏区域内的 (x, y) 坐标，
-                                 未生成时为 None。
-
-    Class Attributes:
-        SYMBOL (str): 食物的显示符号。
+        position: 当前食物在游戏区域内的 (x, y) 坐标，未生成时为 None。
     """
 
-    SYMBOL = "*"
+    SYMBOL: str = "*"
 
-    def __init__(self):
+    def __init__(self) -> None:
         """初始化食物，初始位置置空。"""
-        self.position = None
+        self.position: tuple[int, int] | None = None
 
-    def spawn(self, width, height, occupied):
+    def spawn(
+        self, width: int, height: int, occupied: Iterable[tuple[int, int]]
+    ) -> bool:
         """
         在游戏区域内随机生成食物。
 
@@ -35,12 +34,12 @@ class Food:
         场地时仍可正确生成。
 
         Args:
-            width (int): 游戏区域宽度（格子数）。
-            height (int): 游戏区域高度（格子数）。
-            occupied (set): 被蛇身占据的坐标集合，食物不可生成于此。
+            width: 游戏区域宽度（格子数）。
+            height: 游戏区域高度（格子数）。
+            occupied: 被蛇身占据的坐标集合，食物不可生成于此。
 
         Returns:
-            bool: 生成成功返回 True，无可用位置返回 False。
+            生成成功返回 True，无可用位置返回 False。
         """
         occupied_set = set(occupied)
         max_attempts = 100
