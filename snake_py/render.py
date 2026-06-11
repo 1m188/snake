@@ -50,8 +50,8 @@ def render_playing(snake, food, score):
     console.home()
     console.clear()
     render_map(cols, rows)
-    render_snake(snake)
-    render_food(food)
+    render_snake(snake, cols, rows)
+    render_food(food, cols, rows)
     render_score(score, cols)
     console.home()
     console.flush()
@@ -100,34 +100,46 @@ def render_map(cols, rows):
         console.write("|")
 
 
-def render_snake(snake):
+def render_snake(snake, cols, rows):
     """
     逐节绘制蛇身。
 
-    蛇头为 '@'，蛇身为 '#'。游戏区域坐标加 1 偏移后定位。
+    蛇头为 '@'，蛇身为 '#'。游戏区域坐标加 2 偏移后定位，
+    确保内部区域紧贴边界内侧。超出边界的节不绘制。
 
     Args:
         snake (Snake): 蛇实体。
+        cols (int): 终端列数。
+        rows (int): 终端行数。
     """
     for i, (gx, gy) in enumerate(snake.body):
-        console.move(gy + 1, gx + 1)
-        console.write(snake.HEAD_SYMBOL if i == 0 else snake.BODY_SYMBOL)
+        tx = gx + 2
+        ty = gy + 2
+        if 2 <= tx < cols and 2 <= ty < rows:
+            console.move(ty, tx)
+            console.write(snake.HEAD_SYMBOL if i == 0 else snake.BODY_SYMBOL)
 
 
-def render_food(food):
+def render_food(food, cols, rows):
     """
     绘制食物。
 
     若食物未生成（position 为 None）则跳过。
+    坐标加 2 偏移后定位到内部区域。
 
     Args:
         food (Food): 食物实体。
+        cols (int): 终端列数。
+        rows (int): 终端行数。
     """
     if food.position is None:
         return
     gx, gy = food.position
-    console.move(gy + 1, gx + 1)
-    console.write(food.SYMBOL)
+    tx = gx + 2
+    ty = gy + 2
+    if 2 <= tx < cols and 2 <= ty < rows:
+        console.move(ty, tx)
+        console.write(food.SYMBOL)
 
 
 # ─── UI 文本渲染函数 ─────────────────────────────────────────────
