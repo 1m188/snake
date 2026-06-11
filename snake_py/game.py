@@ -55,6 +55,7 @@ class Game:
         self._is_fast: bool = False
         self._game_width: int = 0
         self._game_height: int = 0
+        self._pending_direction: Direction | None = None
 
     def run(self) -> None:
         """
@@ -100,6 +101,7 @@ class Game:
         self._move_interval = self.NORMAL_SPEED_INTERVAL
         self._frame_count = 0
         self._state = GameState.PLAYING
+        self._pending_direction = None
 
     def _main_loop(self) -> None:
         """以 60FPS 固定帧率运行的游戏主循环。"""
@@ -145,13 +147,13 @@ class Game:
             key: 按键字符。
         """
         if key == "w":
-            self._snake.set_direction(Direction.UP)
+            self._pending_direction = Direction.UP
         elif key == "s":
-            self._snake.set_direction(Direction.DOWN)
+            self._pending_direction = Direction.DOWN
         elif key == "a":
-            self._snake.set_direction(Direction.LEFT)
+            self._pending_direction = Direction.LEFT
         elif key == "d":
-            self._snake.set_direction(Direction.RIGHT)
+            self._pending_direction = Direction.RIGHT
         elif key == " ":
             self._is_fast = not self._is_fast
             self._move_interval = (
@@ -188,6 +190,10 @@ class Game:
         self._frame_count += 1
         if self._frame_count % self._move_interval != 0:
             return
+
+        if self._pending_direction is not None:
+            self._snake.set_direction(self._pending_direction)
+            self._pending_direction = None
 
         self._snake.move()
 
