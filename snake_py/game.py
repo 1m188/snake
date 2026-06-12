@@ -2,7 +2,8 @@
 游戏主控模块。
 
 本模块负责管理游戏主循环、状态机和各模块间的协调。
-游戏以固定 60FPS 帧率运行；蛇的移动与帧渲染解耦，
+游戏以固定 60FPS 帧率运行；蛇的移动与帧渲染解耦：
+方向按键缓冲到 _pending_direction，仅在移动帧应用（取最后一个），
 通过帧计数控制移动间隔，实现正常速度与三倍速的切换。
 """
 
@@ -35,6 +36,18 @@ class Game:
     贪吃蛇游戏主类。
 
     管理游戏的主循环、状态切换、输入处理和模块协调。
+
+    Attributes:
+        _state: 当前游戏状态（PLAYING 或 GAME_OVER）。
+        _score: 当前局得分。
+        _snake: 蛇实体。
+        _food: 食物实体。
+        _move_interval: 当前移动间隔（帧数）。
+        _frame_count: 帧计数器。
+        _is_fast: 是否处于三倍速状态。
+        _game_width: 游戏区域宽度。
+        _game_height: 游戏区域高度。
+        _pending_direction: 缓冲的方向按键，移动帧时应用并清空。
     """
 
     TARGET_FPS: int = 60
@@ -75,7 +88,7 @@ class Game:
             console.flush()
 
     def _start_new_round(self) -> None:
-        """初始化新一局游戏：创建蛇、生成食物、重置分数与速度。"""
+        """初始化新一局游戏：创建蛇、生成食物、重置分数、速度与方向缓冲。"""
         cols, rows = console.term_size()
 
         if cols < self.MIN_COLS or rows < self.MIN_ROWS:
@@ -139,7 +152,9 @@ class Game:
         """
         游戏进行中的按键处理。
 
-        - w / a / s / d：改变蛇的方向（禁止 180° 掉头）。
+        - w / a / s / d：将目标方向存入 _pending_direction。
+          同帧内多次按键只保留最后一个；实际方向在 _update
+          移动帧时由 set_direction 应用（含 180° 防反）。
         - 空格：切换加速 / 正常速度。
         - 其他按键：忽略。
 
@@ -180,8 +195,9 @@ class Game:
         """
         每帧更新游戏逻辑。
 
-        刷新终端尺寸以响应用户缩放窗口；通过帧计数控制蛇的移动频率；
-        移动后检测墙体碰撞、自身碰撞和食物吃取。
+        刷新终端尺寸；通过帧计数控制蛇移动频率；
+        移动帧时先应用缓冲的方向（取最后按的），再移动，
+        随后检测墙体碰撞、自身碰撞和食物吃取。
         """
         cols, rows = console.term_size()
         self._game_width = cols - 2

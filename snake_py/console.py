@@ -5,7 +5,7 @@
 外部只需调用 write / move / home 等函数往内部缓冲区追加内容，
 最后通过 flush() 一次性输出到终端，实现双缓冲渲染。
 
-Attributes：
+Attributes:
     _buf (list[str]): 模块级输出缓冲区，flush() 后清空。
 """
 
