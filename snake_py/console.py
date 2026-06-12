@@ -63,6 +63,16 @@ def flush() -> None:
     _buf.clear()
 
 
+def enter_alt_screen() -> None:
+    """切换到交替屏幕缓冲区。"""
+    _buf.append("\033[?1049h")
+
+
+def exit_alt_screen() -> None:
+    """切回主屏幕缓冲区。"""
+    _buf.append("\033[?1049l")
+
+
 def term_size() -> tuple[int, int]:
     """
     获取当前终端尺寸。

@@ -70,18 +70,19 @@ class Game:
         """
         启动游戏。
 
-        启用原始终端模式后进入主循环；退出时恢复终端设置并清屏。
+        切入交替屏幕缓冲区，启用原始终端模式后进入主循环；
+        退出时切回主屏幕并恢复终端设置。
         """
+        console.enter_alt_screen()
+        console.flush()
         enable_raw_mode()
         try:
             self._start_new_round()
             self._main_loop()
         finally:
-            disable_raw_mode()
-            console.home()
-            console.clear()
-            console.show_cursor()
+            console.exit_alt_screen()
             console.flush()
+            disable_raw_mode()
 
     def _start_new_round(self) -> None:
         """初始化新一局游戏：创建蛇、生成食物、重置分数、速度与方向缓冲。"""
