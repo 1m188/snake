@@ -2,8 +2,8 @@
 蛇实体模块。
 
 本模块定义蛇的数据结构与行为，包括蛇身的存储表示、移动与生长逻辑、
-方向控制以及碰撞检测。蛇身使用双端队列（deque）存储，蛇头为 '@'，
-蛇身为 '#'。
+方向控制以及碰撞检测。蛇身使用双端队列（deque）存储。
+蛇的显示符号由渲染模块自行管理，与对象解耦。
 """
 
 from collections import deque
@@ -28,9 +28,6 @@ class Snake:
         direction: 当前移动方向。
         _grow_pending: 下次移动时是否增长一节。
     """
-
-    HEAD_SYMBOL: str = "@"
-    BODY_SYMBOL: str = "#"
 
     def __init__(
         self,

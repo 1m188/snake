@@ -1,8 +1,11 @@
 """
 双缓冲渲染模块。
 
-本模块负责将游戏状态渲染到终端。采用双缓冲策略：
-每帧先在内存中通过 console 模块往输出缓冲区追加内容，
+本模块负责将游戏状态渲染到终端，**完全自管渲染符号**：
+蛇头、蛇身、食物的符号均定义为模块级常量，通过参数传入渲染函数，
+不与游戏对象耦合。
+
+采用双缓冲策略：每帧先在内存中通过 console 模块往输出缓冲区追加内容，
 最后一次性 flush，避免画面闪烁与撕裂。
 
 CJK（中文）文本通过光标定位直接写入目标位置，不与
@@ -22,6 +25,12 @@ import console
 if TYPE_CHECKING:
     from food import Food
     from snake import Snake
+
+# ─── 渲染符号常量 ───────────────────────────────────────────────
+
+char_head = "@"
+char_body = "#"
+char_food = "*"
 
 # ─── 工具函数 ───────────────────────────────────────────────────
 
@@ -58,8 +67,8 @@ def render_playing(snake: Snake, food: Food, score: int) -> None:
     console.home()
     console.clear()
     render_map(cols, rows)
-    render_snake(snake, cols, rows)
-    render_food(food, cols, rows)
+    render_snake(snake, char_head, char_body, cols, rows)
+    render_food(food, char_food, cols, rows)
     render_score(score, cols)
     console.home()
     console.flush()
@@ -108,15 +117,19 @@ def render_map(cols: int, rows: int) -> None:
         console.write("|")
 
 
-def render_snake(snake: Snake, cols: int, rows: int) -> None:
+def render_snake(
+    snake: Snake, char_head: str, char_body: str, cols: int, rows: int
+) -> None:
     """
     逐节绘制蛇身。
 
-    蛇头为 '@'，蛇身为 '#'。游戏区域坐标加 2 偏移后定位，
-    确保内部区域紧贴边界内侧。超出边界的节不绘制。
+    蛇头与蛇身的显示符号由调用方通过参数传入，
+    确保渲染内容与游戏对象解耦。超出边界的节不绘制。
 
     Args:
         snake: 蛇实体。
+        char_head: 蛇头显示符号。
+        char_body: 蛇身显示符号。
         cols: 终端列数。
         rows: 终端行数。
     """
@@ -125,18 +138,19 @@ def render_snake(snake: Snake, cols: int, rows: int) -> None:
         ty = gy + 2
         if 2 <= tx < cols and 2 <= ty < rows:
             console.move(ty, tx)
-            console.write(snake.HEAD_SYMBOL if i == 0 else snake.BODY_SYMBOL)
+            console.write(char_head if i == 0 else char_body)
 
 
-def render_food(food: Food, cols: int, rows: int) -> None:
+def render_food(food: Food, char_food: str, cols: int, rows: int) -> None:
     """
     绘制食物。
 
     若食物未生成（position 为 None）则跳过。
-    坐标加 2 偏移后定位到内部区域。
+    显示符号由调用方通过参数传入，确保渲染与对象解耦。
 
     Args:
         food: 食物实体。
+        char_food: 食物显示符号。
         cols: 终端列数。
         rows: 终端行数。
     """
@@ -147,7 +161,7 @@ def render_food(food: Food, cols: int, rows: int) -> None:
     ty = gy + 2
     if 2 <= tx < cols and 2 <= ty < rows:
         console.move(ty, tx)
-        console.write(food.SYMBOL)
+        console.write(char_food)
 
 
 # ─── UI 文本渲染函数 ─────────────────────────────────────────────
