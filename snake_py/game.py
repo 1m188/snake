@@ -12,16 +12,12 @@ from __future__ import annotations
 import sys
 import time
 from enum import Enum, auto
-from typing import TYPE_CHECKING
 
 import console
 from food import Food
 from inputs import disable_raw_mode, enable_raw_mode, get_key
 from render import render_game_over, render_playing
 from snake import Direction, Snake
-
-if TYPE_CHECKING:
-    pass
 
 
 class GameState(Enum):
