@@ -16,7 +16,7 @@ from typing import TYPE_CHECKING
 
 import console
 from food import Food
-from input import disable_raw_mode, enable_raw_mode, get_key
+from inputs import disable_raw_mode, enable_raw_mode, get_key
 from render import render_game_over, render_playing
 from snake import Direction, Snake
 
