@@ -1,0 +1,71 @@
+# GitHub Pages 部署工作流。
+#
+# 将 snake_web/ 目录（纯静态网页版贪吃蛇）部署到 GitHub Pages：
+# 推送到 master 且 snake_web 内容有变动时自动部署，也可在
+# Actions 页面手动触发（workflow_dispatch）。
+#
+# 部署前先在 ubuntu runner 上运行 snake_web 的三个 Node 冒烟测试
+# 作为发布门禁，任一失败则不部署。
+#
+# 注意：使用本工作流前，需在仓库 Settings -> Pages 中把
+# Source 设为 "GitHub Actions"（仅需设置一次）。
+
+name: Deploy snake_web to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'snake_web/**'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+
+# GitHub Pages 部署所需的最小权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同一时间只保留一个进行中的部署，排队而非取消，
+# 避免连续推送时 Pages 环境被并发部署抢占
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # 发布门禁：核心逻辑、存储、无头装配三套冒烟测试全绿才继续部署
+      - name: Run smoke tests
+        working-directory: snake_web
+        run: |
+          node test/logic.test.js
+          node test/storage.test.js
+          node test/browser.wiring.test.js
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # 把 snake_web 目录内容作为站点根目录打包上传
+      # （snake_web/index.html 将成为站点首页）
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: snake_web
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
