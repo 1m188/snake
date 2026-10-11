@@ -1,0 +1,222 @@
+/*
+ * 贪吃蛇网页版样式。
+ *
+ * 现代简洁风格：浅色页面、深色棋盘、圆角卡片与柔和阴影。
+ * 布局纵向居中，棋盘按宽度自适应（正方形），触屏设备额外显示虚拟方向键。
+ */
+
+:root {
+    --page-bg: #f1f5f9;
+    --card-bg: #ffffff;
+    --ink: #0f172a;
+    --ink-soft: #64748b;
+    --ink-faint: #94a3b8;
+    --accent: #10b981;
+    --accent-hover: #059669;
+    --overlay-bg: rgba(15, 23, 42, 0.55);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    background: var(--page-bg);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC",
+        "Microsoft YaHei", sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    max-width: 520px;
+    padding: 24px 16px 40px;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 28px;
+    letter-spacing: 0.12em;
+}
+
+/* 分数栏 */
+
+.score-bar {
+    display: flex;
+    gap: 12px;
+}
+
+.score-item {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 6px 16px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+.score-item span {
+    font-weight: 700;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+}
+
+/* 棋盘与覆盖层 */
+
+.board-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    aspect-ratio: 1 / 1;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
+}
+
+#board {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 24px;
+    text-align: center;
+    background: var(--overlay-bg);
+    backdrop-filter: blur(4px);
+    color: #f8fafc;
+}
+
+.overlay[hidden] {
+    display: none;
+}
+
+.overlay h2 {
+    margin: 0;
+    font-size: 30px;
+    letter-spacing: 0.08em;
+}
+
+.overlay p {
+    margin: 0;
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+.overlay strong {
+    color: #f8fafc;
+    font-variant-numeric: tabular-nums;
+}
+
+.record-line {
+    color: #fbbf24 !important;
+    font-weight: 700;
+}
+
+.btn {
+    border: none;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #ffffff;
+    font-size: 16px;
+    padding: 10px 28px;
+    margin-top: 6px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.btn:hover {
+    background: var(--accent-hover);
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.overlay-hint {
+    font-size: 12px !important;
+    color: var(--ink-faint) !important;
+}
+
+/* 底部提示 */
+
+.hint {
+    margin: 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+}
+
+/* 虚拟方向键（仅触屏设备显示） */
+
+.touch-controls {
+    display: grid;
+    grid-template-columns: repeat(3, 68px);
+    grid-template-rows: repeat(3, 58px);
+    gap: 8px;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.touch-controls[hidden] {
+    display: none;
+}
+
+.pad {
+    border: none;
+    border-radius: 14px;
+    background: var(--card-bg);
+    color: #334155;
+    font-size: 18px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+    cursor: pointer;
+    touch-action: manipulation;
+    user-select: none;
+}
+
+.pad:active {
+    background: #e2e8f0;
+    transform: scale(0.96);
+}
+
+.pad-up {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.pad-left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.pad-primary {
+    grid-column: 2;
+    grid-row: 2;
+    color: var(--accent);
+}
+
+.pad-right {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.pad-down {
+    grid-column: 2;
+    grid-row: 3;
+}

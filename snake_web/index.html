@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>贪吃蛇</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main class="page">
+        <header class="page-header">
+            <h1>贪吃蛇</h1>
+        </header>
+
+        <div class="score-bar">
+            <div class="score-item">分数 <span id="score">0</span></div>
+            <div class="score-item">最高分 <span id="high-score">0</span></div>
+        </div>
+
+        <div class="board-wrap">
+            <canvas id="board" width="480" height="480"></canvas>
+
+            <div class="overlay" id="overlay-start">
+                <h2>贪吃蛇</h2>
+                <p>吃食物得分并变长，撞墙或撞到自己游戏结束</p>
+                <button id="btn-start" class="btn">开始游戏</button>
+                <p class="overlay-hint">也可以按方向键 / 空格开始</p>
+            </div>
+
+            <div class="overlay" id="overlay-paused" hidden>
+                <h2>已暂停</h2>
+                <button id="btn-resume" class="btn">继续</button>
+                <p class="overlay-hint">按空格继续</p>
+            </div>
+
+            <div class="overlay" id="overlay-gameover" hidden>
+                <h2>游戏结束！</h2>
+                <p>本局得分 <strong id="final-score">0</strong></p>
+                <p>历史最高 <strong id="final-high-score">0</strong></p>
+                <p id="record-line" class="record-line" hidden>🎉 新纪录！</p>
+                <button id="btn-restart" class="btn">再来一局</button>
+                <p class="overlay-hint">按空格重开，ESC 返回开始界面</p>
+            </div>
+        </div>
+
+        <p class="hint">WASD / 方向键 移动 · 空格 暂停 / 继续 · ESC 返回</p>
+
+        <div class="touch-controls" id="touch-controls" hidden>
+            <button class="pad pad-up" data-intent="up" aria-label="上">&#9650;</button>
+            <button class="pad pad-left" data-intent="left" aria-label="左">&#9664;</button>
+            <button class="pad pad-primary" data-intent="primary" aria-label="暂停或开始">&#9654;</button>
+            <button class="pad pad-right" data-intent="right" aria-label="右">&#9654;</button>
+            <button class="pad pad-down" data-intent="down" aria-label="下">&#9660;</button>
+        </div>
+    </main>
+
+    <script src="js/constants.js"></script>
+    <script src="js/snake.js"></script>
+    <script src="js/food.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/input.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
